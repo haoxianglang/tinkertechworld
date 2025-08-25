@@ -37,7 +37,7 @@
       backdrop-filter: blur(6px);
     }
     header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
-    header img{height:56px; width:auto; display:block}
+  header img{height:112px; width:auto; display:block}
     header .brand{font-weight:800;letter-spacing:.4px}
     header .brand span{display:block; line-height:1}
     header .brand .name{font-size:18px}
@@ -62,7 +62,22 @@
     }
 
     .cta{margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-    .btn{cursor:pointer; background:var(--blue); color:#fff; border:none; padding:12px 18px; border-radius:12px; font-weight:700}
+    .btn{
+      cursor:pointer;
+      background:var(--blue);
+      color:#fff;
+      border:none;
+      padding:18px 32px;
+      border-radius:16px;
+      font-weight:900;
+      font-size:1.18em;
+      box-shadow:0 0 0 0 rgba(30,136,229,0.18), 0 4px 24px 0 rgba(30,136,229,0.18);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .btn:hover, .btn:focus {
+      box-shadow:0 0 0 4px rgba(30,136,229,0.18), 0 8px 32px 0 rgba(30,136,229,0.22);
+      transform: translateY(-2px) scale(1.04);
+    }
     .btn.outline{background:transparent; border:1px solid rgba(255,255,255,.25)}
     .fine{margin-top:16px; color:#9fb3da; font-size:12px}
 
@@ -132,11 +147,11 @@
       </div>
       <div class="cta">
         <a class="btn" href="mailto:tinkertechworld@gmail.com?subject=Notify%20me%20when%20you%20launch">Notify me</a>
-        <a class="btn outline" href="#">Download Brand Kit</a>
+        
       </div>
-      <div class="fine">To provide every child and adult with opportunities to gain the skills to change the world through hands-on practice and technology learning.</div>
+      </br>
+      <p>To provide every child and adult with opportunities to gain the skills to change the world through hands-on practice and technology learning.</p>
     </section>
-
     <section class="core-values">
       <h2>Core Values</h2>
       <ul>

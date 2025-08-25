@@ -68,35 +68,83 @@
 
     footer{margin-top:26px; text-align:center; color:#9db3cf; font-size:12px}
     a{color:#9fd0ff; text-decoration:none}
+
+    .core-values {
+      margin: 38px 0 0 0;
+      text-align: center;
+    }
+    .core-values h2 {
+      font-size: 1.6em;
+      margin-bottom: 16px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      font-weight: 800;
+      text-shadow: 0 2px 8px rgba(30,136,229,0.10);
+    }
+    .core-values ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto;
+      max-width: 480px;
+      text-align: left;
+      font-size: 1.13em;
+    }
+    .core-values li {
+      margin-bottom: 12px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 2px 8px rgba(30,136,229,0.04);
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .core-tinker { color: var(--orange); font-weight: 700; }
+    .core-tech { color: var(--blue); font-weight: 700; }
+    .core-world { color: var(--green); font-weight: 700; }
+    .core-desc {
+      color: var(--muted);
+      font-weight: 400;
+      margin-left: 4px;
+    }
   </style>
 </head>
 <body>
   <main class="card" role="main" aria-label="Launching Soon">
     <header>
       <!-- Replace image src with your deployed asset path as needed -->
-      <img src="/mnt/data/LOGO_PNG.png" alt="Tinker Tech World logo" />
+      <img src="/image/logo.png" alt="Tinker Tech World logo" />
       <div class="brand">
-        <span class="name">Tinker Tech World</span>
-        <span class="tag">STEM · Robotics · Coding · AI · English</span>
+        <span class="name">Building Skills for a Changing World</span>
       </div>
     </header>
 
     <section class="hero">
       <h1>Launching&nbsp;Soon</h1>
-      <p>We’re building a learning hub for curious minds — hands‑on STEM, robotics, coding and English programs for Grades 1 to adults.</p>
+      <p>Welcome to Tinker Tech World – Where Learning Gets Real</p>
       <div class="meta">
+        <span class="pill">STEM</span>
         <span class="pill">Robotics</span>
-        <span class="pill">Python & Scratch</span>
-        <span class="pill">AI Basics</span>
-        <span class="pill">IELTS, TOEFL & ESL</span>
+        <span class="pill">Programming</span>
+        <span class="pill">AI</span>
+        <span class="pill">Engligh</span>
       </div>
       <div class="cta">
         <a class="btn" href="mailto:tinkertechworld@gmail.com?subject=Notify%20me%20when%20you%20launch">Notify me</a>
         <a class="btn outline" href="#">Download Brand Kit</a>
       </div>
-      <div class="fine">Prefer different wording? Change <em>Launching Soon</em> to anything you like in the H1.</div>
+      <div class="fine">To provide every child and adult with opportunities to gain the skills to change the world through hands-on practice and technology learning.</div>
     </section>
 
+    <section class="core-values">
+      <h2>Core Values</h2>
+      <ul>
+        <li><strong class="core-tinker">Tinker</strong><span class="core-desc">: Hands-on practice, exploring the unknown</span></li>
+        <li><strong class="core-tech">Tech</strong><span class="core-desc">: Master technology, change the future</span></li>
+        <li><strong class="core-world">World</strong><span class="core-desc">: Embrace the world, connect the future</span></li>
+      </ul>
+    </section>
     <footer>
        © 2025 Tinker Tech World · <!--Suite 208, 620 Alden Road, Markham, Ontario ·--> <a href="mailto:tinkertechworld@gmail.com">tinkertechworld@gmail.com</a>
     </footer>

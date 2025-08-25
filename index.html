@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tinker Tech World — Launching Soon</title>
+  <meta name="description" content="Tinker Tech World — STEM, Robotics, Coding & English Training. Launching soon." />
+  <style>
+    :root{
+      --blue:#1E88E5; /* tech */
+      --orange:#FB8C00; /* kids/energy */
+      --green:#43A047; /* growth */
+      --ink:#0b1020;
+      --ink-2:#12172a;
+      --bg:#0a0e1a;
+      --muted:#c9d4ee;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui,-apple-system, Segoe UI, Roboto, Helvetica, Arial, "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji";
+      background: radial-gradient(1200px 1200px at 75% -10%, rgba(30,136,229,.25), transparent 50%),
+                  radial-gradient(900px 900px at 10% 120%, rgba(67,160,71,.22), transparent 50%),
+                  linear-gradient(180deg, var(--ink), var(--ink-2));
+      color:white;
+      display:flex;align-items:center;justify-content:center;
+      padding:32px;
+    }
+    .card{
+      width:min(920px,100%);
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:24px;
+      padding:36px 28px 28px;
+      box-shadow:0 20px 60px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+      backdrop-filter: blur(6px);
+    }
+    header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+    header img{height:56px; width:auto; display:block}
+    header .brand{font-weight:800;letter-spacing:.4px}
+    header .brand span{display:block; line-height:1}
+    header .brand .name{font-size:18px}
+    header .brand .tag{font-size:12px; color:var(--muted)}
+
+    .hero{ text-align:center; padding:24px 12px 8px}
+    .hero h1{
+      margin:6px 0 12px;
+      font-size: clamp(38px, 7vw, 64px);
+      line-height:1.05;
+      font-weight:900;
+      background: linear-gradient(90deg, var(--orange), var(--blue), var(--green));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .hero p{color:var(--muted); margin:0 auto 18px; max-width:56ch; font-size:clamp(16px, 2.3vw, 18px)}
+
+    .meta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:8px}
+    .pill{
+      border:1px dashed rgba(255,255,255,.25);
+      color:#e9f0ff;
+      padding:10px 14px; border-radius:999px; font-size:14px;
+    }
+
+    .cta{margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .btn{cursor:pointer; background:var(--blue); color:#fff; border:none; padding:12px 18px; border-radius:12px; font-weight:700}
+    .btn.outline{background:transparent; border:1px solid rgba(255,255,255,.25)}
+    .fine{margin-top:16px; color:#9fb3da; font-size:12px}
+
+    footer{margin-top:26px; text-align:center; color:#9db3cf; font-size:12px}
+    a{color:#9fd0ff; text-decoration:none}
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-label="Launching Soon">
+    <header>
+      <!-- Replace image src with your deployed asset path as needed -->
+      <img src="/mnt/data/LOGO_PNG.png" alt="Tinker Tech World logo" />
+      <div class="brand">
+        <span class="name">Tinker Tech World</span>
+        <span class="tag">STEM · Robotics · Coding · AI · English</span>
+      </div>
+    </header>
+
+    <section class="hero">
+      <h1>Launching&nbsp;Soon</h1>
+      <p>We’re building a learning hub for curious minds — hands‑on STEM, robotics, coding and English programs for Grades 1 to adults.</p>
+      <div class="meta">
+        <span class="pill">Robotics</span>
+        <span class="pill">Python & Scratch</span>
+        <span class="pill">AI Basics</span>
+        <span class="pill">IELTS, TOEFL & ESL</span>
+      </div>
+      <div class="cta">
+        <a class="btn" href="mailto:tinkertechworld@gmail.com?subject=Notify%20me%20when%20you%20launch">Notify me</a>
+        <a class="btn outline" href="#">Download Brand Kit</a>
+      </div>
+      <div class="fine">Prefer different wording? Change <em>Launching Soon</em> to anything you like in the H1.</div>
+    </section>
+
+    <footer>
+       © 2025 Tinker Tech World · <!--Suite 208, 620 Alden Road, Markham, Ontario ·--> <a href="mailto:tinkertechworld@gmail.com">tinkertechworld@gmail.com</a>
+    </footer>
+  </main>
+</body>
+</html>

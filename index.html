@@ -8,35 +8,39 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --blue:#1E88E5; /* tech */
-      --orange:#FB8C00; /* kids/energy */
-      --green:#43A047; /* growth */
-      --ink:#0b1020;
-      --ink-2:#12172a;
-      --bg:#0a0e1a;
-      --muted:#c9d4ee;
+      --blue:#2196F3; /* tech - 更明亮的蓝色 */
+      --orange:#FF9800; /* kids/energy - 更鲜艳的橙色 */
+      --green:#4CAF50; /* growth - 更明亮的绿色 */
+      --purple:#9C27B0; /* 添加紫色增加活泼感 */
+      --pink:#E91E63; /* 添加粉色 */
+      --yellow:#FFC107; /* 添加黄色 */
+      --text-dark:#2c3e50; /* 深色文字 */
+      --text-muted:#5a6c7d; /* 柔和的深色 */
+      --bg-light:#f8f9fa;
+      --bg-card:rgba(255,255,255,0.95);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
       font-family: system-ui,-apple-system, Segoe UI, Roboto, Helvetica, Arial, "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji";
-      background: radial-gradient(1200px 1200px at 75% -10%, rgba(30,136,229,.25), transparent 50%),
-                  radial-gradient(900px 900px at 10% 120%, rgba(67,160,71,.22), transparent 50%),
-                  linear-gradient(180deg, var(--ink), var(--ink-2));
-      color:white;
+      background: radial-gradient(1200px 1200px at 75% -10%, rgba(255,152,0,.35), transparent 60%),
+                  radial-gradient(900px 900px at 10% 120%, rgba(33,150,243,.30), transparent 60%),
+                  radial-gradient(800px 800px at 90% 80%, rgba(156,39,176,.25), transparent 60%),
+                  linear-gradient(135deg, #e3f2fd 0%, #fff9e6 50%, #fce4ec 100%);
+      color:var(--text-dark);
       display:flex;align-items:center;justify-content:center;
       padding:32px;
       min-height:100vh;
     }
     .card{
       width:min(920px,100%);
-      background:rgba(255,255,255,0.06);
-      border:1px solid rgba(255,255,255,.1);
+      background:var(--bg-card);
+      border:2px solid rgba(255,152,0,.25);
       border-radius:24px;
       padding:36px 28px 28px;
-      box-shadow:0 20px 60px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
-      backdrop-filter: blur(6px);
+      box-shadow:0 12px 40px rgba(255,152,0,.15), 0 4px 16px rgba(33,150,243,.12), inset 0 1px 0 rgba(255,255,255,.8);
+      backdrop-filter: blur(10px);
     }
   header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
   header img{height:112px; width:auto; display:block}
@@ -113,16 +117,16 @@
     }
     header .brand{font-weight:800;letter-spacing:.4px}
     header .brand span{display:block; line-height:1}
-    header .brand .name{font-size:18px}
-    header .brand .tag{font-size:12px; color:var(--muted)}
+    header .brand .name{font-size:18px; color:var(--text-dark)}
+    header .brand .tag{font-size:12px; color:var(--text-muted)}
 
     .hero{ text-align:center; padding:24px 12px 8px}
       .kidline {
         font-family: 'Poppins', Arial, sans-serif;
-        color: #e53935;
+        color: var(--pink);
         font-size: 1.25em;
         letter-spacing: 1.2px;
-        text-shadow: 0 2px 8px rgba(229,57,53,0.10);
+        text-shadow: 0 2px 12px rgba(233,30,99,0.25);
         font-weight: 700;
       }
     .hero h1{
@@ -130,43 +134,51 @@
       font-size: clamp(38px, 7vw, 64px);
       line-height:1.05;
       font-weight:900;
-      background: linear-gradient(90deg, var(--orange), var(--blue), var(--green));
+      background: linear-gradient(135deg, var(--orange) 0%, var(--pink) 25%, var(--blue) 50%, var(--purple) 75%, var(--green) 100%);
       -webkit-background-clip:text; background-clip:text; color:transparent;
+      filter: brightness(1.1);
     }
-    .hero p{color:var(--muted); margin:0 auto 18px; max-width:56ch; font-size:clamp(16px, 2.3vw, 18px)}
+    .hero p{color:var(--text-muted); margin:0 auto 18px; max-width:56ch; font-size:clamp(16px, 2.3vw, 18px)}
 
     .meta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:8px}
     .pill{
-      border:1px dashed rgba(255,255,255,.25);
-      color:#e9f0ff;
+      border:2px solid rgba(255,152,0,.35);
+      background: linear-gradient(135deg, rgba(255,152,0,.08), rgba(33,150,243,.08));
+      color:var(--text-dark);
       padding:10px 14px; border-radius:999px; font-size:14px;
+      font-weight:600;
     }
 
     .cta{margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
     .btn{
       cursor:pointer;
-      background:var(--blue);
+      background: linear-gradient(135deg, var(--orange), var(--pink));
       color:#fff;
       border:none;
       padding:18px 32px;
       border-radius:16px;
       font-weight:900;
       font-size:1.18em;
-      box-shadow:0 0 0 0 rgba(30,136,229,0.18), 0 4px 24px 0 rgba(30,136,229,0.18);
+      box-shadow:0 0 0 0 rgba(255,152,0,0.25), 0 6px 28px 0 rgba(233,30,99,0.25);
       transition: box-shadow 0.2s, transform 0.2s;
     }
     .cta .btn:first-child {
       font-size: 1.38em;
     }
     .btn:hover, .btn:focus {
-      box-shadow:0 0 0 4px rgba(30,136,229,0.18), 0 8px 32px 0 rgba(30,136,229,0.22);
+      box-shadow:0 0 0 4px rgba(255,152,0,0.25), 0 10px 36px 0 rgba(233,30,99,0.35);
       transform: translateY(-2px) scale(1.04);
+      filter: brightness(1.1);
     }
-    .btn.outline{background:transparent; border:1px solid rgba(255,255,255,.25)}
-    .fine{margin-top:16px; color:#9fb3da; font-size:12px}
+    .btn.outline{
+      background:rgba(255,255,255,.6);
+      border:2px solid var(--blue);
+      color:var(--blue);
+    }
+    .fine{margin-top:16px; color:var(--text-muted); font-size:12px}
 
-    footer{margin-top:26px; text-align:center; color:#9db3cf; font-size:12px}
-    a{color:#9fd0ff; text-decoration:none}
+    footer{margin-top:26px; text-align:center; color:var(--text-muted); font-size:12px}
+    a{color:var(--blue); text-decoration:none; font-weight:600}
 
     .core-values {
       margin: 38px 0 0 0;
@@ -175,10 +187,10 @@
     .core-values h2 {
       font-size: 1.6em;
       margin-bottom: 16px;
-      color: var(--muted);
+      color: var(--text-dark);
       letter-spacing: 1px;
       font-weight: 800;
-      text-shadow: 0 2px 8px rgba(30,136,229,0.10);
+      text-shadow: 0 2px 12px rgba(255,152,0,0.15);
     }
     .core-values ul {
       list-style: none;
@@ -192,12 +204,13 @@
       margin-bottom: 12px;
       padding: 12px 18px;
       border-radius: 12px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 2px 8px rgba(30,136,229,0.04);
+      background: linear-gradient(135deg, rgba(255,152,0,0.08), rgba(33,150,243,0.08));
+      border: 2px solid rgba(255,152,0,0.25);
+      box-shadow: 0 3px 12px rgba(255,152,0,0.12);
       display: flex;
       align-items: baseline;
       gap: 10px;
+      color: var(--text-dark);
     }
     .core-tinker { color: var(--orange); font-weight: 700; }
     .core-tech { color: var(--blue); font-weight: 700; }

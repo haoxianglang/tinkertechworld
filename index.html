@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tinker Tech World — Launching Soon</title>
+  <title>Tinker Tech World</title>
   <meta name="description" content="Tinker Tech World — STEM, Robotics, Coding & English Training. Launching soon." />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
   <style>
@@ -21,98 +21,368 @@
     }
     *{box-sizing:border-box}
     html,body{height:100%}
+    
+    /* 顶部分类导航栏 */
+    .top-categories {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #000000;
+      border-bottom: 1px solid #333333;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      z-index: 2000;
+      padding: 8px 0;
+    }
+    .top-categories .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .top-categories ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 2px;
+    }
+    .top-categories li {
+      margin: 0;
+    }
+    .top-categories li.contact-right {
+      margin-left: auto;
+    }
+    .top-categories a {
+      display: flex;
+      align-items: center;
+      padding: 8px 16px;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+    .top-categories a:hover {
+      background: rgba(255,152,0,0.2);
+      box-shadow: 0 0 0 1px rgba(255,152,0,0.4);
+    }
+    
+    /* 当前页面高亮效果 */
+    .top-categories li.active a {
+      background: rgba(255,152,0,0.25);
+      box-shadow: 0 0 0 2px rgba(255,152,0,0.5);
+      position: relative;
+    }
+    .top-categories li.active a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--orange), var(--pink));
+    }
+    
+    /* TTW 文字样式 - 每个分类不同颜色 */
+    .top-categories a .ttw {
+      font-weight: 800;
+      margin-right: 4px;
+    }
+    .top-categories li:nth-child(1) a .ttw {
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .top-categories li:nth-child(2) a .ttw {
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .top-categories li:nth-child(3) a .ttw {
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .top-categories li:nth-child(4) a .ttw {
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
     body{
       margin:0;
       font-family: system-ui,-apple-system, Segoe UI, Roboto, Helvetica, Arial, "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji";
-      background: radial-gradient(1200px 1200px at 75% -10%, rgba(255,152,0,.35), transparent 60%),
-                  radial-gradient(900px 900px at 10% 120%, rgba(33,150,243,.30), transparent 60%),
-                  radial-gradient(800px 800px at 90% 80%, rgba(156,39,176,.25), transparent 60%),
-                  linear-gradient(135deg, #e3f2fd 0%, #fff9e6 50%, #fce4ec 100%);
+      background: #ffffff;
       color:var(--text-dark);
-      display:flex;align-items:center;justify-content:center;
-      padding:32px;
-      min-height:100vh;
+      padding-top: 56px;
     }
-    .card{
-      width:min(920px,100%);
-      background:var(--bg-card);
-      border:2px solid rgba(255,152,0,.25);
-      border-radius:24px;
-      padding:36px 28px 28px;
-      box-shadow:0 12px 40px rgba(255,152,0,.15), 0 4px 16px rgba(33,150,243,.12), inset 0 1px 0 rgba(255,255,255,.8);
-      backdrop-filter: blur(10px);
+    .main-container {
+      width: 100%;
+      max-width: 100%;
     }
-  header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
-  header img{height:112px; width:auto; display:block}
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+  header{
+    background: #ffffff;
+    padding: 0;
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 42px;
+    z-index: 1500;
+  }
+  header .container{
+    display:flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap:20px;
+    padding: 16px 20px;
+    justify-content: space-between;
+  }
+  header .left-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    flex: 1;
+  }
+  header .logo-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 12px;
+  }
+  header img{height:auto; width:auto; display:block; max-height:80px}
+  
+  /* 右侧联系信息 */
+  header .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 0;
+    text-align: right;
+    min-width: 200px;
+  }
+  header .contact-info .info-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-dark);
+  }
+  header .contact-info .info-item svg {
+    width: 16px;
+    height: 16px;
+    fill: var(--orange);
+  }
+  header .contact-info .qr-code {
+    margin-top: 4px;
+    text-align: right;
+  }
+  header .contact-info .qr-code img {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 4px;
+    background: white;
+  }
+  header .contact-info .qr-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+    
+    /* 水平菜单栏样式 */
+    nav {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      justify-content: flex-start;
+      padding-bottom: 8px;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 0;
+    }
+    nav > ul > li {
+      position: relative;
+      margin: 0;
+    }
+    nav > ul > li > a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 14px 20px;
+      color: var(--text-dark);
+      font-weight: 600;
+      font-size: 15px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border-radius: 0;
+      white-space: nowrap;
+    }
+    nav > ul > li > a:hover {
+      background: rgba(255,152,0,0.1);
+      color: var(--orange);
+    }
+    
+    /* 下拉菜单样式 */
+    nav ul li ul {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #ffffff;
+      min-width: 200px;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      border: 1px solid #e0e0e0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: all 0.2s ease;
+      z-index: 2000;
+      margin-top: 4px;
+      padding: 8px 0;
+    }
+    nav ul li:hover > ul {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    nav ul li ul li {
+      border-bottom: none;
+    }
+    nav ul li ul li a {
+      display: block;
+      padding: 10px 16px;
+      color: var(--text-dark);
+      font-weight: 500;
+      font-size: 13px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    nav ul li ul li a:hover {
+      background: rgba(255,152,0,0.1);
+      color: var(--orange);
+    }
+    
+    /* 下拉箭头 */
+    nav > ul > li > a::after {
+      content: '▼';
+      font-size: 10px;
+      margin-left: 4px;
+      transition: transform 0.2s ease;
+    }
+    nav > ul > li:hover > a::after {
+      transform: rotate(180deg);
+    }
+    
     /* 响应式布局：适配手机屏幕 */
     @media (max-width: 600px) {
-      body {
-        padding: 8px;
-        display: block;
+      .top-categories {
+        padding: 4px 0;
       }
-      .card {
-        padding: 16px 4px 12px;
-        border-radius: 12px;
-        box-shadow: 0 4px 24px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.04);
+      .top-categories ul {
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+      .top-categories li {
+        flex: 0 0 calc(50% - 2px);
+      }
+      .top-categories a {
+        padding: 6px 12px;
+        font-size: 12px;
+        justify-content: center;
+      }
+      body {
+        padding-top: 90px;
       }
       header {
+        top: 85px;
+      }
+      header .container {
+        padding: 12px 12px;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
+        align-items: center;
+      }
+      header .left-section {
+        width: 100%;
+      }
+      header .logo-brand {
+        width: 100%;
+        justify-content: center;
+        padding-bottom: 8px;
       }
       header img {
-        height: 64px;
-        margin-bottom: 4px;
+        max-height: 60px;
       }
-      .brand .name {
-        font-size: 15px;
+      header .contact-info {
+        display: none;
       }
-      .brand .tag {
-        font-size: 10px;
+      nav {
+        width: 100%;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 8px;
+      }
+      nav ul {
+        width: auto;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+      }
+      nav > ul > li > a {
+        padding: 10px 14px;
+        font-size: 13px;
+      }
+      nav ul li ul {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        border: none;
+        background: rgba(255,152,0,0.05);
+      }
+      nav ul li ul li a {
+        padding: 10px 20px 10px 40px;
+        font-size: 13px;
       }
       .hero {
-        padding: 12px 2px 4px;
+        padding: 40px 20px 30px;
       }
       .hero h1 {
         font-size: 2em;
       }
       .hero p {
         font-size: 1em;
-        max-width: 98vw;
       }
-      .meta {
-        gap: 6px;
+      .section {
+        padding: 40px 20px;
       }
-      .pill {
-        font-size: 12px;
-        padding: 7px 10px;
-      }
-      .cta {
-        gap: 6px;
-      }
-      .btn {
-        padding: 12px 18px;
-        font-size: 1em;
-        border-radius: 10px;
-      }
-      .cta .btn:first-child {
-        font-size: 1.1em;
-      }
-      .core-values h2 {
-        font-size: 1.1em;
+      .section h2 {
+        font-size: 1.8em;
       }
       .core-values ul {
-        font-size: 1em;
-        max-width: 98vw;
-      }
-      .core-values li {
-        padding: 8px 8px;
-        font-size: 0.98em;
-        gap: 6px;
-      }
-      footer {
-        font-size: 10px;
-        margin-top: 18px;
+        grid-template-columns: 1fr;
       }
     }
     header .brand{font-weight:800;letter-spacing:.4px}
@@ -120,13 +390,32 @@
     header .brand .name{font-size:18px; color:var(--text-dark)}
     header .brand .tag{font-size:12px; color:var(--text-muted)}
 
-    .hero{ text-align:center; padding:24px 12px 8px}
+    .hero{ 
+      text-align:center; 
+      padding: 80px 20px 60px;
+      background: linear-gradient(135deg, #e3f2fd 0%, #fff9e6 50%, #fce4ec 100%);
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(1200px 1200px at 75% -10%, rgba(255,152,0,.15), transparent 60%),
+                  radial-gradient(900px 900px at 10% 120%, rgba(33,150,243,.15), transparent 60%);
+      pointer-events: none;
+    }
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
       .kidline {
         font-family: 'Poppins', Arial, sans-serif;
-        color: var(--pink);
+        color: var(--text-dark);
         font-size: 1.25em;
         letter-spacing: 1.2px;
-        text-shadow: 0 2px 12px rgba(233,30,99,0.25);
         font-weight: 700;
       }
     .hero h1{
@@ -177,26 +466,62 @@
     }
     .fine{margin-top:16px; color:var(--text-muted); font-size:12px}
 
-    footer{margin-top:26px; text-align:center; color:var(--text-muted); font-size:12px}
+    footer{
+      background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+      color: #ecf0f1;
+      padding: 40px 20px;
+      text-align: center;
+      margin-top: 0;
+    }
+    footer a{
+      color: var(--orange);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    footer a:hover {
+      color: var(--pink);
+    }
+    
+    /* 分段区域样式 */
+    .section {
+      padding: 60px 20px;
+    }
+    .section:nth-child(even) {
+      background: #f8f9fa;
+    }
+    .section h2 {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 40px;
+      color: var(--text-dark);
+      font-weight: 800;
+    }
+    
     a{color:var(--blue); text-decoration:none; font-weight:600}
 
     .core-values {
-      margin: 38px 0 0 0;
-      text-align: center;
+      padding: 60px 20px;
+      background: #ffffff;
     }
     .core-values h2 {
-      font-size: 1.6em;
-      margin-bottom: 16px;
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 40px;
       color: var(--text-dark);
       letter-spacing: 1px;
       font-weight: 800;
       text-shadow: 0 2px 12px rgba(255,152,0,0.15);
     }
+    .core-values .container {
+      max-width: 900px;
+    }
     .core-values ul {
       list-style: none;
       padding: 0;
       margin: 0 auto;
-      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
       text-align: left;
       font-size: 1.13em;
     }
@@ -223,43 +548,156 @@
   </style>
 </head>
 <body>
-  <main class="card" role="main" aria-label="Launching Soon">
-    <header>
-      <!-- Replace image src with your deployed asset path as needed -->
-      <img src="/image/logo.png" alt="Tinker Tech World logo" />
-      <div class="brand">
-  <span class="name kidline">Building Skills for a Changing World</span>
+  <div class="top-categories">
+    <div class="container">
+      <ul>
+        <li class="active"><a href="#ttw-education"><span class="ttw">TTW</span> Education</a></li>
+        <li><a href="#ttw-labs"><span class="ttw">TTW</span> Labs</a></li>
+        <li><a href="#ttw-competitions"><span class="ttw">TTW</span> Competitions</a></li>
+        <li><a href="store.html"><span class="ttw">TTW</span> Store</a></li>
+        <li class="contact-right"><a href="#contact">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <header>
+    <div class="container">
+      <div class="left-section">
+        <div class="logo-brand">
+          <img src="/image/logo.png" alt="Tinker Tech World logo" />
+          <div class="brand">
+            <span class="name kidline">Building Skills for a Changing World</span>
+          </div>
+        </div>
+        <nav>
+        <ul>
+          <li>
+            <a href="#stem">STEM</a>
+            <ul>
+              <li><a href="#science">Science</a></li>
+              <li><a href="#technology">Technology</a></li>
+              <li><a href="#engineering">Engineering</a></li>
+              <li><a href="#mathematics">Mathematics</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#robotics">Robotics</a>
+            <ul>
+              <li><a href="#robotics-basic">Robotics Basics</a></li>
+              <li><a href="#robotics-advanced">Advanced Robotics</a></li>
+              <li><a href="#robotics-competition">Competitions</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#coding">Coding</a>
+            <ul>
+              <li><a href="#coding-basics">Coding Basics</a></li>
+              <li><a href="#python">Python</a></li>
+              <li><a href="#javascript">JavaScript</a></li>
+              <li><a href="#web-dev">Web Development</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#ai">AI</a>
+            <ul>
+              <li><a href="#ai-intro">AI Introduction</a></li>
+              <li><a href="#machine-learning">Machine Learning</a></li>
+              <li><a href="#ai-projects">AI Projects</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#others">Others</a>
+            <ul>
+              <li><a href="#english">English</a></li>
+              <li><a href="#maker-space">Maker Space</a></li>
+              <li><a href="#resources">Resources</a></li>
+              <li><a href="#support">Support</a></li>
+            </ul>
+          </li>
+        </ul>
+        </nav>
       </div>
-    </header>
-
-    <section class="hero">
+      <div class="contact-info">
+        <div class="info-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          <span>888-888-8888</span>
+        </div>
+        <div class="info-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          <span>Markham, ON</span>
+        </div>
+        <div class="qr-code">
+          <img src="/image/wechat-qr.png" alt="WeChat QR Code" onerror="this.style.display='none'" />
+          <div class="qr-label">扫码加微信</div>
+        </div>
+      </div>
+    </div>
+  </header>  <section class="hero">
       <h1>Launching&nbsp;Soon</h1>
       <p>Welcome to Tinker Tech World – Where Learning Gets Real</p>
-      <div class="meta">
-        <span class="pill">STEM</span>
-        <span class="pill">Robotics</span>
-        <span class="pill">Programming</span>
-        <span class="pill">AI</span>
-        <span class="pill">Language</span>
-      </div>
+    
       <div class="cta">
         <a class="btn" href="mailto:tinkertechworld@gmail.com?subject=Notify%20me%20when%20you%20launch">Notify me</a>
         
       </div>
       </br>
       <p>To provide every child and adult with opportunities to gain the skills to change the world through hands-on practice and technology learning.</p>
-    </section>
-    <section class="core-values">
+  </section>
+  
+  <section class="core-values">
+    <div class="container">
       <h2>Core Values</h2>
       <ul>
         <li><strong class="core-tinker">Tinker</strong><span class="core-desc">: Hands-on practice, exploring the unknown</span></li>
         <li><strong class="core-tech">Tech</strong><span class="core-desc">: Master technology, change the future</span></li>
         <li><strong class="core-world">World</strong><span class="core-desc">: Embrace the world, connect the future</span></li>
       </ul>
-    </section>
-    <footer>
-       © 2025 Tinker Tech World · <!--Suite 208, 620 Alden Road, Markham, Ontario ·--> <a href="mailto:tinkertechworld@gmail.com">tinkertechworld@gmail.com</a>
-    </footer>
-  </main>
+    </div>
+  </section>
+  
+  <footer>
+    <div class="container">
+      <p>© 2025 Tinker Tech World</p>
+      <p><a href="mailto:tinkertechworld@gmail.com">tinkertechworld@gmail.com</a></p>
+    </div>
+  </footer>
+  
+  <script>
+    // 处理顶部分类导航的active状态
+    document.addEventListener('DOMContentLoaded', function() {
+      const categoryLinks = document.querySelectorAll('.top-categories li:not(.contact-right)');
+      
+      categoryLinks.forEach(function(item) {
+        item.addEventListener('click', function(e) {
+          // 移除所有active状态
+          categoryLinks.forEach(function(link) {
+            link.classList.remove('active');
+          });
+          // 添加当前active状态
+          this.classList.add('active');
+        });
+      });
+      
+      // 如果是SPA应用，可以根据URL hash设置active状态
+      function setActiveFromHash() {
+        const hash = window.location.hash;
+        if (hash) {
+          categoryLinks.forEach(function(item) {
+            const link = item.querySelector('a');
+            if (link && link.getAttribute('href') === hash) {
+              categoryLinks.forEach(function(l) { l.classList.remove('active'); });
+              item.classList.add('active');
+            }
+          });
+        }
+      }
+      
+      // 页面加载时检查hash
+      setActiveFromHash();
+      
+      // 监听hash变化
+      window.addEventListener('hashchange', setActiveFromHash);
+    });
+  </script>
 </body>
 </html>

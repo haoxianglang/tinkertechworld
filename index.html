@@ -56,15 +56,18 @@
     }
     .top-categories a {
       display: flex;
-      align-items: center;
-      padding: 8px 16px;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 4px 12px;
       color: #ffffff;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 12px;
       text-decoration: none;
       transition: all 0.2s ease;
       border-radius: 6px;
       white-space: nowrap;
+      gap: 1px;
+      line-height: 1.2;
     }
     .top-categories a:hover {
       background: rgba(255,152,0,0.2);
@@ -90,7 +93,9 @@
     /* TTW 文字样式 - 每个分类不同颜色 */
     .top-categories a .ttw {
       font-weight: 800;
-      margin-right: 4px;
+      margin-right: 0;
+      display: block;
+      font-size: 14px;
     }
     .top-categories li:nth-child(1) a .ttw {
       background: linear-gradient(135deg, var(--orange), var(--pink));
@@ -299,25 +304,37 @@
     /* 响应式布局：适配手机屏幕 */
     @media (max-width: 600px) {
       .top-categories {
-        padding: 4px 0;
+        padding: 3px 0;
+      }
+      .top-categories .container {
+        padding: 0 8px;
       }
       .top-categories ul {
         flex-wrap: wrap;
-        gap: 4px;
-      }
-      .top-categories li {
-        flex: 0 0 calc(50% - 2px);
-      }
-      .top-categories a {
-        padding: 6px 12px;
-        font-size: 12px;
+        gap: 3px;
         justify-content: center;
       }
+      .top-categories li {
+        flex: 0 0 auto;
+      }
+      .top-categories li.contact-right {
+        flex: 0 0 100%;
+        margin-left: 0;
+        text-align: center;
+      }
+      .top-categories a {
+        padding: 3px 8px;
+        font-size: 10px;
+        align-items: center;
+      }
+      .top-categories a .ttw {
+        font-size: 11px;
+      }
       body {
-        padding-top: 90px;
+        padding-top: 75px;
       }
       header {
-        top: 85px;
+        top: 70px;
       }
       header .container {
         padding: 12px 12px;

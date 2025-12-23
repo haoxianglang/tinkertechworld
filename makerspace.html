@@ -620,6 +620,68 @@
       color: var(--text-dark);
       font-weight: 800;
     }
+    .maker-intro .intro-text {
+      max-width: 900px;
+      margin: 0 auto;
+      font-size: clamp(1rem, 1.6vw, 1.2rem);
+      line-height: 1.75;
+      color: var(--text-muted);
+      text-align: left;
+    }
+    .maker-intro .intro-text p {
+      margin: 0 0 20px;
+    }
+    .support-section .equipment-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .support-section .equipment-card {
+      background: #ffffff;
+      border: 2px solid rgba(0,188,212,0.15);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+    }
+    .support-section .equipment-card h3 {
+      margin: 0 0 12px;
+      font-size: 1.15rem;
+      color: var(--text-dark);
+      font-weight: 800;
+    }
+    .support-section .equipment-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      color: var(--text-muted);
+    }
+    .support-section .equipment-card li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .support-section .equipment-card li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--blue);
+      font-weight: 800;
+    }
+    .maker-intro .intro-text {
+      max-width: 900px;
+      margin: 0 auto;
+      font-size: clamp(1rem, 1.6vw, 1.2rem);
+      line-height: 1.75;
+      color: var(--text-muted);
+      text-align: left;
+    }
+    .maker-intro .intro-text p {
+      margin: 0 0 20px;
+    }
     
     a{color:var(--blue); text-decoration:none; font-weight:600}
 
@@ -1087,13 +1149,55 @@
       <p>Build, prototype, and learn with 3D printers, robotics, coding, and electronics.</p>
       <p class="hero-subtitle">A collaborative makerspace for workshops, mentorship, and hands-on STEAM projects that turn ideas into working creations.</p>    
   </section>
-  <section class="cta-section">
+  <section class="section maker-intro">
     <div class="container">
-      <h2>Ready to Bring Your Design to Life?</h2>
-      <p>Get an instant quote or speak with our experts today</p>
-      <div class="cta-buttons">
-        <a href="#quote" class="cta-btn cta-primary">Booking</a>
-        <a href="#contact" class="cta-btn cta-secondary">Talk to Expert</a>
+      <h2>Maker Space – Where Ideas Become Reality</h2>
+      <div class="intro-text">
+        <p>The Maker Space is an open, hands-on innovation hub designed to inspire creativity, problem-solving, and real-world skill development. It provides learners, educators, entrepreneurs, and teams with access to advanced tools, professional guidance, and a collaborative environment to transform ideas into tangible projects.</p>
+        <p>Through project-based learning, workshops, and guided exploration, the Maker Space empowers users to design, prototype, and build across disciplines such as engineering, robotics, electronics, digital fabrication, and creative design. Whether you are a beginner exploring technology for the first time or an experienced maker refining a prototype, the Maker Space offers the resources and support to bring your vision to life.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section support-section">
+    <div class="container">
+      <h2>Equipment and Facilities Available in the Maker Space</h2>
+      <div class="equipment-grid">
+        <div class="equipment-card">
+          <h3>Mechanical &amp; Hand Tools</h3>
+          <ul>
+            <li>Power tools (drills, saws, sanders)</li>
+            <li>Hand tools (screwdrivers, pliers, wrenches)</li>
+            <li>Workbenches and clamping systems</li>
+            <li>Safety equipment and tool storage</li>
+          </ul>
+        </div>
+        <div class="equipment-card">
+          <h3>Electronics &amp; Robotics</h3>
+          <ul>
+            <li>Arduino, Raspberry Pi, and microcontroller kits</li>
+            <li>Robotics kits and electrical/electronic components</li>
+            <li>Soldering stations and electronic workbenches</li>
+            <li>Multimeters, power supplies, and testing tools</li>
+            <li>Sensors, motors, and electronic modules</li>
+          </ul>
+        </div>
+        <div class="equipment-card">
+          <h3>Programming &amp; Computing</h3>
+          <ul>
+            <li>High-performance computers</li>
+            <li>CAD and 3D modeling software</li>
+            <li>Coding and simulation environments</li>
+            <li>AI, data, and automation learning tools</li>
+          </ul>
+        </div>
+        <div class="equipment-card">
+          <h3>Creative &amp; Design Tools</h3>
+          <ul>
+            <li>3D Printers (multiple sizes and materials)</li>
+            <li>UV 3D Printer (Stickers)</li>
+            <li>DTF Printer (DTF Transfers)</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>

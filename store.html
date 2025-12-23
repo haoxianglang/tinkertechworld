@@ -808,6 +808,43 @@
       color: var(--text-muted);
       line-height: 1.6;
     }
+    .step-actions {
+      margin-top: 18px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: nowrap;
+    }
+    .step-btn {
+      padding: 8px 16px;
+      border-radius: 18px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      text-decoration: none;
+      border: 2px solid transparent;
+      transition: all 0.25s ease;
+      display: inline-block;
+    }
+    .step-btn-primary {
+      background: linear-gradient(135deg, var(--orange), var(--blue));
+      color: white;
+      box-shadow: 0 6px 18px rgba(33,150,243,0.2);
+    }
+    .step-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(33,150,243,0.3);
+    }
+    .step-btn-secondary {
+      background: white;
+      color: var(--blue);
+      border-color: var(--blue);
+    }
+    .step-btn-secondary:hover {
+      background: var(--blue);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(33,150,243,0.2);
+    }
     
     .pricing-section {
       padding: 80px 30px;
@@ -1125,8 +1162,6 @@
       </div>
   </section>
   
-  
-
   <!-- 产品流程 -->
   <section class="process-section">
     <div class="container">
@@ -1136,6 +1171,10 @@
           <div class="step-number">1</div>
           <h3>Upload Your Design</h3>
           <p>Send us your artwork in any format - PNG, JPG, PDF, or AI files accepted.</p>
+          <div class="step-actions">
+            <a href="image/DTF Gang Sheet (Example).png" class="step-btn step-btn-primary">Example Design</a>
+            <a href="image/11*17 Template.png" class="step-btn step-btn-secondary">11&quot; by 17&quot; Template</a>
+          </div>
         </div>
         <div class="step">
           <div class="step-number">2</div>

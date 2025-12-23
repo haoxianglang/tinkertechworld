@@ -1015,6 +1015,112 @@
       transform: translateY(-3px);
       box-shadow: 0 8px 25px rgba(33,150,243,0.3);
     }
+    .product-showcase-section {
+      padding: 24px 30px;
+      background: linear-gradient(135deg, rgba(255,152,0,0.06), rgba(33,150,243,0.08));
+      height: auto;
+      margin-bottom: 0;
+    }
+    .showcase-title {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin: 0 0 16px;
+    }
+    .album-gallery {
+      max-width: 1100px;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+    }
+    .album-track {
+      display: flex;
+      gap: 16px;
+      transition: transform 0.6s ease;
+      will-change: transform;
+    }
+    .album-item {
+      background: #0e0e0e;
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+      flex: 0 0 calc((100% - 32px) / 3);
+    }
+    .album-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .album-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background: rgba(0,0,0,0.6);
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+      transition: transform 0.2s ease, background 0.2s ease;
+      z-index: 2;
+    }
+    .album-nav:hover {
+      background: rgba(255,152,0,0.8);
+      transform: translateY(-50%) scale(1.05);
+    }
+    .album-nav.prev {
+      left: 12px;
+    }
+    .album-nav.next {
+      right: 12px;
+    }
+    .album-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000;
+      padding: 24px;
+    }
+    .album-modal.is-open {
+      display: flex;
+    }
+    .album-modal img {
+      max-width: 92vw;
+      max-height: 92vh;
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+      background: #0e0e0e;
+    }
+    .album-modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,152,0,0.9);
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+    }
     
     /* Responsive Design for Product Page */
     @media (max-width: 768px) {
@@ -1088,6 +1194,14 @@
         width: 100%;
         max-width: 300px;
       }
+      .album-item {
+        flex: 0 0 100%;
+      }
+      .album-nav {
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+      }
     }
   </style>
 </head>
@@ -1125,7 +1239,7 @@
             <a href="#3d-printing">3D Printing</a>
           </li>
           <li>
-            <a href="#others">Order</a>
+            <a href="#store">Online Store (Coming Soon)</a>
           </li>
         </ul>
         </nav>
@@ -1311,16 +1425,21 @@
     </div>
   </section>
   <!-- 3D Printing CTA -->
-  <section class="cta-section">
+  <section class="product-showcase-section" id="products">
     <div class="container">
-      <h2>Ready to Bring Your Design to Life?</h2>
-      <p>Get an instant quote or speak with our experts today</p>
-      <div class="cta-buttons">
-        <a href="#quote" class="cta-btn cta-primary">Get Instant Quote</a>
-        <a href="#contact" class="cta-btn cta-secondary">Talk to Expert</a>
+      <h2 class="showcase-title">Feature Products</h2>
+      <div class="album-gallery">
+        <button class="album-nav prev" type="button" aria-label="Previous images">‹</button>
+        <button class="album-nav next" type="button" aria-label="Next images">›</button>
+        <div class="album-track">
+        </div>
       </div>
     </div>
   </section>
+  <div class="album-modal" aria-hidden="true">
+    <button class="album-modal-close" type="button" aria-label="Close">×</button>
+    <img src="" alt="Expanded product image" />
+  </div>
 
   
   
@@ -1335,7 +1454,23 @@
     // 处理顶部分类导航的active状态
     document.addEventListener('DOMContentLoaded', function() {
       const categoryLinks = document.querySelectorAll('.top-categories li:not(.contact-right)');
-      
+      const albumTrack = document.querySelector('.album-track');
+      const albumPrev = document.querySelector('.album-nav.prev');
+      const albumNext = document.querySelector('.album-nav.next');
+      const albumModal = document.querySelector('.album-modal');
+      const albumModalImage = albumModal ? albumModal.querySelector('img') : null;
+      const albumModalClose = albumModal ? albumModal.querySelector('.album-modal-close') : null;
+      const albumFallbackFiles = [
+        '3D Print.png',
+        'DTF Gang Sheet (Example).png',
+        'DTF background.png',
+        'Robotic Competition.png',
+        'Robotics Competition.png',
+        'UV Stickers.png'
+      ];
+      let albumItems = [];
+      let albumIndex = 0;
+      let albumTimer = null;
       categoryLinks.forEach(function(item) {
         item.addEventListener('click', function(e) {
           // 移除所有active状态
@@ -1346,6 +1481,154 @@
           this.classList.add('active');
         });
       });
+      
+      function updateAlbumPosition() {
+        if (!albumTrack || albumItems.length === 0) {
+          return;
+        }
+        const maxIndex = Math.max(0, albumItems.length - 3);
+        if (albumIndex > maxIndex) {
+          albumIndex = maxIndex;
+        }
+        const itemWidth = albumItems[0].getBoundingClientRect().width;
+        const gap = 16;
+        const offset = (itemWidth + gap) * albumIndex;
+        albumTrack.style.transform = 'translateX(-' + offset + 'px)';
+      }
+
+      function stopAlbumTimer() {
+        if (albumTimer) {
+          clearInterval(albumTimer);
+          albumTimer = null;
+        }
+      }
+
+      function startAlbumTimer() {
+        stopAlbumTimer();
+        if (albumItems.length > 3) {
+          albumTimer = setInterval(function() {
+            const maxIndex = Math.max(0, albumItems.length - 3);
+            albumIndex = (albumIndex + 1) % (maxIndex + 1);
+            updateAlbumPosition();
+          }, 3000);
+        }
+      }
+
+      function refreshAlbumItems() {
+        albumItems = Array.prototype.slice.call(document.querySelectorAll('.album-item'));
+        albumIndex = 0;
+        updateAlbumPosition();
+        startAlbumTimer();
+      }
+
+      function filenameToLabel(filename) {
+        return filename.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ').trim();
+      }
+
+      function renderAlbum(files) {
+        if (!albumTrack) {
+          return;
+        }
+        albumTrack.innerHTML = '';
+        files.forEach(function(file) {
+          if (typeof file !== 'string') {
+            return;
+          }
+          const item = document.createElement('div');
+          item.className = 'album-item';
+          const img = document.createElement('img');
+          img.className = 'album-image';
+          img.src = '/products/' + encodeURIComponent(file);
+          img.alt = filenameToLabel(file) || 'Product image';
+          img.loading = 'lazy';
+          item.appendChild(img);
+          albumTrack.appendChild(item);
+        });
+        refreshAlbumItems();
+      }
+
+      function loadAlbumFromManifest() {
+        const manifestUrl = 'products/manifest.json?ts=' + Date.now();
+        return fetch(manifestUrl, { cache: 'no-store' })
+          .then(function(response) {
+            if (!response.ok) {
+              throw new Error('manifest');
+            }
+            return response.json();
+          })
+          .then(function(files) {
+            if (Array.isArray(files) && files.length > 0) {
+              renderAlbum(files);
+            } else {
+              renderAlbum(albumFallbackFiles);
+            }
+          })
+          .catch(function() {
+            renderAlbum(albumFallbackFiles);
+          });
+      }
+      
+      window.addEventListener('resize', updateAlbumPosition);
+      
+      if (albumPrev && albumNext) {
+        albumPrev.addEventListener('click', function() {
+          if (albumItems.length === 0) {
+            return;
+          }
+          const maxIndex = Math.max(0, albumItems.length - 3);
+          albumIndex = (albumIndex - 1 + (maxIndex + 1)) % (maxIndex + 1);
+          updateAlbumPosition();
+        });
+        albumNext.addEventListener('click', function() {
+          if (albumItems.length === 0) {
+            return;
+          }
+          const maxIndex = Math.max(0, albumItems.length - 3);
+          albumIndex = (albumIndex + 1) % (maxIndex + 1);
+          updateAlbumPosition();
+        });
+      }
+      
+      if (albumModal && albumModalImage) {
+        if (albumTrack) {
+          albumTrack.addEventListener('click', function(event) {
+            const item = event.target.closest('.album-item');
+            if (!item) {
+              return;
+            }
+            const image = item.querySelector('img');
+            if (!image) {
+              return;
+            }
+            albumModalImage.src = image.src;
+            albumModalImage.alt = image.alt || 'Expanded product image';
+            albumModal.classList.add('is-open');
+            albumModal.setAttribute('aria-hidden', 'false');
+            stopAlbumTimer();
+          });
+        }
+        function closeModal() {
+          albumModal.classList.remove('is-open');
+          albumModal.setAttribute('aria-hidden', 'true');
+          albumModalImage.src = '';
+          startAlbumTimer();
+        }
+        albumModal.addEventListener('click', function(event) {
+          if (event.target === albumModal) {
+            closeModal();
+          }
+        });
+        if (albumModalClose) {
+          albumModalClose.addEventListener('click', closeModal);
+        }
+        document.addEventListener('keydown', function(event) {
+          if (event.key === 'Escape' && albumModal.classList.contains('is-open')) {
+            closeModal();
+          }
+        });
+      }
+
+      loadAlbumFromManifest();
       
       // 如果是SPA应用，可以根据URL hash设置active状态
       function setActiveFromHash() {

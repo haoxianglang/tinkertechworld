@@ -621,69 +621,78 @@
       background: #f8f9fa;
     }
     .section h2 {
-      text-align: center;
-      font-size: 2.5em;
-      margin-bottom: 40px;
-      color: var(--text-dark);
-      font-weight: 800;
-    }
-    .about-intro .intro-text {
-      max-width: 900px;
-      margin: 0 auto;
-      font-size: clamp(1rem, 1.6vw, 1.2rem);
-      line-height: 1.75;
-      color: var(--text-muted);
       text-align: left;
-    }
-    .about-intro .intro-text p {
-      margin: 0 0 20px;
-    }
-    .about-highlights {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .highlight-card {
-      background: #ffffff;
-      border: 2px solid rgba(0,188,212,0.15);
-      border-radius: 16px;
-      padding: 20px 22px;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.06);
-    }
-    .highlight-card h3 {
-      margin: 0 0 12px;
-      font-size: 1.15rem;
+      font-size: 2.5em;
+      margin-bottom: 12px;
       color: var(--text-dark);
       font-weight: 800;
     }
-    .highlight-card p {
+    .section .divider {
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--orange), var(--pink));
+      border-radius: 999px;
+      margin-bottom: 28px;
+    }
+    .about-copy p {
+      margin: 0 0 18px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+    .about-list {
+      list-style: none;
+      padding: 0;
       margin: 0;
       color: var(--text-muted);
+    }
+    .about-list li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 12px;
       line-height: 1.6;
     }
-    .people-grid {
+    .about-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--orange);
+      font-weight: 800;
+    }
+    .team-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 22px;
-      max-width: 1100px;
-      margin: 0 auto;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+      align-items: start;
+      margin-bottom: 40px;
     }
-    .person-card {
-      background: #ffffff;
-      border: 2px solid rgba(255,152,0,0.18);
+    .team-row.reverse {
+      grid-template-columns: 1fr 2fr;
+    }
+    .team-row.reverse .team-photo {
+      order: -1;
+    }
+    .team-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin: 0 0 14px;
+      color: var(--text-dark);
+    }
+    .team-name {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin: 8px 0 6px;
+    }
+    .team-role {
+      color: var(--blue);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .team-photo {
+      height: 240px;
       border-radius: 18px;
-      padding: 20px;
-      box-shadow: 0 10px 22px rgba(0,0,0,0.07);
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .avatar-placeholder {
-      height: 200px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(0,188,212,0.25), rgba(255,152,0,0.25));
+      background: linear-gradient(135deg, rgba(255,152,0,0.25), rgba(233,30,99,0.25));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -691,35 +700,34 @@
       color: var(--text-dark);
       letter-spacing: 0.4px;
       text-transform: uppercase;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.1);
     }
-    .person-card h3 {
+    .team-list {
+      list-style: none;
+      padding: 0;
       margin: 0;
-      font-size: 1.2rem;
-      font-weight: 800;
-      color: var(--text-dark);
-    }
-    .person-role {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--blue);
-    }
-    .person-bio {
       color: var(--text-muted);
+    }
+    .team-list li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 10px;
       line-height: 1.6;
-      margin: 0;
     }
-    .profile-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+    .team-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--orange);
+      font-weight: 800;
     }
-    .profile-tags span {
-      background: rgba(0,188,212,0.12);
+    .team-list li.highlight {
+      background: rgba(255,152,0,0.18);
+      border-radius: 12px;
+      padding: 6px 10px 6px 26px;
       color: var(--text-dark);
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(255,152,0,0.2);
     }
     
     a{color:var(--blue); text-decoration:none; font-weight:600}
@@ -1145,6 +1153,19 @@
         width: 100%;
         max-width: 300px;
       }
+      .section h2 {
+        font-size: 2rem;
+      }
+      .team-row,
+      .team-row.reverse {
+        grid-template-columns: 1fr;
+      }
+      .team-row.reverse .team-photo {
+        order: 0;
+      }
+      .team-photo {
+        height: 200px;
+      }
     }
   </style>
 </head>
@@ -1190,116 +1211,109 @@
   </header>
   <section class="hero" id="about">
       <img src="/image/Makerspace.png" alt="Tinker Tech World team in the makerspace" class="hero-background-image" onerror="this.style.display='none'" />
-      <div class="hero-badge">About Us</div>
-      <h1>We Build Skills for a Changing World</h1>
-      <p>Hands-on learning, creative problem solving, and real-world projects.</p>
-      <p class="hero-subtitle">Tinker Tech World is a community where learners, families, and teams grow through engineering, robotics, design, and entrepreneurship.</p>
+      
+      <h1>About Us</h1>
+      <p>Building skills for a changing world through hands-on STEM learning.</p>
+      <p class="hero-subtitle">We empower learners with hands-on projects, mentorship, and a community that celebrates curiosity and growth.</p>
   </section>
-  <section class="section about-intro" id="story">
+  <section class="section" id="story">
     <div class="container">
-      <h2>Our Story</h2>
-      <div class="intro-text">
+      <h2>Our Story &amp; Mission</h2>
+      <div class="divider"></div>
+      <div class="about-copy">
         <p>We started Tinker Tech World to make STEM education practical, creative, and personal. Our programs are built around doing: designing, prototyping, testing, and learning from each iteration.</p>
         <p>From first-time builders to advanced teams preparing for competitions, we provide the space, guidance, and culture that help people turn ideas into outcomes.</p>
+        <p>We help learners build confidence through real projects, mentorship, and collaboration. Our mission is to connect curiosity with technical skill and prepare students to solve real-world problems.</p>
+        <ul class="about-list">
+          <li>Project-based learning that connects ideas to outcomes.</li>
+          <li>Mentorship that supports growth, leadership, and resilience.</li>
+          <li>A community that celebrates creativity, teamwork, and curiosity.</li>
+        </ul>
       </div>
     </div>
   </section>
-  <section class="section" id="mission">
+  <section class="section" id="team">
     <div class="container">
-      <h2>What We Stand For</h2>
-      <div class="about-highlights">
-        <div class="highlight-card">
-          <h3>Project-Based Learning</h3>
-          <p>Every lesson is connected to a tangible build, from simple circuits to full robotics systems.</p>
+      <h2>Our Team</h2>
+      <div class="divider"></div>
+      <div class="team-row">
+        <div>
+          <div class="team-name">Roland Lang</div>
+          <div class="team-role">Co-Founder · STEM Program Director</div>
+          <ul class="team-list">
+            <li>Program Director and Head Instructor</li>
+            <li>Over 20 Years of High Education Experiecen, and Industrial Engineering Experience</li>
+            <li class="highlight">Ph.D. in Robotics (The University of British Columbia)</li>
+            <li class="highlight">P.Eng. (Profesional Engineer of Ontario)</li>
+          </ul>
         </div>
-        <div class="highlight-card">
-          <h3>Mentorship &amp; Guidance</h3>
-          <p>Students and teams work with mentors who care about growth, confidence, and technical depth.</p>
-        </div>
-        <div class="highlight-card">
-          <h3>Community &amp; Collaboration</h3>
-          <p>We create an environment where curiosity thrives and teamwork turns challenges into breakthroughs.</p>
-        </div>
+        <div class="team-photo">Founder Photo</div>
       </div>
-    </div>
-  </section>
-  <section class="section" id="founders">
-    <div class="container">
-      <h2>Founders</h2>
-      <div class="people-grid">
-        <div class="person-card">
-          <div class="avatar-placeholder">Founder Photo</div>
-          <h3>Alex Chen</h3>
-          <div class="person-role">Co-Founder · STEM Program Director</div>
-          <p class="person-bio">Background in mechanical engineering and youth robotics coaching. Focused on building programs that turn curiosity into measurable skills.</p>
-          <div class="profile-tags">
-            <span>Robotics</span>
-            <span>Mechanical Design</span>
-            <span>Team Coaching</span>
-          </div>
+      <div class="team-row reverse">
+        <div>
+          <div class="team-name">Lisa Li</div>
+          <div class="team-role">Co-Founder · Learning Experience Lead</div>
+          <ul class="team-list">
+            <li>Curriculum and Learning Experience Design</li>
+            <li>Student Mentorship and Confidence Building</li>
+            <li>20+ Years of Experience in Education</li>
+            <li class="highlight">Master in Education (The University of British Columbia)</li>
+            <li class="highlight">Formal English Teacher at New Oriental for English Programs (e.g., IETLS, TOEFL,GRA, GMAT)</li>
+          </ul>
         </div>
-        <div class="person-card">
-          <div class="avatar-placeholder">Founder Photo</div>
-          <h3>Jamie Li</h3>
-          <div class="person-role">Co-Founder · Learning Experience Lead</div>
-          <p class="person-bio">Specializes in curriculum design and project-based learning. Passionate about helping students build confidence through making.</p>
-          <div class="profile-tags">
-            <span>Curriculum</span>
-            <span>Product Design</span>
-            <span>Leadership</span>
-          </div>
-        </div>
+        <div class="team-photo">Founder Photo</div>
       </div>
-    </div>
-  </section>
-  <section class="section" id="instructors">
-    <div class="container">
-      <h2>Instructors</h2>
-      <div class="people-grid">
-        <div class="person-card">
-          <div class="avatar-placeholder">Instructor Photo</div>
-          <h3>Jordan Park</h3>
-          <div class="person-role">Robotics &amp; Automation</div>
-          <p class="person-bio">Guides students through sensors, control systems, and competition-ready programming.</p>
-          <div class="profile-tags">
-            <span>Arduino</span>
-            <span>Python</span>
-            <span>Controls</span>
-          </div>
+      <div class="team-row">
+        <div>
+          <div class="team-name">Jordan Park</div>
+          <div class="team-role">Robotics &amp; Automation</div>
+          <ul class="team-list">
+            <li>Robotics systems and automation coaching</li>
+            <li>Sensors, controls, and motion planning</li>
+            <li>Competition strategy and testing</li>
+            <li>Hands-on build support</li>
+          </ul>
         </div>
-        <div class="person-card">
-          <div class="avatar-placeholder">Instructor Photo</div>
-          <h3>Sofia Ramirez</h3>
-          <div class="person-role">Digital Fabrication</div>
-          <p class="person-bio">Supports 3D printing, laser cutting, and CAD workflows from idea to prototype.</p>
-          <div class="profile-tags">
-            <span>CAD</span>
-            <span>3D Printing</span>
-            <span>Prototyping</span>
-          </div>
+        <div class="team-photo">Instructor Photo</div>
+      </div>
+      <div class="team-row reverse">
+        <div>
+          <div class="team-name">Sofia Ramirez</div>
+          <div class="team-role">Digital Fabrication</div>
+          <ul class="team-list">
+            <li>3D printing workflows and materials</li>
+            <li>CAD modeling and rapid prototyping</li>
+            <li>Digital fabrication safety and setup</li>
+            <li>Design iteration support</li>
+          </ul>
         </div>
-        <div class="person-card">
-          <div class="avatar-placeholder">Instructor Photo</div>
-          <h3>Marcus Patel</h3>
-          <div class="person-role">Coding &amp; AI</div>
-          <p class="person-bio">Leads coding camps focused on real-world applications, data, and automation.</p>
-          <div class="profile-tags">
-            <span>JavaScript</span>
-            <span>AI Tools</span>
-            <span>Data</span>
-          </div>
+        <div class="team-photo">Instructor Photo</div>
+      </div>
+      <div class="team-row">
+        <div>
+          <div class="team-name">Marcus Patel</div>
+          <div class="team-role">Coding &amp; AI</div>
+          <ul class="team-list">
+            <li>Coding fundamentals and problem solving</li>
+            <li>AI, data, and automation projects</li>
+            <li>Real-world application development</li>
+            <li>Debugging and code review</li>
+          </ul>
         </div>
-        <div class="person-card">
-          <div class="avatar-placeholder">Instructor Photo</div>
-          <h3>Emily Zhao</h3>
-          <div class="person-role">Creative Design</div>
-          <p class="person-bio">Blends design thinking with rapid making for projects that stand out.</p>
-          <div class="profile-tags">
-            <span>Design Thinking</span>
-            <span>UI/UX</span>
-            <span>Presentation</span>
-          </div>
+        <div class="team-photo">Instructor Photo</div>
+      </div>
+      <div class="team-row reverse">
+        <div>
+          <div class="team-name">Emily Zhao</div>
+          <div class="team-role">Creative Design</div>
+          <ul class="team-list">
+            <li>Design thinking and creative ideation</li>
+            <li>Visual communication and presentation</li>
+            <li>Prototype storytelling</li>
+            <li>Portfolio-ready project guidance</li>
+          </ul>
         </div>
+        <div class="team-photo">Instructor Photo</div>
       </div>
     </div>
   </section>

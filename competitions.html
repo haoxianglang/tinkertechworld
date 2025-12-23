@@ -54,6 +54,13 @@
     .top-categories li.contact-right {
       margin-left: auto;
     }
+    .top-categories li.contact-right a {
+      font-size: 16px;
+      font-weight: 900;
+      padding: 8px 18px;
+      background: linear-gradient(135deg, rgba(255,152,0,0.35), rgba(233,30,99,0.35));
+      box-shadow: 0 0 0 2px rgba(255,152,0,0.55);
+    }
     .top-categories a {
       display: flex;
       flex-direction: column;
@@ -417,10 +424,11 @@
     }
     .hero-background-image {
       position: absolute;
-      right: 0;
+      left: 0;
       top: 0;
+      width: 100%;
       height: 100%;
-      max-width: 45%;
+      max-width: none;
       object-fit: cover;
       opacity: 0.6;
       z-index: 1;
@@ -618,6 +626,51 @@
       font-size: 2.5em;
       margin-bottom: 40px;
       color: var(--text-dark);
+      font-weight: 800;
+    }
+    .competition-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .competition-card {
+      background: #ffffff;
+      border: 2px solid rgba(33,150,243,0.15);
+      border-radius: 16px;
+      padding: 22px 24px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+      color: var(--text-dark);
+    }
+    .competition-card h3 {
+      margin: 0 0 12px;
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+    .competition-card p {
+      margin: 0;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .competition-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      color: var(--text-muted);
+    }
+    .competition-list li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .competition-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--orange);
       font-weight: 800;
     }
     
@@ -993,6 +1046,11 @@
         margin-left: 0;
         text-align: center;
       }
+      .top-categories li.contact-right a {
+        font-size: 13px;
+        padding: 7px 16px;
+        box-shadow: 0 0 0 2px rgba(255,152,0,0.5);
+      }
       .top-categories a {
         padding: 3px 8px;
         font-size: 10px;
@@ -1050,7 +1108,7 @@
         <li><a href="makerspace.html"><span class="ttw">TTW</span> Makerspace</a></li>
         <li class="active"><a href="competitions.html"><span class="ttw">TTW</span> Competitions</a></li>
         <li><a href="store.html"><span class="ttw">TTW</span> Store</a></li>
-        <li class="contact-right"><a href="#about">About Ua</a></li>
+        <li class="contact-right"><a href="about.html">About Us</a></li>
       </ul>
     </div>
   </div>
@@ -1067,16 +1125,16 @@
         <nav>
         <ul>
           <li>
-            <a href="#dtf-transfers">FIRST Robotics Competition</a>
+            <a href="#first-robotics">FIRST Robotics Competition</a>
           </li>
           <li>
-            <a href="#uv-stickers">World Robot Olympiad</a>
+            <a href="#wro">World Robot Olympiad</a>
           </li>
           <li>
-            <a href="#3d-printing">Sumobot</a>
+            <a href="#sumobot">Sumobot</a>
           </li>
           <li>
-            <a href="#others">Order</a>
+            <a href="#order">Order</a>
           </li>
         </ul>
         </nav>
@@ -1096,177 +1154,130 @@
         </div>
       </div>
     </div>
-  </header>  <section class="hero">
-      <img src="/image/DTF background.png" alt="DTF Transfer Example" class="hero-background-image" onerror="this.style.display='none'" />
-      <div class="hero-badge">🎨 Premium DTF Transfers</div>
-      <h1>Custom DTF Transfers</h1>
-      <p>Print Any Design on Any Fabric with Incredible Durability</p>
-      <p class="hero-subtitle">Professional quality transfers with no minimums, fast shipping, and unbeatable durability. Perfect for custom apparel, promotional items, and more.</p>
-    
-
-      
+  </header>
+  <section class="hero" id="competitions">
+      <img src="/image/Robotics Competition.png" alt="Competition teams in action" class="hero-background-image" onerror="this.style.display='none'" />
+      <div class="hero-badge">🏆 TTW Competitions</div>
+      <h1>Compete, Build, Grow</h1>
+      <p>Join robotics and engineering competitions that develop real-world skills.</p>
+      <p class="hero-subtitle">We support teams through training, mentoring, and equipment so students can design, prototype, and compete with confidence.</p>
       <div class="hero-features">
         <div class="hero-feature-item">
-          <div class="feature-icon-small">✓</div>
-          <span>No Minimums</span>
+          <div class="feature-icon-small">🤝</div>
+          <span>Mentor Support</span>
         </div>
         <div class="hero-feature-item">
-          <div class="feature-icon-small">⚡</div>
-          <span>Fast Shipping</span>
+          <div class="feature-icon-small">🛠️</div>
+          <span>Build Season Prep</span>
         </div>
         <div class="hero-feature-item">
-          <div class="feature-icon-small">★</div>
-          <span>Premium Quality</span>
+          <div class="feature-icon-small">📈</div>
+          <span>Skill Progression</span>
         </div>
         <div class="hero-feature-item">
-          <div class="feature-icon-small">💪</div>
-          <span>100+ Washes</span>
+          <div class="feature-icon-small">🏅</div>
+          <span>Competition Ready</span>
         </div>
       </div>
   </section>
   
-  
-
-  <!-- 产品流程 -->
-  <section class="process-section">
+  <section class="section competition-section" id="first-robotics">
     <div class="container">
-      <h2>How It Works</h2>
-      <div class="process-steps">
-        <div class="step">
-          <div class="step-number">1</div>
-          <h3>Upload Your Design</h3>
-          <p>Send us your artwork in any format - PNG, JPG, PDF, or AI files accepted.</p>
+      <h2>FIRST Robotics Competition</h2>
+      <div class="competition-grid">
+        <div class="competition-card">
+          <h3>Challenge Focus</h3>
+          <p>Large-scale robot engineering, alliance strategy, and real-time match performance.</p>
         </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <h3>We Print & Ship</h3>
-          <p>Our advanced DTF printers create high-quality transfers with vibrant colors.</p>
+        <div class="competition-card">
+          <h3>Core Skills</h3>
+          <ul class="competition-list">
+            <li>Mechanical design and fabrication</li>
+            <li>Electrical wiring and control systems</li>
+            <li>Programming, vision, and automation</li>
+            <li>Project management and team leadership</li>
+          </ul>
         </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <h3>Heat Press & Enjoy</h3>
-          <p>Apply with heat press at 320°F for 15 seconds. Peel and you're done!</p>
+        <div class="competition-card">
+          <h3>TTW Support</h3>
+          <ul class="competition-list">
+            <li>Build season planning and milestones</li>
+            <li>Workshop access and tool training</li>
+            <li>Prototype testing and iteration</li>
+            <li>Competition-day logistics prep</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  
-
-  <!-- UV 3D Stickers Section -->
-  <section class="hero" id="uv-stickers">
-    <img src="/image/UV Stickers.png" alt="UV 3D Stickers Example" class="hero-background-image" onerror="this.style.display='none'" />
-      <div class="hero-badge">✨ Premium UV 3D Stickers</div>
-      <h1>Custom UV 3D Stickers</h1>
-      <p>Create Stunning Raised 3D Effects with UV-Cured Resin Technology</p>
-      <p class="hero-subtitle">Professional quality 3D stickers with crystal-clear finish, waterproof durability, and eye-catching dimensional effects. Perfect for labels, decals, and premium branding.</p>
-    
-      <div class="hero-features">
-        <div class="hero-feature-item">
-          <div class="feature-icon-small">🌟</div>
-          <span>3D Raised Effect</span>
-        </div>
-        <div class="hero-feature-item">
-          <div class="feature-icon-small">💧</div>
-          <span>100% Waterproof</span>
-        </div>
-        <div class="hero-feature-item">
-          <div class="feature-icon-small">☀️</div>
-          <span>UV Resistant</span>
-        </div>
-        <div class="hero-feature-item">
-          <div class="feature-icon-small">💎</div>
-          <span>Crystal Clear</span>
-        </div>
-      </div>
-  </section>
-  
-  
-
-  <!-- UV Sticker Process -->
-  <section class="process-section">
+  <section class="section competition-section" id="wro">
     <div class="container">
-      <h2>How It Works</h2>
-      <div class="process-steps">
-        <div class="step">
-          <div class="step-number">1</div>
-          <h3>Design Your Sticker</h3>
-          <p>Upload your artwork or logo. We accept all file formats and provide free design assistance.</p>
+      <h2>World Robot Olympiad</h2>
+      <div class="competition-grid">
+        <div class="competition-card">
+          <h3>Challenge Focus</h3>
+          <p>Innovative robotics solutions built around yearly themes and missions.</p>
         </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <h3>Print & UV Cure</h3>
-          <p>High-resolution printing followed by UV resin application and instant curing for durability.</p>
+        <div class="competition-card">
+          <h3>Core Skills</h3>
+          <ul class="competition-list">
+            <li>Robotics design and sensor integration</li>
+            <li>Autonomous coding and optimization</li>
+            <li>Team collaboration and documentation</li>
+            <li>Presentation and communication</li>
+          </ul>
         </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <h3>Peel & Stick</h3>
-          <p>Easy peel-and-stick application on any smooth surface. Repositionable during application.</p>
+        <div class="competition-card">
+          <h3>TTW Support</h3>
+          <ul class="competition-list">
+            <li>Weekly coaching and mission review</li>
+            <li>Programming labs and debugging help</li>
+            <li>Challenge strategy and scoring practice</li>
+            <li>Presentation and demo coaching</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
-  <!-- 3D Printing Section -->
-  <section class="hero" id="3d-printing">
-    <img src="/image/3D Print.png" alt="3D Printing Example" class="hero-background-image" onerror="this.style.display='none'" />
-      <div class="hero-badge">🚀 Advanced 3D Printing</div>
-      <h1>Custom 3D Printing Services</h1>
-      <p>Transform Your Ideas into Reality with Professional 3D Printing</p>
-      <p class="hero-subtitle">High-precision 3D printing services for prototypes, custom parts, and production runs. Multiple materials and finishes available with industry-leading quality.</p>
-    
-      <div class="hero-features">
-        <div class="hero-feature-item">
-          <div class="feature-icon-small">🎯</div>
-          <span>High Precision</span>
-        </div>
-        <div class="hero-feature-item">
-          <div class="feature-icon-small">🔧</div>
-          <span>Multiple Materials</span>
-        </div>
-        <div class="hero-feature-item">
-          <div class="feature-icon-small">⚡</div>
-          <span>Fast Turnaround</span>
-        </div>
-        <div class="hero-feature-item">
-          <div class="feature-icon-small">💼</div>
-          <span>Professional Grade</span>
-        </div>
-      </div>
-  </section>
-  
-  
 
-  <!-- 3D Printing Process -->
-  <section class="process-section">
+  <section class="section competition-section" id="sumobot">
     <div class="container">
-      <h2>How It Works</h2>
-      <div class="process-steps">
-        <div class="step">
-          <div class="step-number">1</div>
-          <h3>Upload Your Design</h3>
-          <p>Send us your files. Need help? Our team can design it for you.</p>
+      <h2>Sumobot</h2>
+      <div class="competition-grid">
+        <div class="competition-card">
+          <h3>Challenge Focus</h3>
+          <p>Compact robot design, fast control, and smart arena strategy.</p>
         </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <h3>We Print & Finish</h3>
-          <p>Professional printing with quality checks. Optional post-processing for perfect finish.</p>
+        <div class="competition-card">
+          <h3>Core Skills</h3>
+          <ul class="competition-list">
+            <li>Drive systems and traction tuning</li>
+            <li>Sensor logic and edge detection</li>
+            <li>Rapid iteration and testing</li>
+            <li>Match tactics and performance</li>
+          </ul>
         </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <h3>Fast Delivery</h3>
-          <p>Secure packaging and fast shipping. Track your order every step of the way.</p>
+        <div class="competition-card">
+          <h3>TTW Support</h3>
+          <ul class="competition-list">
+            <li>Robot kits and component selection</li>
+            <li>Control tuning and performance tests</li>
+            <li>Practice ring access and scrimmages</li>
+            <li>Team formation and mentorship</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
-  <!-- 3D Printing CTA -->
-  <section class="cta-section">
+
+  <section class="cta-section" id="order">
     <div class="container">
-      <h2>Ready to Bring Your Design to Life?</h2>
-      <p>Get an instant quote or speak with our experts today</p>
+      <h2>Ready to Join a Competition Team?</h2>
+      <p>Tell us your goals and we will match you with the right program and timeline.</p>
       <div class="cta-buttons">
-        <a href="#quote" class="cta-btn cta-primary">Get Instant Quote</a>
-        <a href="#contact" class="cta-btn cta-secondary">Talk to Expert</a>
+        <a href="#contact" class="cta-btn cta-primary">Request Team Placement</a>
+        <a href="mailto:tinkertechworld@gmail.com" class="cta-btn cta-secondary">Ask About Schedules</a>
       </div>
     </div>
   </section>

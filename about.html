@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tinker Tech World</title>
-  <meta name="description" content="Tinker Tech World — STEM, Robotics, Coding & English Training. Launching soon." />
+  <title>About Us | Tinker Tech World</title>
+  <meta name="description" content="Learn about Tinker Tech World, our mission, founders, and instructors." />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
   <style>
     :root{
@@ -627,7 +627,7 @@
       color: var(--text-dark);
       font-weight: 800;
     }
-    .maker-intro .intro-text {
+    .about-intro .intro-text {
       max-width: 900px;
       margin: 0 auto;
       font-size: clamp(1rem, 1.6vw, 1.2rem);
@@ -635,59 +635,91 @@
       color: var(--text-muted);
       text-align: left;
     }
-    .maker-intro .intro-text p {
+    .about-intro .intro-text p {
       margin: 0 0 20px;
     }
-    .support-section .equipment-grid {
+    .about-highlights {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 20px;
       max-width: 1100px;
       margin: 0 auto;
     }
-    .support-section .equipment-card {
+    .highlight-card {
       background: #ffffff;
       border: 2px solid rgba(0,188,212,0.15);
       border-radius: 16px;
-      padding: 18px 20px;
+      padding: 20px 22px;
       box-shadow: 0 8px 18px rgba(0,0,0,0.06);
     }
-    .support-section .equipment-card h3 {
+    .highlight-card h3 {
       margin: 0 0 12px;
       font-size: 1.15rem;
       color: var(--text-dark);
       font-weight: 800;
     }
-    .support-section .equipment-card ul {
-      list-style: none;
-      padding: 0;
+    .highlight-card p {
       margin: 0;
       color: var(--text-muted);
+      line-height: 1.6;
     }
-    .support-section .equipment-card li {
-      position: relative;
-      padding-left: 18px;
-      margin-bottom: 10px;
-      line-height: 1.5;
-    }
-    .support-section .equipment-card li::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      top: 0;
-      color: var(--blue);
-      font-weight: 800;
-    }
-    .maker-intro .intro-text {
-      max-width: 900px;
+    .people-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
+      max-width: 1100px;
       margin: 0 auto;
-      font-size: clamp(1rem, 1.6vw, 1.2rem);
-      line-height: 1.75;
-      color: var(--text-muted);
-      text-align: left;
     }
-    .maker-intro .intro-text p {
-      margin: 0 0 20px;
+    .person-card {
+      background: #ffffff;
+      border: 2px solid rgba(255,152,0,0.18);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.07);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .avatar-placeholder {
+      height: 200px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(0,188,212,0.25), rgba(255,152,0,0.25));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: var(--text-dark);
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+    .person-card h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+    .person-role {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--blue);
+    }
+    .person-bio {
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .profile-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .profile-tags span {
+      background: rgba(0,188,212,0.12);
+      color: var(--text-dark);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
     }
     
     a{color:var(--blue); text-decoration:none; font-weight:600}
@@ -1121,10 +1153,10 @@
     <div class="container">
       <ul>
         <li><a href="index.html"><span class="ttw">TTW</span> Education</a></li>
-        <li class="active"><a href="makerspace.html"><span class="ttw">TTW</span> Makerspace</a></li>
+        <li><a href="makerspace.html"><span class="ttw">TTW</span> Makerspace</a></li>
         <li><a href="competitions.html"><span class="ttw">TTW</span> Competitions</a></li>
         <li><a href="store.html"><span class="ttw">TTW</span> Store</a></li>
-        <li class="contact-right"><a href="about.html">About Us</a></li>
+        <li class="contact-right active"><a href="about.html">About Us</a></li>
       </ul>
     </div>
   </div>
@@ -1155,61 +1187,129 @@
         </div>
       </div>
     </div>
-  </header>  <section class="hero">
-      <img src="/image/Makerspace.png" alt="DTF Transfer Example" class="hero-background-image" onerror="this.style.display='none'" />
-      <div class="hero-badge"><h1>Maker Space</h1></div>
-      <p>Build, prototype, and learn with 3D printers, robotics, coding, and electronics.</p>
-      <p class="hero-subtitle">A collaborative makerspace for workshops, mentorship, and hands-on STEAM projects that turn ideas into working creations.</p>    
+  </header>
+  <section class="hero" id="about">
+      <img src="/image/Makerspace.png" alt="Tinker Tech World team in the makerspace" class="hero-background-image" onerror="this.style.display='none'" />
+      <div class="hero-badge">About Us</div>
+      <h1>We Build Skills for a Changing World</h1>
+      <p>Hands-on learning, creative problem solving, and real-world projects.</p>
+      <p class="hero-subtitle">Tinker Tech World is a community where learners, families, and teams grow through engineering, robotics, design, and entrepreneurship.</p>
   </section>
-  <section class="section maker-intro">
+  <section class="section about-intro" id="story">
     <div class="container">
-      <h2>Maker Space – Where Ideas Become Reality</h2>
+      <h2>Our Story</h2>
       <div class="intro-text">
-        <p>The Maker Space is an open, hands-on innovation hub designed to inspire creativity, problem-solving, and real-world skill development. It provides learners, educators, entrepreneurs, and teams with access to advanced tools, professional guidance, and a collaborative environment to transform ideas into tangible projects.</p>
-        <p>Through project-based learning, workshops, and guided exploration, the Maker Space empowers users to design, prototype, and build across disciplines such as engineering, robotics, electronics, digital fabrication, and creative design. Whether you are a beginner exploring technology for the first time or an experienced maker refining a prototype, the Maker Space offers the resources and support to bring your vision to life.</p>
+        <p>We started Tinker Tech World to make STEM education practical, creative, and personal. Our programs are built around doing: designing, prototyping, testing, and learning from each iteration.</p>
+        <p>From first-time builders to advanced teams preparing for competitions, we provide the space, guidance, and culture that help people turn ideas into outcomes.</p>
       </div>
     </div>
   </section>
-  <section class="section support-section">
+  <section class="section" id="mission">
     <div class="container">
-      <h2>Equipment and Facilities Available in the Maker Space</h2>
-      <div class="equipment-grid">
-        <div class="equipment-card">
-          <h3>Mechanical &amp; Hand Tools</h3>
-          <ul>
-            <li>Power tools (drills, saws, sanders)</li>
-            <li>Hand tools (screwdrivers, pliers, wrenches)</li>
-            <li>Workbenches and clamping systems</li>
-            <li>Safety equipment and tool storage</li>
-          </ul>
+      <h2>What We Stand For</h2>
+      <div class="about-highlights">
+        <div class="highlight-card">
+          <h3>Project-Based Learning</h3>
+          <p>Every lesson is connected to a tangible build, from simple circuits to full robotics systems.</p>
         </div>
-        <div class="equipment-card">
-          <h3>Electronics &amp; Robotics</h3>
-          <ul>
-            <li>Arduino, Raspberry Pi, and microcontroller kits</li>
-            <li>Robotics kits and electrical/electronic components</li>
-            <li>Soldering stations and electronic workbenches</li>
-            <li>Multimeters, power supplies, and testing tools</li>
-            <li>Sensors, motors, and electronic modules</li>
-          </ul>
+        <div class="highlight-card">
+          <h3>Mentorship &amp; Guidance</h3>
+          <p>Students and teams work with mentors who care about growth, confidence, and technical depth.</p>
         </div>
-        <div class="equipment-card">
-          <h3>Programming &amp; Computing</h3>
-          <ul>
-            <li>High-performance computers</li>
-            <li>CAD and 3D modeling software</li>
-            <li>Coding and simulation environments</li>
-            <li>AI, data, and automation learning tools</li>
-          </ul>
+        <div class="highlight-card">
+          <h3>Community &amp; Collaboration</h3>
+          <p>We create an environment where curiosity thrives and teamwork turns challenges into breakthroughs.</p>
         </div>
-        <div class="equipment-card">
-          <h3>Creative &amp; Design Tools</h3>
-          <ul>
-            <li>3D Printers (multiple sizes and materials)</li>
-            <li>UV 3D Printer (Stickers)</li>
-            <li>DTF Printer (DTF Transfers)</li>
-          </ul>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="founders">
+    <div class="container">
+      <h2>Founders</h2>
+      <div class="people-grid">
+        <div class="person-card">
+          <div class="avatar-placeholder">Founder Photo</div>
+          <h3>Alex Chen</h3>
+          <div class="person-role">Co-Founder · STEM Program Director</div>
+          <p class="person-bio">Background in mechanical engineering and youth robotics coaching. Focused on building programs that turn curiosity into measurable skills.</p>
+          <div class="profile-tags">
+            <span>Robotics</span>
+            <span>Mechanical Design</span>
+            <span>Team Coaching</span>
+          </div>
         </div>
+        <div class="person-card">
+          <div class="avatar-placeholder">Founder Photo</div>
+          <h3>Jamie Li</h3>
+          <div class="person-role">Co-Founder · Learning Experience Lead</div>
+          <p class="person-bio">Specializes in curriculum design and project-based learning. Passionate about helping students build confidence through making.</p>
+          <div class="profile-tags">
+            <span>Curriculum</span>
+            <span>Product Design</span>
+            <span>Leadership</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="instructors">
+    <div class="container">
+      <h2>Instructors</h2>
+      <div class="people-grid">
+        <div class="person-card">
+          <div class="avatar-placeholder">Instructor Photo</div>
+          <h3>Jordan Park</h3>
+          <div class="person-role">Robotics &amp; Automation</div>
+          <p class="person-bio">Guides students through sensors, control systems, and competition-ready programming.</p>
+          <div class="profile-tags">
+            <span>Arduino</span>
+            <span>Python</span>
+            <span>Controls</span>
+          </div>
+        </div>
+        <div class="person-card">
+          <div class="avatar-placeholder">Instructor Photo</div>
+          <h3>Sofia Ramirez</h3>
+          <div class="person-role">Digital Fabrication</div>
+          <p class="person-bio">Supports 3D printing, laser cutting, and CAD workflows from idea to prototype.</p>
+          <div class="profile-tags">
+            <span>CAD</span>
+            <span>3D Printing</span>
+            <span>Prototyping</span>
+          </div>
+        </div>
+        <div class="person-card">
+          <div class="avatar-placeholder">Instructor Photo</div>
+          <h3>Marcus Patel</h3>
+          <div class="person-role">Coding &amp; AI</div>
+          <p class="person-bio">Leads coding camps focused on real-world applications, data, and automation.</p>
+          <div class="profile-tags">
+            <span>JavaScript</span>
+            <span>AI Tools</span>
+            <span>Data</span>
+          </div>
+        </div>
+        <div class="person-card">
+          <div class="avatar-placeholder">Instructor Photo</div>
+          <h3>Emily Zhao</h3>
+          <div class="person-role">Creative Design</div>
+          <p class="person-bio">Blends design thinking with rapid making for projects that stand out.</p>
+          <div class="profile-tags">
+            <span>Design Thinking</span>
+            <span>UI/UX</span>
+            <span>Presentation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="cta-section" id="contact">
+    <div class="container">
+      <h2>Let’s Build Together</h2>
+      <p>Connect with our team to learn about programs, mentorship, and partnerships.</p>
+      <div class="cta-buttons">
+        <a href="mailto:tinkertechworld@gmail.com" class="cta-btn cta-primary">Email the Team</a>
+        <a href="makerspace.html" class="cta-btn cta-secondary">Explore the Makerspace</a>
       </div>
     </div>
   </section>

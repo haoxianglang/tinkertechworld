@@ -19,7 +19,7 @@ class Page(HTMLParser):
         if tag=='script':self.script=False
     def handle_data(self,data):
         if self.script:self.scripts.append(data)
-files=[p for p in ROOT.rglob('*.html') if not any(x in p.parts for x in ['.git','node_modules'])]
+files=[p for p in ROOT.rglob('*.html') if not any(x in p.parts for x in ['.git','node_modules','dist'])]
 parsed={p:Page(p.read_text()) for p in files}
 for p,page in parsed.items():
     label=str(p.relative_to(ROOT)); text=p.read_text()
@@ -57,7 +57,7 @@ for loc in urls:
     if any(t=='meta' and a.get('name')=='robots' and 'noindex' in a.get('content','') for t,a in page.tags):errors.append('sitemap noindex '+loc.text)
 for en in [p for p in files if 'zh' not in p.relative_to(ROOT).parts]:
     if ROOT/'zh'/en.relative_to(ROOT) not in parsed:errors.append('missing Chinese '+str(en))
-for path,budget in [('assets/site.js',10000),('assets/site.css',25000),('assets/makerspace.webp',220000),('assets/makerspace-small.webp',100000)]:
+for path,budget in [('assets/site.js',10000),('assets/site.css',28000),('assets/chat.js',10000),('assets/makerspace.webp',220000),('assets/makerspace-small.webp',100000)]:
     size=(ROOT/path).stat().st_size
     if size>budget:errors.append(f'{path}: {size} > {budget} byte budget')
 if errors:

@@ -193,3 +193,7 @@ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial,
 - [体验申请手机页](../06_testing/website/booking-viewport.png)
 
 全局设计变更后更新相应参考图，避免后续 AI 拿过时截图作为新设计要求。
+
+## 11. Tinker AI 助手（2026-09-19）
+
+沿用浮动聊天入口和 TTW 品牌色。界面明确说明 AI 身份、Gemini 消息处理和回答可能出错；保留追问、来源、重新开始、加载与失败重试。错误时引导联系 TTW，不静默回退为关键词匹配。API Key 仅在服务端；公开部署输出为 `05_website/dist/`。知识与接口修改遵循 [Chatbot_Guide.md](Chatbot_Guide.md)。

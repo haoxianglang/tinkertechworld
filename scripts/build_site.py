@@ -183,8 +183,11 @@ def icon(kind):
 # Repeated card / grid blocks
 # ============================================================
 
-def program_card_html(p):
-    status_badge = '' if p['slug'] == 'lego-robotics' else f'''<span class="status">{t(p['status'])}</span>'''
+def program_card_html(p, show_status=True):
+    status_badge = (
+        '' if p['slug'] == 'lego-robotics' or not show_status
+        else f'''<span class="status">{t(p['status'])}</span>'''
+    )
     return (
         f'''<article class="card program-card {p['color']}">'''
         f'''<div class="card-visual">{icon(p['icon'])}</div>'''
@@ -208,10 +211,6 @@ def fll_card():
         f'''<div class="card-visual">{icon('brick')}</div>'''
         f'''<p class="meta">{t('Grades 4–12 · Team-based', '4–12 年级 · 团队制')}</p>'''
         f'''<h3>{link('first-lego-league.html', 'FIRST LEGO League', 'title')}</h3>'''
-        f'''<span class="status">{t(
-            'Future pathway · Ask about team opportunities',
-            '未来学习方向 · 咨询战队机会',
-        )}</span>'''
         f'''<p>{t(
             'A team challenge that brings building, coding and problem solving together. '
             'Ask TTW about readiness and potential team opportunities.',
@@ -421,54 +420,52 @@ def heading(title, desc, kicker=None, desc_cls='lead'):
     )
 
 
-# ============================================================
-# Tinker: lightweight, client-side FAQ chat widget.
-# No backend, no third-party API, no fetch — the current language's
-# FAQ pairs are inlined as JSON on every page and matched in the
-# browser by assets/site.js. See Technical_Architecture.md.
-# ============================================================
-
+# Tinker: Gemini-backed conversation UI. All model calls stay behind /api/chat.
 def tinker_widget():
-    tinker_data = {
-        'greeting': t(
-            'Hi, I’m Tinker! Ask me about programs, trials or how TTW works.',
-            '你好，我是 Tinker！可以问我课程、体验课或 TTW 的相关问题。',
-        ),
-        'fallback': t(
-            'I’m not sure about that one yet — ask TTW directly and they’ll help.',
-            '这个问题我暂时还不确定，直接联系 TTW，他们会帮你解答。',
-        ),
-        'fallbackLinkText': t('Contact TTW →', '联系 TTW →'),
-        'fallbackLinkHref': url('contact-us.html'),
-        'qa': [{'q': t(x[0], x[1]), 'a': t(x[2], x[3])} for x in FAQ],
+    labels = {
+        'greeting': t('Hi, I’m Tinker, TTW’s AI assistant. What would you like to know about our programs, membership or sample schedule?',
+                      '你好，我是 TTW 的 AI 助手 Tinker。你想了解课程、会员，还是示例课表？'),
+        'thinking': t('Checking TTW’s knowledge…', '正在查阅 TTW 知识库…'),
+        'unavailable': t('The AI assistant is unavailable right now. Please retry or contact TTW.', 'AI 助手暂时无法连接，请重试或联系 TTW。'),
+        'rateLimited': t('Too many requests right now. Please wait a minute before retrying.', '当前请求较多，请等待一分钟后重试。'),
+        'timeout': t('The answer took too long. Please retry or contact TTW.', '回答超时，请重试或联系 TTW。'),
+        'retry': t('Retry', '重试'),
+        'sources': t('Reference', '参考资料'),
+        'contact': t('Contact TTW →', '联系 TTW →'),
+        'contactHref': url('contact-us.html'),
+        'resetStatus': t('Conversation cleared.', '对话已清除。'),
     }
+    suggestions = [t('Which program suits Grade 4?', '四年级适合什么课程？'),
+                   t('What does membership include?', '会员包含哪些权益？')]
     return (
-        f'''<div class="tinker">'''
-        f'''<button class="tinker-launcher" id="tinker-launcher" type="button" '''
-        f'''aria-expanded="false" aria-controls="tinker-panel" '''
-        f'''aria-label="{t('Chat with Tinker', '和 Tinker 聊聊')}">'''
-        f'''<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" '''
-        f'''stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'''
-        f'''<path d="M21 11.5a8.38 8.38 0 0 1-4.55 7.46 8.5 8.5 0 0 1-8.31-.08L3 21l2.12-5.14 '''
-        f'''a8.38 8.38 0 0 1-.9-3.86 8.5 8.5 0 0 1 12.72-7.36A8.48 8.48 0 0 1 21 11.5Z"/>'''
-        f'''</svg>'''
-        f'''</button>'''
-        f'''<section class="tinker-panel" id="tinker-panel" hidden aria-label="Tinker">'''
-        f'''<div class="tinker-head">'''
-        f'''<div><h2>Tinker</h2><span>{t('TTW’s quick-answer helper', 'TTW 快速问答助手')}</span></div>'''
-        f'''<button class="tinker-close" id="tinker-close" type="button" '''
-        f'''aria-label="{t('Close chat', '关闭聊天')}">✕</button>'''
-        f'''</div>'''
-        f'''<div class="tinker-messages" id="tinker-messages" role="log" aria-live="polite"></div>'''
-        f'''<form class="tinker-form" id="tinker-form">'''
-        f'''<label for="tinker-input" class="sr-only">{t('Ask Tinker a question', '向 Tinker 提问')}</label>'''
-        f'''<input id="tinker-input" name="tinker-input" type="text" autocomplete="off" '''
-        f'''maxlength="200" placeholder="{t('Ask a question…', '请输入问题…')}">'''
-        f'''<button type="submit" class="button primary">{t('Send', '发送')}</button>'''
-        f'''</form>'''
-        f'''<script type="application/json" id="tinker-data">{json.dumps(tinker_data, ensure_ascii=False)}</script>'''
-        f'''</section>'''
-        f'''</div>'''
+        '<div class="tinker">'
+        '<button class="tinker-launcher" id="tinker-launcher" type="button" '
+        'aria-expanded="false" aria-controls="tinker-panel" '
+        f'aria-label="{t("Chat with Tinker", "和 Tinker 聊聊")}">'
+        '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" '
+        'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+        '<path d="M21 11.5a8.38 8.38 0 0 1-4.55 7.46 8.5 8.5 0 0 1-8.31-.08L3 21l2.12-5.14 '
+        'a8.38 8.38 0 0 1-.9-3.86 8.5 8.5 0 0 1 12.72-7.36A8.48 8.48 0 0 1 21 11.5Z"/></svg></button>'
+        '<section class="tinker-panel" id="tinker-panel" hidden aria-labelledby="tinker-title">'
+        '<div class="tinker-head"><div><h2 id="tinker-title">Tinker</h2>'
+        f'<span>{t("TTW’s AI assistant", "TTW AI 知识助手")}</span></div>'
+        f'<button class="tinker-close" id="tinker-close" type="button" aria-label="{t("Close chat", "关闭聊天")}">✕</button></div>'
+        '<div class="tinker-tools">'
+        f'<button id="tinker-reset" type="button">{t("New conversation", "重新开始")}</button>'
+        f'<a href="{url("contact-us.html")}">{t("Contact TTW", "联系 TTW")}</a></div>'
+        f'<p class="tinker-notice">{t("AI answers use TTW’s knowledge and may be mistaken. Messages and recent chat are sent to Google Gemini. Please leave out personal details.", "AI 根据 TTW 知识库回答，可能出错。消息及最近对话将发送至 Google Gemini，请勿输入个人资料。")} '
+        f'<a href="{url("privacy.html")}">{t("Privacy", "隐私说明")}</a></p>'
+        f'<div class="tinker-messages" id="tinker-messages" role="log" aria-label="{t("Conversation", "对话记录")}" aria-live="polite" aria-relevant="additions"></div>'
+        '<div class="tinker-suggestions" id="tinker-suggestions">'
+        + ''.join(f'<button type="button">{esc(q)}</button>' for q in suggestions)
+        + '</div><p class="tinker-status" id="tinker-status" role="status"></p>'
+        '<form class="tinker-form" id="tinker-form">'
+        f'<label for="tinker-input" class="sr-only">{t("Ask Tinker a question", "向 Tinker 提问")}</label>'
+        '<input id="tinker-input" name="tinker-input" type="text" autocomplete="off" '
+        f'maxlength="1000" required placeholder="{t("Ask a question…", "请输入问题…")}">'
+        f'<button type="submit" class="button primary">{t("Send", "发送")}</button></form>'
+        f'<script type="application/json" id="tinker-data">{json.dumps(labels, ensure_ascii=False)}</script>'
+        '</section></div>'
     )
 
 
@@ -536,6 +533,7 @@ def render(route, title, desc, body, nav='', noindex=False):
         f'''<link rel="icon" type="image/webp" href="/assets/logo.webp">'''
         f'''<link rel="stylesheet" href="/assets/site.css?v={csshash}">'''
         f'''<script src="/assets/site.js?v={jshash}" defer></script>'''
+        f'''<script src="/assets/chat.js?v={hashlib.sha256((ROOT / 'assets/chat.js').read_bytes()).hexdigest()[:10]}" defer></script>'''
         f'''<script type="application/ld+json">{json.dumps(schema, ensure_ascii=False)}</script>'''
         f'''</head>\n'''
     )
@@ -1262,15 +1260,15 @@ def other_pages():
     )
     programs_by_slug = {p['slug']: p for p in DATA['programs']}
     programs_grid = '<div class="grid program-grid">' + ''.join([
-        program_card_html(programs_by_slug['lego-robotics']),
-        program_card_html(programs_by_slug['wro']),
+        program_card_html(programs_by_slug['lego-robotics'], show_status=False),
+        program_card_html(programs_by_slug['wro'], show_status=False),
         fll_card(),
-        program_card_html(programs_by_slug['distilled']),
-        program_card_html(programs_by_slug['robotics-for-adults']),
-        program_card_html(programs_by_slug['ielts']),
-        program_card_html(programs_by_slug['3d-design-printing']),
-        program_card_html(programs_by_slug['dtf-printing']),
-        program_card_html(programs_by_slug['uv-printing']),
+        program_card_html(programs_by_slug['distilled'], show_status=False),
+        program_card_html(programs_by_slug['robotics-for-adults'], show_status=False),
+        program_card_html(programs_by_slug['ielts'], show_status=False),
+        program_card_html(programs_by_slug['3d-design-printing'], show_status=False),
+        program_card_html(programs_by_slug['dtf-printing'], show_status=False),
+        program_card_html(programs_by_slug['uv-printing'], show_status=False),
     ]) + '</div>'
     body += section(programs_grid) + section(
         '<h2>' + t('Not sure where to start?', '不确定从哪里开始？') + '</h2>'
@@ -1794,6 +1792,13 @@ def other_pages():
     )
 
     privacy_sections = [
+        ('Tinker AI conversations', 'Tinker AI 对话',
+         'When you send a chat message, the website backend sends it and up to four recent exchanges to Google Gemini, together with TTW’s knowledge documents, to generate a reply. '
+         'Chat history stays in this page’s memory; New conversation or a page reload clears it. This application does not save a chat transcript or log message bodies. '
+         'The hosting and AI providers process requests under their own terms. Do not send personal, medical or payment information. AI replies are not booking confirmations.',
+         '发送聊天消息后，网站后端会将消息、最近最多四轮对话及 TTW 知识资料发送给 Google Gemini 以生成回答。'
+         '聊天记录仅保留在本页面内存中，点击“重新开始”或重新加载页面即可清除。本应用不保存对话档案，也不记录消息正文。'
+         '托管和 AI 服务商按其各自条款处理请求。请勿发送个人、医疗或支付信息。AI 回答不代表预约确认。'),
         ('Preparing a request', '准备申请',
          'Form entries stay in this page until you choose to open an email, copy the message or download it. '
          'This website does not send the form to a server or save it in browser storage.',
@@ -1826,7 +1831,7 @@ def other_pages():
         '<div class="prose">'
         + ''.join(f'<h2>{t(e, z)}</h2><p>{t(d, zd)}</p>' for e, z, d, zd in privacy_sections)
         + f'<h2>{t("Contact", "联系")}</h2><a href="mailto:{DATA["email"]}">{DATA["email"]}</a>'
-        f'<p class="small">{t("Website notice updated September 17, 2026.", "网站说明更新于 2026 年 9 月 17 日。")}</p></div>'
+        f'<p class="small">{t("Website notice updated September 19, 2026.", "网站说明更新于 2026 年 9 月 19 日。")}</p></div>'
     )
     render(
         'privacy.html', t('Website Privacy', '网站隐私说明'),
@@ -1858,6 +1863,10 @@ def other_pages():
 # ============================================================
 
 if __name__ == '__main__':
+    from generate_pages_function import main as build_chat
+    from generate_worker import main as build_worker
+    build_chat()
+    build_worker()
     for LANG in ['en', 'zh']:
         home()
         other_pages()
@@ -1884,7 +1893,7 @@ if __name__ == '__main__':
     )
     (ROOT / '.nojekyll').touch()
 
-    exclude_dirs = {'docs', 'content', 'scripts', 'tests', 'assets', 'image'}
+    exclude_dirs = {'docs', 'content', 'scripts', 'tests', 'assets', 'image', 'dist'}
     stale = [
         f for f in ROOT.rglob('*.html')
         if not (set(f.relative_to(ROOT).parts[:-1]) & exclude_dirs) and f not in written
@@ -1894,4 +1903,6 @@ if __name__ == '__main__':
         f.unlink()
 
     note = f' Removed {len(stale)} stale file(s).' if stale else ''
-    print(f'Built {len(pages) + 4} static pages across English and Chinese.' + note)
+    print(f'Built {len(written)} static pages across English and Chinese.' + note)
+    from stage_public import main as stage_public
+    stage_public()

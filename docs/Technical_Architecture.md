@@ -1,12 +1,15 @@
 # Technical Architecture
 
 ## Approach
-Continue the existing static GitHub Pages-compatible site, with generated HTML at the site root. The current working copy is the TTW workspace’s `05_website/` directory; the original Dropbox repository is retained as a source copy and is not automatically synchronized. No framework migration, production Node server, runtime dependencies, external fonts or client-side router. SEO/content/navigation work before JavaScript loads.
+Continue the existing static GitHub Pages-compatible site, with generated HTML at the site root. The current working copy is the TTW workspace’s `05_website/` directory; the original Dropbox repository is retained as a source copy and is not automatically synchronized. No frontend framework migration, external fonts or client-side router. Static pages now have a Cloudflare Pages chat Function; local full-stack preview requires Node 20.12+ and Python 3, with no production npm dependencies. SEO/content/navigation work before JavaScript loads.
 
 - `content/site.json`: business settings and bilingual program/age records.
 - `scripts/build_site.py`: Python 3 standard-library renderer with shared layout, navigation, footer, cards, CTA, FAQ, program/age layouts and inquiry layout.
 - `assets/site.css`: responsive design tokens, layouts, form states, print and reduced-motion rules.
-- `assets/site.js`: optional mobile menu, private inquiry preparation and the Tinker FAQ widget; no fetch, tracking or browser persistence.
+- `assets/site.js`: mobile menu and private inquiry preparation.
+- `assets/chat.js`: Tinker AI UI; calls the same-origin `/api/chat` endpoint and keeps recent chat only in memory.
+- `server/chat-core.mjs`: shared Gemini backend; `server/knowledge.mjs`: generated knowledge bundle.
+- `dist/`: public deployment output, excluding backend sources and local secrets.
 - `assets/*.webp`: optimized derivatives of existing logo and illustration. Original `image/` assets stay intact.
 - HTML, sitemap.xml, robots.txt, .nojekyll: generated deployable assets. CSS/JS receive content-hash cache keys.
 - `tests/check_site.py`: source/HTML/link/schema/size validation.
@@ -17,27 +20,28 @@ Continue the existing static GitHub Pages-compatible site, with generated HTML a
 ```sh
 python3 scripts/build_site.py
 python3 tests/check_site.py
-python3 -m http.server 4173 --bind 127.0.0.1
+node scripts/chat_server.mjs  # website + chat API on 127.0.0.1:8787
 # In another terminal, with Playwright installed:
 node tests/browser.cjs
 ```
 `TTW_PLAYWRIGHT_PATH` can point to an existing Playwright package directory; `TTW_BROWSER` can point to a Chrome/Chromium executable. Browser tests write screenshots under `/tmp/ttw-qa` by default, keeping them outside the published site.
 
 ## Hosting
-Retain `CNAME` = `tinkertechworld.com`. The deployable root is `05_website/`: publish its contents through the hosting repository, not the entire TTW Obsidian workspace or the `docs/` directory. This copied folder does not include the original `.git` history; no deployment repository synchronization has been performed. `.nojekyll` disables unintended Jekyll processing. Configure HTTPS in the host. Domain DNS and publication were not changed by this implementation. Run build/check/browser verification before committing and publishing. A GitHub Pages deployment remains a separate release action.
+Cloudflare Pages is the recorded current host. The current source working copy is `05_website/`; the deployable public asset root is now `05_website/dist/`. Run `python3 scripts/build_site.py` to generate both static assets and the server knowledge bundle. Pages compiles `functions/api/chat.js` and its `server/` imports separately. The browser uses `/api/chat` on the same origin.
+
+Use the existing Cloudflare `GEMINI_API_KEY` secret, plus optional `GEMINI_MODEL`. Git builds use the site source as project root and `dist` as output. Wrangler deployments must run from the source root so it discovers `functions/`. Ordinary dashboard drag-and-drop of static files cannot deploy Pages Functions. Original `CNAME` and `.nojekyll` remain for compatibility. This implementation does not publish or change DNS.
 
 ## Inquiry behaviour and privacy boundary
 No transport backend is configured. Form data lives only in the DOM. Validated request is rendered through `.value` / `.textContent`, never `innerHTML`; mailto fields use URI encoding. Copy and local text download provide alternatives to mailto length/client limitations. Editing invalidates a prior request. Consent is for this inquiry only. A working email client/user send action is necessary; the website never claims delivery.
 
 Real slot booking or reliable server delivery requires a confirmed booking provider/API, domain-appropriate server credentials held server-side, spam controls, error/retry states, retention policy and delivery testing. Do not fabricate an endpoint or write “sent” because a mailto link was opened.
 
-## Tinker (lightweight FAQ widget)
-Added 2026-09-17 at the user's request for a basic automated customer-service helper named "Tinker", explicitly scoped to a lightweight, client-side version to preserve the no-backend/no-tracking architecture above. A floating launcher button (bottom-right, hidden without JS, above the mobile CTA bar on small screens) opens a chat-style panel on every page.
+## Tinker (Gemini knowledge assistant)
+The former quick-answer/keyword helper is replaced by a bilingual Gemini conversation UI. It includes up to four successful exchanges, source links validated against known documents, clear/reset, pending status, explicit failure and retry. There is no silent keyword fallback. Messages and recent history are sent to Google through the backend; no Key reaches the browser. The application does not persist chat transcripts or log message bodies.
 
-- **Data source**: reuses the existing bilingual `FAQ` list in `scripts/build_site.py` (the same content already shown in the on-page FAQ accordion) — Tinker never generates new claims, it only ever surfaces pre-approved FAQ answers, consistent with the site's evidence-boundary principle in `Content_Map.md`. The current language's Q&A pairs are inlined as JSON (`#tinker-data`, `application/json`) into each generated page at build time.
-- **Matching**: `assets/site.js` tokenizes the visitor's question and each FAQ question/answer (Latin words via `\p{L}\p{N}` runs, one token per Han character for Chinese, via the Unicode-aware regex `/[\p{sc=Han}]|[\p{L}\p{N}]+/gu`) and picks the FAQ pair with the highest keyword-overlap score. No fetch, no external API, no third-party model — purely client-side string matching against on-page data.
-- **No match**: shows a fixed fallback message plus a link to Contact Us; never invents an answer.
-- **Privacy**: no `localStorage`/`sessionStorage`, no network request, no tracking; messages exist only in the DOM for the current page view.
+Knowledge is compiled from six `knowledge/*.md` files during every site build. The backend applies conflict-handling rules for program prices vs old FAQ text, sample schedules vs generic confirmed claims, and future opening dates. These are grounding instructions, not a guarantee of factual correctness. Provider/model errors fail explicitly. Input bounds, abort timeouts, same-origin checks and a best-effort instance-local burst guard are implemented; an optional distributed rate-limit binding can be added.
+
+See [Chatbot_Guide.md](Chatbot_Guide.md) for local startup, environment variables, knowledge maintenance, deployment, tests and data-handling details. Current development validation uses simulated provider responses; the Cloudflare production Key was reported configured by the user but not read or independently exercised in this task.
 
 ## Maintenance
 Edit the content source and/or shared renderer, then regenerate; avoid hand-editing output HTML. Run structural checks after every regeneration. Keep the two languages synchronized. Public generated files remain directly reviewable, and history supplies rollback. Legacy product assets and manifest are retained. `/store.html` was retired 2026-09-17 once its listed services (3D printing, DTF, UV) became taught courses; the route now 404s and is not in the sitemap.

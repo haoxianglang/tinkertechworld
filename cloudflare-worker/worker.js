@@ -1,4 +1,4 @@
-// Generated. Optional standalone Worker; Pages is the primary deployment.
+// Generated. Worker + Static Assets; configured by ../wrangler.jsonc.
 import {handleChat} from '../server/chat-core.mjs';
 export default {
   async fetch(request, env) {

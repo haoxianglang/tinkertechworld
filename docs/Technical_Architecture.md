@@ -1,7 +1,7 @@
 # Technical Architecture
 
 ## Approach
-Continue the existing static GitHub Pages-compatible site, with generated HTML at the site root. The current working copy is the TTW workspace’s `05_website/` directory; the original Dropbox repository is retained as a source copy and is not automatically synchronized. No frontend framework migration, external fonts or client-side router. Static pages now have a Cloudflare Pages chat Function; local full-stack preview requires Node 20.12+ and Python 3, with no production npm dependencies. SEO/content/navigation work before JavaScript loads.
+Continue the existing static GitHub Pages-compatible site, with generated HTML at the site root. The current working copy is the TTW workspace’s `05_website/` directory; the original Dropbox repository is retained as a source copy and is not automatically synchronized. No frontend framework migration, external fonts or client-side router. Static pages now have a Cloudflare Worker chat API (with a Pages adapter as an alternative); local full-stack preview requires Node 20.12+ and Python 3, with no production npm dependencies. SEO/content/navigation work before JavaScript loads.
 
 - `content/site.json`: business settings and bilingual program/age records.
 - `scripts/build_site.py`: Python 3 standard-library renderer with shared layout, navigation, footer, cards, CTA, FAQ, program/age layouts and inquiry layout.
@@ -27,9 +27,9 @@ node tests/browser.cjs
 `TTW_PLAYWRIGHT_PATH` can point to an existing Playwright package directory; `TTW_BROWSER` can point to a Chrome/Chromium executable. Browser tests write screenshots under `/tmp/ttw-qa` by default, keeping them outside the published site.
 
 ## Hosting
-Cloudflare Pages is the recorded current host. The current source working copy is `05_website/`; the deployable public asset root is now `05_website/dist/`. Run `python3 scripts/build_site.py` to generate both static assets and the server knowledge bundle. Pages compiles `functions/api/chat.js` and its `server/` imports separately. The browser uses `/api/chat` on the same origin.
+The user-confirmed live site is `https://tinkertechworld.haoxianglang.workers.dev`, hosted on Workers. `wrangler.jsonc` declares `cloudflare-worker/worker.js` as the entry point, `dist` as static assets with an `ASSETS` binding, and `/api/*` as Worker-first routes. Run `npx wrangler@4.135.0 deploy` from `05_website`; it runs the Python build and deploys the API and static files together. A static-only upload cannot install the API.
 
-Use the existing Cloudflare `GEMINI_API_KEY` secret, plus optional `GEMINI_MODEL`. Git builds use the site source as project root and `dist` as output. Wrangler deployments must run from the source root so it discovers `functions/`. Ordinary dashboard drag-and-drop of static files cannot deploy Pages Functions. Original `CNAME` and `.nojekyll` remain for compatibility. This implementation does not publish or change DNS.
+Use `GEMINI_API_KEY` in this Worker's runtime secrets, plus optional `GEMINI_MODEL`. Existing Pages secrets or build-only variables are not automatically available to this Worker. `functions/api/chat.js` remains an alternative Pages adapter; it is not the entry point used by Workers. No DNS changes are required. See [Workers_Deployment.md](Workers_Deployment.md) for the observed 404, corrected configuration, authentication and verification steps.
 
 ## Inquiry behaviour and privacy boundary
 No transport backend is configured. Form data lives only in the DOM. Validated request is rendered through `.value` / `.textContent`, never `innerHTML`; mailto fields use URI encoding. Copy and local text download provide alternatives to mailto length/client limitations. Editing invalidates a prior request. Consent is for this inquiry only. A working email client/user send action is necessary; the website never claims delivery.

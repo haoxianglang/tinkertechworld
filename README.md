@@ -14,9 +14,9 @@ Report-informed redesign of the existing TTW static website. English and Simplif
 ```sh
 python3 scripts/build_site.py
 python3 tests/check_site.py
-python3 -m http.server 4173 --bind 127.0.0.1
+node scripts/chat_server.mjs
 ```
-Open http://127.0.0.1:4173 . Edit `content/site.json` for program/grade data, `scripts/build_site.py` for shared/editorial components, and `assets/site.css` for styles. Generated HTML is deployment output; rebuild after edits. Browser test instructions are in `docs/Technical_Architecture.md`.
+Open http://127.0.0.1:8787 . Gemini requires a local `.dev.vars` key or shell environment variable; Cloudflare secrets are not available locally. Edit `content/site.json` for program/grade data, `scripts/build_site.py` for shared/editorial components, and `assets/site.css` for styles. Generated HTML is deployment output; rebuild after edits. Browser test instructions are in `docs/Technical_Architecture.md`.
 
 ## Decisions and traceability
 - [Website specification](docs/Website_Spec.md)
@@ -37,10 +37,12 @@ No remote commit, push, deployment, DNS changes or outbound inquiry emails were 
 
 ## Tinker AI chatbot（2026-09-19）
 
-Tinker 现在通过同域 `/api/chat` 使用 Gemini 和 `knowledge/*.md`，支持连续对话和资料链接，不再使用关键词 FAQ 回退。用户已在 Cloudflare Pages 配置 `GEMINI_API_KEY`；该 Secret 不会被读取或复制到前端。
+Tinker 现在通过同域 `/api/chat` 使用 Gemini 和 `knowledge/*.md`，支持连续对话和资料链接，不再使用关键词 FAQ 回退。2026-09-19 用户提供的实际线上地址为 `https://tinkertechworld.haoxianglang.workers.dev`，属于 Workers。此前将密钥位置理解为 Pages；实际应检查此 Worker 的运行时 `GEMINI_API_KEY` Secret，该值不会被读取或复制到前端。
 
-完整步骤见 [Chatbot_Guide.md](docs/Chatbot_Guide.md)。构建命令仍为 `python3 scripts/build_site.py`，同时生成知识包和只含公开文件的 `dist/`。**Cloudflare 构建输出目录改为 `dist`，函数从源码中的 `functions/` 单独编译；不要部署整个源码目录。**
+实际 Workers 发布步骤见 [Workers_Deployment.md](docs/Workers_Deployment.md)。`wrangler.jsonc` 同时配置 Worker 后端入口及 `dist/` 公开资源，`/api/*` 优先进入后端。使用 `npx wrangler@4.135.0 deploy`；仅上传 `dist/` 不会部署聊天接口。构建会同步知识库。Pages 是备用方式，不能用于当前 workers.dev 站点。
 
 本地完整预览：`node scripts/chat_server.mjs`，打开 `http://127.0.0.1:8787/`。可在 `.dev.vars` 配置本地测试 Key；不配置则 UI 会明确显示 AI 不可用。旧的纯静态 `http.server` 不提供聊天 API。
 
 验证：`node --test tests/chat-api.test.mjs`；浏览器模拟测试：`node tests/chat-browser.cjs`。本地模拟成功不代表生产 Gemini 已联调；需部署后使用真实环境验证。
+
+线上验收（2026-09-19）：Workers 后端已发布并接通 Secret，默认模型更新为 `gemini-3.1-flash-lite`。中文、英文、连续追问及未知席位问题的真实 Gemini 调用均通过，网页端已验证回复与资料链接。

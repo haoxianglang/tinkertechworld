@@ -6,10 +6,10 @@
 
 Tinker 已从基本关键词 FAQ helper 改为 Gemini AI 对话助手。浏览器只访问同域 `POST /api/chat`；Gemini API Key 只通过服务端环境变量读取，不出现在 HTML、前端 JavaScript 或模型提示词中。
 
-用户已说明 `GEMINI_API_KEY` 配置在 Cloudflare Pages。本次没有读取该密钥，也没有将其复制到本地。生产环境是否能成功调用仍须在新代码部署后验证。
+用户随后提供了实际 Workers 地址 `https://tinkertechworld.haoxianglang.workers.dev`；此前将配置位置理解为 Pages 有误。当前应按 [Workers_Deployment.md](Workers_Deployment.md) 发布，并检查现有 Worker 的运行时 Secret。用户已将密钥配置到该 Worker；已完成部署和真实 API 验证。开发过程未读取或复制密钥值。
 
 ```text
-页面聊天窗口 → POST /api/chat → Cloudflare Pages Function
+页面聊天窗口 → POST /api/chat → Cloudflare Worker / Pages Function
                                   ↓
                       server/chat-core.mjs
                       + server/knowledge.mjs
@@ -36,7 +36,7 @@ Tinker 已从基本关键词 FAQ helper 改为 Gemini AI 对话助手。浏览�
 | `scripts/_chat_context.py` | 读取 Markdown、定义资料链接映射、统一提示规则和知识版本 |
 | `functions/api/chat.js` | Cloudflare Pages 路由适配器 |
 | `scripts/generate_pages_function.py` | 生成知识包和 Pages 适配器 |
-| `scripts/generate_worker.py` | 生成可选 Worker 适配器；主部署仍为 Pages |
+| `scripts/generate_worker.py` | 生成可选 Worker 适配器；当前线上使用 Workers |
 | `scripts/chat_server.mjs` | 本地同端口网站与 API 服务，读取本地环境配置 |
 | `scripts/chat_server.py` | 兼容旧命令的 Node 启动入口 |
 | `scripts/stage_public.py` | 生成只包含公开资源的 `dist/` |
@@ -74,8 +74,8 @@ Tinker 已从基本关键词 FAQ helper 改为 Gemini AI 对话助手。浏览�
 
 | 名称 | 设置位置 / 作用 |
 |---|---|
-| `GEMINI_API_KEY` | Cloudflare Pages Secret；本地可用 `.dev.vars` 或 shell 环境变量 |
-| `GEMINI_MODEL` | 可选，默认沿用 `gemini-2.5-flash`；可在服务端改成账号支持的兼容文本模型 |
+| `GEMINI_API_KEY` | Cloudflare Worker 运行时 Secret；本地可用 `.dev.vars` 或 shell 环境变量 |
+| `GEMINI_MODEL` | 可选，默认使用 `gemini-3.1-flash-lite`；可在服务端改成账号支持的兼容文本模型 |
 | `CHAT_PORT` | 本地服务端口，默认 `8787` |
 | `CHAT_RATE_LIMITER` | 可选 Cloudflare Rate Limiting binding，不是普通字符串环境变量 |
 
@@ -100,7 +100,7 @@ node scripts/chat_server.mjs
 
 `python3 -m http.server` 仅支持静态页面，不能调用 Gemini；只用该命令预览时 chatbot 的失败提示是正常现象。
 
-## Cloudflare Pages 发布
+## Cloudflare Pages 发布（备用方式，不适用于当前 workers.dev 站点）
 
 实际公开文件目录改为 `dist/`，其中不包含知识源文件、后端源码、文档、测试或本地环境文件。`functions/` 和 `server/` 保留在项目源码层，由 Cloudflare 单独编译后端。
 
@@ -115,7 +115,7 @@ npx wrangler pages deploy dist --project-name tinkertechworld
 
 项目名需与自己的 Cloudflare Pages 项目一致。Wrangler 从当前项目的 `functions/` 编译接口；不能只上传 `dist` 静态文件后期望 API 自动出现。Cloudflare Dashboard 的普通拖拽上传不支持 Pages Functions，应使用 Git 集成或 Wrangler。[Cloudflare Functions 部署说明](https://developers.cloudflare.com/pages/functions/get-started/)
 
-此次开发只进行了本地构建和函数编译，未执行上述发布命令。发布后需实际验证中文、英文、一次追问和一次未知业务问题。不要将本地模拟测试当作真实 API 成功。
+当前实际 Workers 部署已完成，并验证了中文、英文、追问及未知业务问题；没有执行本节的备用 Pages 发布命令。模拟测试与真实调用记录分别保存于 `06_testing/website/chatbot/`。
 
 ## 接口与边界
 

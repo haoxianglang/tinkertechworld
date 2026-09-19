@@ -12,7 +12,7 @@ Formatting convention for this file (see 04_website_spec/Technical_Architecture.
 - Keep line length reasonable so the file can be read without horizontal
   scrolling; prefer another split point over a long line.
 """
-import json, html, hashlib
+import json, html, hashlib, re
 from pathlib import Path
 from urllib.parse import quote
 
@@ -90,8 +90,10 @@ def icon(kind):
             '<path d="M78 34v14m22-14v14m22-14v14M78 113v16m22-16v16m22-16v16'
             'M64 65H34V35m30 62H27v34m109-66h35V35m-35 62h36v34"/>'
             '<rect x="83" y="65" width="34" height="31" rx="3" fill="#fff"/>'
-            '<circle cx="34" cy="29" r="6" fill="#fff"/><circle cx="171" cy="29" r="6" fill="#fff"/>'
-            '<circle cx="27" cy="136" r="6" fill="#fff"/><circle cx="172" cy="136" r="6" fill="#fff"/>'
+            '<circle cx="34" cy="29" r="6" fill="#fff"/>'
+            '<circle cx="171" cy="29" r="6" fill="#fff"/>'
+            '<circle cx="27" cy="136" r="6" fill="#fff"/>'
+            '<circle cx="172" cy="136" r="6" fill="#fff"/>'
         ),
         'cube': (
             '<path d="m100 19 64 36v69l-64 36-64-36V55Z" fill="#e1d8f7"/>'
@@ -112,7 +114,8 @@ def icon(kind):
             '<rect x="93" y="45" width="10" height="107" rx="4" fill="#8a76b5"/>'
             '<path d="M99 56h54l17 16-17 16H99Z" fill="#faac45"/>'
             '<path d="M99 96H44l-17 16 17 16h55Z" fill="#bfe6f1"/>'
-            '<circle cx="99" cy="72" r="6" fill="#fff"/><circle cx="99" cy="112" r="6" fill="#fff"/>'
+            '<circle cx="99" cy="72" r="6" fill="#fff"/>'
+            '<circle cx="99" cy="112" r="6" fill="#fff"/>'
         ),
         'exam': (
             '<rect x="50" y="20" width="100" height="135" rx="10" fill="#dceaf5"/>'
@@ -195,14 +198,23 @@ def program_card_html(p, show_status=True):
         f'''<h3>{link('programs/' + p['slug'] + '.html', t(p['name']), 'title')}</h3>'''
         f'''{status_badge}'''
         f'''<p>{t(p['description'])}</p>'''
-        f'''{link('programs/' + p['slug'] + '.html', t('Explore this program →', '了解此课程 →'), 'text-link')}'''
+        f'''{link(
+            'programs/' + p['slug'] + '.html',
+            t('Explore this program →', '了解此课程 →'),
+            'text-link',
+        )}'''
         f'''</article>'''
     )
 
 
 def program_cards(items=None, extra=''):
     rows = items or DATA['programs']
-    return '<div class="grid program-grid">' + ''.join(program_card_html(p) for p in rows) + extra + '</div>'
+    return (
+        '<div class="grid program-grid">'
+        + ''.join(program_card_html(p) for p in rows)
+        + extra
+        + '</div>'
+    )
 
 
 def fll_card():
@@ -216,7 +228,11 @@ def fll_card():
             'Ask TTW about readiness and potential team opportunities.',
             '将搭建、编程和解决问题结合在一起的团队挑战。欢迎向 TTW 咨询能力准备及潜在战队机会。',
         )}</p>'''
-        f'''{link('first-lego-league.html', t('Explore this program →', '了解此课程 →'), 'text-link')}'''
+        f'''{link(
+            'first-lego-league.html',
+            t('Explore this program →', '了解此课程 →'),
+            'text-link',
+        )}'''
         f'''</article>'''
     )
 
@@ -238,7 +254,8 @@ def cta():
         f'''{eye('A good place to begin', '从这里开始')}'''
         f'''<h2>{t('A little curiosity.<br>A world of possibilities.', '一点好奇心，<br>开启无限可能。')}</h2>'''
         f'''<p>{t(
-            'Tell us about your learner. We’ll help you explore a suitable starting point and confirm trial availability.',
+            'Tell us about your learner. We’ll help you explore a suitable starting point and '
+            'confirm trial availability.',
             '告诉我们孩子的兴趣与经验，一起寻找合适起点，并确认体验课安排。',
         )}</p>'''
         f'''</div>{button()}</div>'''
@@ -254,7 +271,11 @@ def cta():
 PROGRAM_SHOWCASE_PHOTOS = {
     '3d-design-printing': ('3d-print-showcase.webp', 'Examples of 3D printed objects', '3D 打印作品示例'),
     'dtf-printing': ('dtf-showcase.webp', 'Examples of DTF printed transfers', 'DTF 转印作品示例'),
-    'uv-printing': ('uv-showcase.webp', 'Examples of UV printed stickers and objects', 'UV 打印贴纸与作品示例'),
+    'uv-printing': (
+        'uv-showcase.webp',
+        'Examples of UV printed stickers and objects',
+        'UV 打印贴纸与作品示例',
+    ),
 }
 
 
@@ -267,14 +288,16 @@ PROGRAM_SHOWCASE_PHOTOS = {
 
 PROGRAM_LEARNING_OUTCOMES = {
     '3d-design-printing': (
-        'Learners move from a sketch to a digital model using beginner-friendly CAD tools, then take that '
-        'design through slicing and printing. Along the way, they practise measuring for a purpose, checking '
-        'fit against a real object, and revising a design based on what the printed result shows.',
+        'Learners move from a sketch to a digital model using beginner-friendly CAD tools, then '
+        'take that design through slicing and printing. Along the way, they practise measuring '
+        'for a purpose, checking fit against a real object, and revising a design based on what '
+        'the printed result shows.',
         '学生从草图出发，使用适合初学者的 CAD 工具建立数字模型，再将设计经过切片、打印等步骤变成实物。'
         '在此过程中，练习有目的地测量、将作品与真实物体的配合效果进行比对，并根据打印结果修改设计。',
         [
             ('Sketch an idea and translate it into a simple 3D digital model', '将想法草图转化为简单的三维数字模型'),
-            ('Use measurements and scale to design a part that fits a real object', '使用测量与比例设计出符合真实物体尺寸的零件'),
+            ('Use measurements and scale to design a part that fits a real object',
+             '使用测量与比例设计出符合真实物体尺寸的零件'),
             ('Prepare a model for printing, including basic slicing settings', '为打印准备模型，了解基本的切片设置'),
             ('Compare a printed prototype with its intended fit and identify what to change',
              '将打印原型与预期配合效果比较，找出需要改进之处'),
@@ -283,10 +306,10 @@ PROGRAM_LEARNING_OUTCOMES = {
         ],
     ),
     'dtf-printing': (
-        'Learners work through the direct-to-film printing process end to end: preparing artwork, seeing how '
-        'film, powder and curing work together, and pressing a finished transfer onto fabric. Along the way, '
-        'they build judgment around file prep, safe handling of heat and pressure, and evaluating a finished '
-        'press for quality.',
+        'Learners work through the direct-to-film printing process end to end: preparing artwork, '
+        'seeing how film, powder and curing work together, and pressing a finished transfer onto '
+        'fabric. Along the way, they build judgment around file prep, safe handling of heat and '
+        'pressure, and evaluating a finished press for quality.',
         '学生完整走一遍 DTF 转印流程：准备设计稿，理解转印膜、粉浆与固化如何配合，并将成品转印图案压烫到织物上。'
         '在此过程中，练习文件准备的判断力，安全操作高温与压力设备，并评估压烫成品的质量。',
         [
@@ -298,14 +321,16 @@ PROGRAM_LEARNING_OUTCOMES = {
              '使用合适的温度、压力与时间正确压烫转印'),
             ('Follow safety steps when working with heat and printing equipment',
              '在操作高温与打印设备时遵循安全规范'),
-            ('Compare a finished press against the original design and adjust settings for a cleaner result',
+            ('Compare a finished press against the original design and adjust settings for a '
+             'cleaner result',
              '将压烫成品与原设计比较，调整参数以获得更好效果'),
         ],
     ),
     'uv-printing': (
-        'Learners see how a UV printer applies ink directly onto a surface such as acrylic, wood or metal and '
-        'cures it instantly with UV light. Along the way, they prepare a design file for a specific material '
-        'and print area, test settings on samples, and compare a finished print against the original design.',
+        'Learners see how a UV printer applies ink directly onto a surface such as acrylic, wood '
+        'or metal and cures it instantly with UV light. Along the way, they prepare a design file '
+        'for a specific material and print area, test settings on samples, and compare a finished '
+        'print against the original design.',
         '学生了解 UV 打印机如何将油墨直接印在亚克力、木材、金属等表面，并用紫外光即时固化。'
         '在此过程中，为特定材质与印刷范围准备设计文件，在样品材料上测试打印参数，并将成品与原设计进行比较。',
         [
@@ -470,6 +495,98 @@ def tinker_widget():
 
 
 # ============================================================
+# Output formatting: indent the assembled page for readability
+# ============================================================
+#
+# The functions above build a full page as one dense string with no
+# whitespace between tags. pretty_html() only ever inserts a newline
+# plus indentation exactly where two tags are already back to back
+# (no text between them) -- it never touches text content, including
+# everything inside <script>/<style>. Because a browser collapses or
+# ignores whitespace that sits between tags (and this site's CSS uses
+# flex/grid gap or `display:block` for every place that would
+# otherwise be whitespace-sensitive), that whitespace is invisible to
+# the rendered page. A self-check below verifies, for every page, that
+# stripping the inserted whitespace reproduces the original string
+# byte for byte, so this is purely a formatting pass.
+
+_VOID_TAGS = {
+    'area', 'base', 'br', 'col', 'embed', 'hr', 'img',
+    'input', 'link', 'meta', 'param', 'source', 'track', 'wbr',
+}
+_RAW_TEXT_TAGS = {'script', 'style'}
+
+
+def _tag_name(tag):
+    inner = tag[1:].lstrip('/')
+    return inner.split()[0].rstrip('/>').lower() if inner else ''
+
+
+def _tokenize_html(source):
+    """Split into ('tag', text) / ('text', text) tokens.
+
+    <script>/<style> bodies are kept as a single opaque text token
+    (found by their literal closing tag) so they are never reformatted.
+    """
+    tokens = []
+    i, n = 0, len(source)
+    while i < n:
+        if source[i] == '<':
+            end = source.index('>', i)
+            tag = source[i:end + 1]
+            tokens.append(('tag', tag))
+            i = end + 1
+            name = _tag_name(tag)
+            if name in _RAW_TEXT_TAGS and not tag.startswith('</'):
+                closer = f'</{name}>'
+                close_at = source.index(closer, i)
+                if close_at > i:
+                    tokens.append(('text', source[i:close_at]))
+                tokens.append(('tag', closer))
+                i = close_at + len(closer)
+        else:
+            next_lt = source.find('<', i)
+            if next_lt == -1:
+                next_lt = n
+            tokens.append(('text', source[i:next_lt]))
+            i = next_lt
+    return tokens
+
+
+def pretty_html(source, indent='  '):
+    tokens = _tokenize_html(source)
+    out = []
+    depth = 0
+    prev_kind = None
+    for kind, text in tokens:
+        # Drop incidental whitespace already in the source; the
+        # depth-based indentation below re-derives it consistently.
+        if kind == 'text' and text.strip() == '':
+            continue
+        if kind == 'tag':
+            is_decl = text.startswith('<!')
+            is_close = text.startswith('</')
+            is_void = (not is_decl) and (
+                _tag_name(text) in _VOID_TAGS or text.rstrip().endswith('/>')
+            )
+            if is_close:
+                depth -= 1
+            if prev_kind == 'tag':
+                out.append('\n' + indent * depth)
+            out.append(text)
+            if not is_close and not is_void and not is_decl:
+                depth += 1
+        else:
+            out.append(text)
+        prev_kind = kind
+    pretty = ''.join(out)
+    collapse = lambda s: re.sub(r'>[ \t\n]*<', '><', s)
+    if collapse(pretty) != collapse(source):
+        raise AssertionError('pretty_html changed page content')
+    return pretty
+
+
+# ============================================================
 # Page shell: <head>, header/nav, footer, mobile CTA
 # ============================================================
 
@@ -618,7 +735,7 @@ def render(route, title, desc, body, nav='', noindex=False):
 
     dest = ROOT / (('zh/' if LANG == 'zh' else '') + route)
     dest.parent.mkdir(parents=True, exist_ok=True)
-    dest.write_text(content)
+    dest.write_text(pretty_html(content))
     written.add(dest)
     if not noindex:
         pages.append(canonical)

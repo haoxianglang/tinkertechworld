@@ -15,6 +15,6 @@ for(const width of [390,1440]){
  }
  console.log('Audited '+routes.length+' pages at '+width+'px');
 }
-for(const [route,name,width] of [['/index.html','home-desktop-viewport',1440],['/index.html','home-mobile-viewport',390],['/zh/index.html','home-zh-viewport',1440],['/book-a-trial.html','booking-viewport',390]]){await page.setViewportSize({width,height:960});await page.goto('http://127.0.0.1:4173'+route);await page.screenshot({path:path.join(out,name+'.png')});}
+for(const [route,name,width] of [['/index.html','home-desktop-viewport',1440],['/index.html','home-mobile-viewport',390],['/zh/index.html','home-zh-viewport',1440],['/contact-us.html','booking-viewport',390]]){await page.setViewportSize({width,height:960});await page.goto('http://127.0.0.1:4173'+route);await page.screenshot({path:path.join(out,name+'.png')});}
 fs.writeFileSync(path.join(out,'accessibility.json'),JSON.stringify(findings,null,2));console.log(JSON.stringify(findings));await browser.close();if(findings.length)process.exit(1);
 })().catch(e=>{console.error(e);process.exit(1)});

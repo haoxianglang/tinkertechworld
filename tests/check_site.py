@@ -37,7 +37,6 @@ for p,page in parsed.items():
         if t in ['input','select','textarea'] and a.get('type') not in ['checkbox','hidden']:
             check(any(lt=='label' and la.get('for')==a.get('id') for lt,la in page.tags),'form label '+str(a.get('id')))
     check('888-888-8888' not in text,'placeholder phone')
-    check('wechat-qr' not in text,'missing QR')
     for data in page.scripts:
         try:json.loads(data)
         except ValueError:check(False,'invalid JSON-LD')

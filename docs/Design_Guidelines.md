@@ -1,5 +1,7 @@
 # TTW 网站设计与修改一致性指南
 
+> 2026-09-20 发布更新：默认构建仅打包现有 HTML；从模板生成页面必须显式使用 `python3 scripts/build_site.py --regenerate` 并提交结果。线上以 GitHub main 为准。详见 [GitHub_Sync.md](GitHub_Sync.md)。
+
 版本：1.1 · 设计基线：2026-09-16 已实现的网站版本（多伦多时间）
 
 目录更新：网站已完整复制到同一 TTW 项目下的 `05_website/`。后续默认在该目录修改；原 Dropbox 网站仓库保留为来源副本，当前没有自动同步。

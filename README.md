@@ -2,21 +2,19 @@
 
 Report-informed redesign of the existing TTW static website. English and Simplified Chinese; shared components; mobile layouts; explicit program availability; trial and program inquiry paths.
 
-## 当前维护目录 / Working copy
+## 发布来源 / Source of truth
 
-本目录 `05_website/` 是后续网站修改的默认工作目录，包含页面、源码、图片、产品资源、文档与测试脚本。它从原 `tinkertechworld` 仓库完整复制；原目录保留，两个位置当前没有自动同步。
+线上发布以 GitHub `haoxianglang/tinkertechworld` 的 `main` 分支为准。Git 工作副本在 Dropbox 的 `gitHub/tinkertechworld`；TTW 的 `05_website/` 是交付副本，二者没有自动同步。
 
-修改前先阅读相邻的 [规范阅读入口](../04_website_spec/README.md) 和 [设计一致性指南](../04_website_spec/Design_Guidelines.md)。完整网站可直接从本目录构建与预览，不依赖原目录的文件。
-
-保留了 `.nojekyll` 和 `CNAME` 等部署文件；没有复制 `.git` 历史、macOS `.DS_Store` 或 Python 缓存。当前复制不代表已推送或上线。发布时仅使用生成的 `dist/` 作为公开文件目录，由 Cloudflare 从源码层编译函数；不上传整个 TTW 工作区。
+部署会原样打包仓库内已提交的 HTML 和公开资源。仅明确执行 `python3 scripts/build_site.py --regenerate` 才会从模板覆盖页面；生成后先审查并提交 HTML。详细配置与维护规则见 [GitHub_Sync.md](docs/GitHub_Sync.md)。不要上传密钥或整个源码目录作为公开网站。
 
 ## Preview / update
 ```sh
-python3 scripts/build_site.py
+python3 scripts/prepare_deploy.py
 python3 tests/check_site.py
 node scripts/chat_server.mjs
 ```
-Open http://127.0.0.1:8787 . Gemini requires a local `.dev.vars` key or shell environment variable; Cloudflare secrets are not available locally. Edit `content/site.json` for program/grade data, `scripts/build_site.py` for shared/editorial components, and `assets/site.css` for styles. Generated HTML is deployment output; rebuild after edits. Browser test instructions are in `docs/Technical_Architecture.md`.
+Open http://127.0.0.1:8787 . Gemini requires a local `.dev.vars` key or shell environment variable; Cloudflare secrets are not available locally. Edit `content/site.json` for program/grade data, `scripts/build_site.py` for shared/editorial components, and `assets/site.css` for styles. To apply template/content edits, explicitly run `python3 scripts/build_site.py --regenerate`, review the resulting HTML and commit it. Deployment preserves committed HTML as-is. Browser test instructions are in `docs/Technical_Architecture.md`.
 
 ## Decisions and traceability
 - [Website specification](docs/Website_Spec.md)

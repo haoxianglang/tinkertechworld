@@ -1,5 +1,7 @@
 # Cloudflare Workers 发布与聊天 404 修复
 
+> 2026-09-20 发布更新：默认构建仅打包现有 HTML；从模板生成页面必须显式使用 `python3 scripts/build_site.py --regenerate` 并提交结果。线上以 GitHub main 为准。详见 [GitHub_Sync.md](GitHub_Sync.md)。
+
 更新：2026-09-19。实际线上站点：<https://tinkertechworld.haoxianglang.workers.dev/zh/>。
 
 ## 已确认的故障

@@ -1,5 +1,7 @@
 # Technical Architecture
 
+> 2026-09-20 发布更新：默认构建仅打包现有 HTML；从模板生成页面必须显式使用 `python3 scripts/build_site.py --regenerate` 并提交结果。线上以 GitHub main 为准。详见 [GitHub_Sync.md](GitHub_Sync.md)。
+
 ## Approach
 Continue the existing static GitHub Pages-compatible site, with generated HTML at the site root. The current working copy is the TTW workspace’s `05_website/` directory; the original Dropbox repository is retained as a source copy and is not automatically synchronized. No frontend framework migration, external fonts or client-side router. Static pages now have a Cloudflare Worker chat API (with a Pages adapter as an alternative); local full-stack preview requires Node 20.12+ and Python 3, with no production npm dependencies. SEO/content/navigation work before JavaScript loads.
 

@@ -1940,6 +1940,15 @@ def other_pages():
 # ============================================================
 
 if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser(description='Package reviewed pages, or explicitly regenerate them from templates.')
+    parser.add_argument('--regenerate', action='store_true', help='Overwrite HTML using templates/content; review and commit the resulting changes before deployment.')
+    args = parser.parse_args()
+    if not args.regenerate:
+        from prepare_deploy import main as prepare_deploy
+        prepare_deploy()
+        print('To intentionally regenerate pages from templates, run: python3 scripts/build_site.py --regenerate')
+        raise SystemExit(0)
     from generate_pages_function import main as build_chat
     from generate_worker import main as build_worker
     build_chat()

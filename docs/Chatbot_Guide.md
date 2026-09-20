@@ -1,5 +1,7 @@
 # Tinker Chatbot · 开发、知识库与部署指南
 
+> 2026-09-20 发布更新：默认构建仅打包现有 HTML；从模板生成页面必须显式使用 `python3 scripts/build_site.py --regenerate` 并提交结果。线上以 GitHub main 为准。详见 [GitHub_Sync.md](GitHub_Sync.md)。
+
 更新：2026-09-19。适用目录：TTW 项目的 `05_website/`。
 
 ## 当前实现

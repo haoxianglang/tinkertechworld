@@ -1736,33 +1736,6 @@ def other_pages():
         ) + '</div>',
         'tinted',
     )
-    program_leads = [
-        ('Rice Rao', 'FLL and WRO Program Leader', 'FLL 与 WRO 项目负责人', 'rice-rao.webp', [
-            ('M.Sc., Electrical & Computer Engineering, University of Alberta', '阿尔伯塔大学电子与计算机工程硕士'),
-            ('B.Sc. Mathematics, Peking University', '北京大学数学学士'),
-            ('Head Coach and Founder, <a href="https://www.explorer-robotics.com" target="_blank" '
-             'rel="noopener">Explorer Robotics</a>',
-             '<a href="https://www.explorer-robotics.com" target="_blank" rel="noopener">Explorer Robotics</a> '
-             '创始人兼主教练'),
-            ('Led teams in winning multiple national and international robotics awards', '带队多次获得国家级与国际级机器人赛事奖项'),
-            ('Over 20 years of IT industry experience as a software engineer working internationally',
-             '拥有20余年国际软件工程行业经验'),
-        ]),
-        ('Lisa Li', 'Language Program Leader', '语言课程负责人', 'lisa-li.webp', [
-            ('Master of Education, the University of British Columbia', '英属哥伦比亚大学英语教育学硕士'),
-            ('Former New Oriental 20th Anniversary Distinguished Teacher; Group Teaching Trainer',
-             '原新东方二十周年功勋教师，集团教学培训师'),
-            ('Over 20 years of experience teaching IELTS, TOEFL, GRE and GMAT', '拥有20余年 IELTS、TOEFL、GRE 及 GMAT 教学经验'),
-            ('Over 10,000 hours of teaching, nearly 100,000 students across many countries worldwide, '
-             'highly rated by students',
-             '授课时长超过10000小时，总学员人数近10万人，遍布全球很多国家，深受学员好评'),
-        ]),
-        ('Kevin Wang', 'Adult Robotics Program Leader', '成人机器人课程负责人', '', [
-            ('M.A.Sc, Electrical and Computer Engineering, University of Toronto', '多伦多大学电子与计算机工程应用科学硕士'),
-            ('Former Chief Engineer at ESI Robotics Company', '曾任 ESI Robotics 公司首席工程师'),
-            ('Over 30 years of experience in the robotics industry', '拥有30余年机器人行业经验'),
-        ]),
-    ]
     about += section(
         f'''<div><h3>{t('The people behind TTW', 'TTW 创办团队')}</h3>'''
         f'''<div class="split">'''
@@ -1803,15 +1776,7 @@ def other_pages():
         f'''<p class="small">— Roland Lang, {t('Founder', '创始人')}</p>'''
         f'''</div>'''
         f'''</div>'''
-        f'''<div class="grid three" style="margin-top:22px">{''.join(
-            f'<article class="card">'
-            + (f'<img class="lead-photo" src="/assets/{photo}" width="72" height="72" loading="lazy" alt="{esc(name)}">'
-               if photo else '')
-            + f'<h3>{name}</h3><p>{t(en, zh)}</p>'
-            + (f'<ul class="check-list">{"".join(f"<li>{t(be, bz)}</li>" for be, bz in bio)}</ul>' if bio else '')
-            + '</article>'
-            for name, en, zh, photo, bio in program_leads
-        )}</div></div>'''
+        f'''</div>'''
     ) + cta()
     render(
         'about.html', t('About TTW', '关于 TTW'),

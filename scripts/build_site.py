@@ -678,12 +678,7 @@ def render(route, title, desc, body, nav='', noindex=False):
         f'''</div></header>\n'''
     )
 
-    breadcrumb = (
-        '' if route == 'index.html' else
-        '<nav class="wrap breadcrumbs" aria-label="' + t('Breadcrumb', '面包屑导航') + '">'
-        + link('index.html', t('Home', '首页')) + ' / <span>' + esc(title) + '</span></nav>'
-    )
-    main = f'''<main id="main" tabindex="-1">{breadcrumb}{body}</main>\n'''
+    main = f'''<main id="main" tabindex="-1">{body}</main>\n'''
 
     footer = (
         f'''<footer class="footer"><div class="wrap"><div class="footer-grid">'''

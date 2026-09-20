@@ -367,6 +367,30 @@ PROGRAM_FACTS_OVERRIDES = {
         'One class per week, 16 classes total, $60/class',
         '每星期1节课，总共16节课，$60 每节课',
     ),
+    'robotics-for-adults': (
+        'Guided, project-based learning (including: robotic arms, mobile robots, drones, computer vision and AI)',
+        '指导下开展项目学习（包含：机械臂，移动机器人，无人机，计算机视觉和AI）',
+        'Confirm with TTW before enrollment, $80/class',
+        '报名前请向 TTW 确认，$80每节课',
+    ),
+    '3d-design-printing': (
+        'Guided, project-based learning (1-hour usage course + 30 minutes of equipment use, booking required). '
+        'Members must complete this course before booking the equipment.',
+        '指导下开展项目学习（1个小时使用课程+30分钟的设备使用（需要预约））。会员预约使用该设备都需要完成该课程。',
+        'Confirm with TTW before enrollment', '报名前请向 TTW 确认',
+    ),
+    'dtf-printing': (
+        'Guided, project-based learning (1-hour usage course + 30 minutes of equipment use, booking required). '
+        'Members must complete this course before booking the equipment.',
+        '指导下开展项目学习（1个小时使用课程+30分钟的设备使用（需要预约））。会员预约使用该设备都需要完成该课程。',
+        'Confirm with TTW before enrollment', '报名前请向 TTW 确认',
+    ),
+    'uv-printing': (
+        'Guided, project-based learning (1-hour usage course + 30 minutes of equipment use, booking required). '
+        'Members must complete this course before booking the equipment.',
+        '指导下开展项目学习（1个小时使用课程+30分钟的设备使用（需要预约））。会员预约使用该设备都需要完成该课程。',
+        'Confirm with TTW before enrollment', '报名前请向 TTW 确认',
+    ),
 }
 
 
@@ -1477,33 +1501,39 @@ def other_pages():
         schedule, 'schedule',
     )
 
-    fll = heading(
-        'FIRST LEGO League',
-        t(
-            'A team challenge that brings building, coding and problem solving together. '
-            'Ask TTW about readiness and potential team opportunities.',
-            '将搭建、编程和解决问题结合在一起的团队挑战。欢迎向 TTW 咨询能力准备及潜在战队机会。',
-        ),
-        ['Explore team learning', '探索团队学习'],
+    fll_association_link = (
+        f'''<a class="text-link" href="https://www.firstinspires.org/programs/fll/" target="_blank" rel="noopener">'''
+        f'''{t("Official FIRST Association site ↗", "FIRST 官方协会网站 ↗")}</a>'''
+    )
+    fll = (
+        f'''<div class="wrap page-hero"><div class="detail-hero"><div>'''
+        f'''{eye('Explore team learning', '探索团队学习')}'''
+        f'''<h1>FIRST LEGO League</h1>'''
+        f'''<p class="lead">{t(
+            'A team challenge that brings building, coding and problem solving together.',
+            '将搭建、编程和解决问题结合在一起的团队挑战。',
+        )}</p>'''
+        f'''<div class="actions">{fll_association_link}</div>'''
+        f'''</div>'''
+        f'''<div class="detail-art">{icon('brick')}</div>'''
+        f'''</div>'''
+        f'''<dl class="facts">'''
+        f'''<div><dt>{t('Suggested learners', '建议学习阶段')}</dt><dd>{t('Grades 7–9 · High School', '7–9 年级 · 高中')}</dd></div>'''
+        f'''<div><dt>{t('Format', '学习形式')}</dt><dd>{t('Pre-Team and Competition Team', 'Pre-Team 和 Competition Team')}</dd></div>'''
+        f'''<div><dt>{t('Schedule & tuition', '排期与学费')}</dt><dd>{t(
+            'Starts every January, Pre-Team $50/class, Competition Team $60/class',
+            '每年1月开始，Pre-Team $50每节课，Competition Team $60每节课',
+        )}</dd></div>'''
+        f'''</dl>'''
+        f'''</div>'''
     )
     fll += section(
-        f'''<div class="split">'''
         f'''<div><h2>{t('Build skills.<br>Learn as a team.', '积累技能，<br>学习团队协作。')}</h2>'''
         f'''<ul class="check-list">'''
         f'''<li>{t('Explore a problem and develop ideas together.', '共同探索问题，发展解决思路。')}</li>'''
         f'''<li>{t('Build, code and test a robot through repeated attempts.', '通过反复尝试搭建、编程和测试机器人。')}</li>'''
         f'''<li>{t('Explain decisions and listen to other perspectives.', '解释自己的决策，倾听不同观点。')}</li>'''
         f'''</ul></div>'''
-        f'''<div class="card">'''
-        f'''<span class="status">{t('TTW team availability not yet confirmed', 'TTW 战队开放情况尚未确认')}</span>'''
-        f'''<h3>{t('Interested in a team?', '对战队感兴趣？')}</h3>'''
-        f'''<p>{t(
-            'A consultation will clarify experience, grade, family time commitment and any future group options. '
-            'Team registration, event entry and fees are not currently offered through this website.',
-            '咨询将帮助明确经验、年级、家庭时间投入及未来班组选择。本网站目前不提供战队注册、赛事报名或收费。',
-        )}</p>'''
-        f'''{button(t('Ask about FIRST LEGO League', '咨询 FIRST LEGO League'), 'contact-us.html?program=fll')}'''
-        f'''</div></div>'''
         f'''<div class="callout">{t(
             'Season formats and regional availability can change. TTW will need to confirm the current format, '
             'local eligibility and coaching capacity before offering a team place.',

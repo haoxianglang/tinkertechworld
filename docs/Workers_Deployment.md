@@ -6,9 +6,9 @@
 
 ## 已确认的故障
 
-用户在此 workers.dev 站点点击聊天后失败。实际 `POST /api/chat` 返回 HTTP 404、空响应体。当前请求没有到达已实现的 Gemini handler；不能据此判断 Gemini Key 无效或额度不足。最可能是当前部署只有静态资源，或没有接入正确的 Worker 入口。
+在此 workers.dev 站点点击聊天后失败。实际 `POST /api/chat` 返回 HTTP 404、空响应体。当前请求没有到达已实现的 Gemini handler；不能据此判断 Gemini Key 无效或额度不足。最可能是当前部署只有静态资源，或没有接入正确的 Worker 入口。
 
-此前指南假定使用 Pages，与用户提供的实际地址不一致。`functions/api/chat.js` 是 Pages 适配器，Workers 不会自动加载这个目录。
+此前指南假定使用 Pages，与实际地址不一致。`functions/api/chat.js` 是 Pages 适配器，Workers 不会自动加载这个目录。
 
 ## 修复配置
 
@@ -40,7 +40,7 @@ npx wrangler@4.135.0 deploy
 
 在现有 **tinkertechworld Worker** 的 Settings → Variables and Secrets 中确认运行时 `GEMINI_API_KEY`。只配置在另一个 Pages 项目或构建阶段的变量不会供此 Worker 运行时使用。已经存在于正确 Worker 的 Secret 应保留，不需要重新创建或把值发到聊天中。
 
-若确实缺少，可由用户在 Cloudflare 面板填写 Secret，或在终端交互输入：
+若确实缺少，可在 Cloudflare 面板填写 Secret，或在终端交互输入：
 
 ```sh
 npx wrangler@4.135.0 secret put GEMINI_API_KEY
@@ -65,7 +65,7 @@ Workers 部署 dry-run 已成功打包后端和 109 个公开资源，随后已�
 
 已发布至现有站点，最终 Worker 版本 `7b1b2c62-fed6-480f-84dc-9dce5873a494`。
 
-修复三个连续问题：原 `/api/chat` 404（补齐 Workers 入口）；运行时缺少 Gemini 密钥（由用户配置 Secret）；旧 `gemini-2.5-flash` 在实际请求中返回模型不可用（改用 `gemini-3.1-flash-lite`，最小思考等级）。新模型使用官方支持的结构化输出，温度 1；环境变量仍可覆盖模型。
+修复三个连续问题：原 `/api/chat` 404（补齐 Workers 入口）；运行时缺少 Gemini 密钥（需在 Cloudflare 配置 Secret）；旧 `gemini-2.5-flash` 在实际请求中返回模型不可用（改用 `gemini-3.1-flash-lite`，最小思考等级）。新模型使用官方支持的结构化输出，温度 1；环境变量仍可覆盖模型。
 
 真实线上测试四项全部 200：中文四年级选课、携带上下文追问学费（正确引用 $40/节）、英文会员权益、未知实时名额（明确无法查询或预留）。响应约 1.2–2.1 秒，仅代表本次测试。网页端也已显示真实回复和资料链接。未读取、复制或保存密钥值。
 

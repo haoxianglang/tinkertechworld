@@ -1,6 +1,6 @@
 # 网站文档入口
 
-跨 AI 维护的规范主入口位于相邻的 `04_website_spec/`：
+维护规范的主入口位于相邻的 `04_website_spec/`：
 
 - [阅读顺序](../../04_website_spec/README.md)
 - [设计与修改一致性指南](../../04_website_spec/Design_Guidelines.md)

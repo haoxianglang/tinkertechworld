@@ -16,7 +16,7 @@
 | STEM camps | Camps | Future camp interests, not false dated listings |
 | TTW contact / inquiry | Contact / Contact Us | Working inquiry handoff (Contact Us renamed from Book a Trial 2026-09-17) |
 
-Do not equate multiple keyword landing pages with multiple currently operating products. No doorway city pages or fabricated location footprints. The street address (15A, 20 Crown Steel Drive, Markham, ON L3R 9X8, provided by the user 2026-09-17) is published in the homepage JSON-LD `PostalAddress`, footer and Contact/FAQ copy; hours and a verified Google Business Profile are still pending.
+Do not equate multiple keyword landing pages with multiple currently operating products. No doorway city pages or fabricated location footprints. The street address (15A, 20 Crown Steel Drive, Markham, ON L3R 9X8, provided by the owner 2026-09-17) is published in the homepage JSON-LD `PostalAddress`, footer and Contact/FAQ copy; hours and a verified Google Business Profile are still pending.
 
 ## Implemented
 - Unique titles, meta descriptions and one H1 per page.

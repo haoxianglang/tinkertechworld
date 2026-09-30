@@ -24,10 +24,10 @@ Open http://127.0.0.1:8787 . Gemini requires a local `.dev.vars` key or shell en
 - [SEO plan](docs/SEO_Plan.md)
 - [Verification record](docs/QA_Report.md)
 
-These specifications were derived during implementation; no pre-existing approved website specification was found. The user's requested navigation is implemented, while conflicting or unconfirmed business details are kept out of public claims.
+These specifications were derived during implementation; no pre-existing approved website specification was found. The owner's requested navigation is implemented, while conflicting or unconfirmed business details are kept out of public claims.
 
 ## Production boundary
-The build is deployable on the existing static host. It prepares and previews an inquiry and hands it to the user's email application; it **does not** reserve a real slot, deliver a server-side form, take payment or claim a confirmed booking. Mailbox receipt was not tested. A direct email, copy and text-download fallback are available. No analytics or tracking cookies.
+The build is deployable on the existing static host. It prepares and previews an inquiry and hands it to the visitor's email application; it **does not** reserve a real slot, deliver a server-side form, take payment or claim a confirmed booking. Mailbox receipt was not tested. A direct email, copy and text-download fallback are available. No analytics or tracking cookies.
 
 Before marketing this as an open enrollment site, the owner must provide confirmed trial times/fees, course availability, location, written policies and any real booking integration. FLL is retained from the current brief as an inquiry page; the earlier WRO-first strategy does not establish a registered FLL team. Future programs/camps remain labeled. Existing imagery is labeled conceptual, not actual students or premises.
 
@@ -35,7 +35,7 @@ No remote commit, push, deployment, DNS changes or outbound inquiry emails were 
 
 ## Tinker AI chatbot（2026-09-19）
 
-Tinker 现在通过同域 `/api/chat` 使用 Gemini 和 `knowledge/*.md`，支持连续对话和资料链接，不再使用关键词 FAQ 回退。2026-09-19 用户提供的实际线上地址为 `https://tinkertechworld.haoxianglang.workers.dev`，属于 Workers。此前将密钥位置理解为 Pages；实际应检查此 Worker 的运行时 `GEMINI_API_KEY` Secret，该值不会被读取或复制到前端。
+Tinker 现在通过同域 `/api/chat` 使用 Gemini 和 `knowledge/*.md`，支持连续对话和资料链接，不再使用关键词 FAQ 回退。2026-09-19 确认的实际线上地址为 `https://tinkertechworld.haoxianglang.workers.dev`，属于 Workers。此前将密钥位置理解为 Pages；实际应检查此 Worker 的运行时 `GEMINI_API_KEY` Secret，该值不会被读取或复制到前端。
 
 实际 Workers 发布步骤见 [Workers_Deployment.md](docs/Workers_Deployment.md)。`wrangler.jsonc` 同时配置 Worker 后端入口及 `dist/` 公开资源，`/api/*` 优先进入后端。使用 `npx wrangler@4.135.0 deploy`；仅上传 `dist/` 不会部署聊天接口。构建会同步知识库。Pages 是备用方式，不能用于当前 workers.dev 站点。
 

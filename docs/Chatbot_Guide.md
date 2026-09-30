@@ -8,7 +8,7 @@
 
 Tinker 已从基本关键词 FAQ helper 改为 Gemini AI 对话助手。浏览器只访问同域 `POST /api/chat`；Gemini API Key 只通过服务端环境变量读取，不出现在 HTML、前端 JavaScript 或模型提示词中。
 
-用户随后提供了实际 Workers 地址 `https://tinkertechworld.haoxianglang.workers.dev`；此前将配置位置理解为 Pages 有误。当前应按 [Workers_Deployment.md](Workers_Deployment.md) 发布，并检查现有 Worker 的运行时 Secret。用户已将密钥配置到该 Worker；已完成部署和真实 API 验证。开发过程未读取或复制密钥值。
+随后确认了实际 Workers 地址 `https://tinkertechworld.haoxianglang.workers.dev`；此前将配置位置理解为 Pages 有误。当前应按 [Workers_Deployment.md](Workers_Deployment.md) 发布，并检查现有 Worker 的运行时 Secret。用户已将密钥配置到该 Worker；已完成部署和真实 API 验证。开发过程未读取或复制密钥值。
 
 ```text
 页面聊天窗口 → POST /api/chat → Cloudflare Worker / Pages Function
@@ -159,6 +159,6 @@ node tests/chat-browser.cjs
 - [Cloudflare Pages Secret bindings](https://developers.cloudflare.com/pages/functions/bindings/)
 - [Cloudflare Pages 本地开发](https://developers.cloudflare.com/pages/functions/local-development/)
 
-## 后续 AI 修改要求
+## 后续修改要求
 
 沿用现有 TTW 配色与组件；保留 AI 身份、发送数据提示、清除记录和错误状态。所有供应商调用走共用后端，不在浏览器加 Key。不恢复静默关键词回退。新增业务资料时同时核对公开页面；更换模型或输出格式时运行对应测试，并在实际已配置环境联调。

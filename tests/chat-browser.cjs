@@ -1,4 +1,4 @@
-const {chromium}=require(process.env.TTW_PLAYWRIGHT_PATH || '/Users/haoxiang/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const {chromium}=require(process.env.TTW_PLAYWRIGHT_PATH || 'playwright');
 const fs=require('node:fs');const assert=require('node:assert/strict');const path=require('node:path');
 const base=process.env.TTW_BASE_URL || 'http://127.0.0.1:8787';
 const output=process.env.TTW_QA_OUTPUT || '/tmp/ttw-chat-qa';fs.mkdirSync(output,{recursive:true});

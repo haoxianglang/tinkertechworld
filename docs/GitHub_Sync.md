@@ -41,7 +41,7 @@ GitHub `main` 是线上发布的依据。默认发布只复制已审核的 HTML 
 
 本机 Git 工作副本：`/Users/haoxiang/Library/CloudStorage/Dropbox/gitHub/tinkertechworld`。
 
-TTW 项目中的 `05_website/` 是交付副本，不会自动推送到 GitHub。后续修改必须同步到 Git 工作副本并 commit/push 才会触发线上更新。不要从过期的副本手工部署覆盖新站点。`04_website_spec/` 继续保存 AI 设计与维护规范。
+TTW 项目中的 `05_website/` 是交付副本，不会自动推送到 GitHub。后续修改必须同步到 Git 工作副本并 commit/push 才会触发线上更新。不要从过期的副本手工部署覆盖新站点。`04_website_spec/` 继续保存设计与维护规范。
 
 ## 验证
 

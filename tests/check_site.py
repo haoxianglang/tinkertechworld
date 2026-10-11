@@ -6,6 +6,8 @@ from urllib.parse import urlsplit, unquote
 import json, xml.etree.ElementTree as ET
 ROOT=Path(__file__).resolve().parent.parent
 errors=[]
+for retired in ['faq.html', 'zh/faq.html', 'docs', 'assets/rice-rao.webp', 'assets/lisa-li.webp']:
+    if (ROOT/retired).exists():errors.append('retired content restored: '+retired)
 class Page(HTMLParser):
     def __init__(self,text):
         super().__init__(); self.tags=[]; self.ids=[]; self.links=[]; self.scripts=[]; self.script=False; self.feed(text)

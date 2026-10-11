@@ -4,6 +4,8 @@ import json
 import shutil
 import tempfile
 ROOT = Path(__file__).resolve().parent.parent
+# Retired pages/assets must stay out of deployments even if an old copy returns.
+RETIRED_PATHS = {'faq.html', 'zh/faq.html', 'assets/rice-rao.webp', 'assets/lisa-li.webp'}
 PUBLIC_DIRS = ['assets', 'image', 'products', 'programs', 'age-groups', 'zh']
 EXTENSIONS = {'.html', '.css', '.js', '.json', '.webp', '.png', '.jpg', '.jpeg', '.svg', '.gif', '.ico', '.woff', '.woff2'}
 
@@ -16,11 +18,13 @@ def main():
                     continue
                 if any(part.startswith('.') for part in source.relative_to(ROOT).parts):
                     continue
+                if source.relative_to(ROOT).as_posix() in RETIRED_PATHS:
+                    continue
                 dest = staging / source.relative_to(ROOT)
                 dest.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(source, dest)
         for source in [*ROOT.glob('*.html'), *(ROOT / f for f in ['robots.txt', 'sitemap.xml', '.nojekyll', 'CNAME'])]:
-            if source.is_file() and not source.is_symlink():
+            if source.is_file() and not source.is_symlink() and source.name not in RETIRED_PATHS:
                 shutil.copyfile(source, staging / source.name)
         (staging / '_routes.json').write_text(json.dumps({'version': 1, 'include': ['/api/chat'], 'exclude': []}))
         output = ROOT / 'dist'

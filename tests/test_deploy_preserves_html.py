@@ -23,6 +23,8 @@ class DeploymentPreservationTest(unittest.TestCase):
             page = root / 'zh/programs/wro.html'
             page.write_bytes(reviewed)
             (root / 'assets/example.css').write_bytes(b'body { color: #17333f; }\n')
+            (root / 'faq.html').write_text('<h1>Retired FAQ restored by an old copy</h1>')
+            (root / 'zh/faq.html').write_text('<h1>Retired Chinese FAQ</h1>')
             (root / '.dev.vars').write_text('GEMINI_API_KEY=test-only-not-a-secret')
             for script in ['scripts/prepare_deploy.py', 'scripts/build_site.py']:
                 with self.subTest(command=script):
@@ -33,6 +35,8 @@ class DeploymentPreservationTest(unittest.TestCase):
                     self.assertTrue((root / 'server/knowledge.mjs').is_file())
                     self.assertFalse((root / 'dist/.dev.vars').exists())
                     self.assertFalse((root / 'dist/server').exists())
+                    self.assertFalse((root / 'dist/faq.html').exists())
+                    self.assertFalse((root / 'dist/zh/faq.html').exists())
 
 
 if __name__ == '__main__':

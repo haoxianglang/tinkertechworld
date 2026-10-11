@@ -828,9 +828,9 @@ def home():
         f'''<div class="footer-qr-row">'''
         f'''<div class="footer-qr"><img src="/assets/instagram-qr.webp" width="400" height="400" loading="lazy" '''
         f'''alt="{t('Instagram QR code, tinkertechworld', 'Instagram 二维码，tinkertechworld')}"><span>Instagram</span></div>'''
-        f'''<div class="footer-qr"><img src="/assets/rednote-qr.webp" width="400" height="400" loading="lazy" '''
+        f'''<div class="footer-qr"><img src="/assets/rednote-qr.webp?v=98ffe8cafe" width="987" height="1347" style="height:auto" loading="lazy" '''
         f'''alt="{t('Xiaohongshu (Rednote) QR code, account 7436531708', '小红书二维码，小红书号 7436531708')}"><span>{t('Xiaohongshu', '小红书')}</span></div>'''
-        f'''<div class="footer-qr"><img src="/assets/wechat-qr.webp" width="400" height="400" loading="lazy" '''
+        f'''<div class="footer-qr"><img src="/assets/wechat-qr.webp?v=0ec9687d61" width="430" height="430" style="height:auto" loading="lazy" '''
         f'''alt="{t('WeChat Official Account QR code', '微信公众号二维码')}"><span>{t('WeChat', '微信公众号')}</span></div>'''
         f'''</div>'''
         f'''</div>'''
@@ -1156,176 +1156,39 @@ def process():
 
 
 # ============================================================
-# Trial / join inquiry builder
+# Contact information
 # ============================================================
 
 def booking():
     title = t('Contact Us', '联系我们')
-
-    def options(rows):
-        opts = '<option value="">' + t('Please select', '请选择') + '</option>'
-        opts += ''.join('<option value="' + x['slug'] + '">' + t(x['name']) + '</option>' for x in rows)
-        return opts
-
-    def field(id, label, kind='text', req=False):
-        return (
-            f'''<div class="field"><label for="{id}">{label}'''
-            f'''{t(" (required)", "（必填）") if req else t(" (optional)", "（选填）")}</label>'''
-            f'''<input id="{id}" name="{id}" type="{kind}" maxlength="{100 if id == "name" else 150}" '''
-            f'''{"required" if req else ""} autocomplete="{id if id in ["name", "email"] else "off"}"></div>'''
-        )
-
-    body = heading(
-        title,
-        t(
-            'Let’s find a starting point that feels right. Tell us a little about the learner and the program you’re interested in.',
-            '一起寻找合适的学习起点。请介绍学生的情况和感兴趣的课程。',
-        ),
-        ['Your next step', '下一步'],
-    )
-
-    form_intro = (
-        f'''<div class="form-layout"><div class="form-card">'''
-        f'''<noscript><div class="callout">{t(
-            'The request builder needs JavaScript. Please email your grade group, interests and preferred timing to',
-            '申请生成器需要 JavaScript。请将年级、兴趣及希望的时间发送至',
-        )} <a href="mailto:{DATA['email']}">{DATA['email']}</a>.</div></noscript>'''
-        f'''<form id="inquiry-form" data-email="{DATA['email']}" hidden>'''
-        f'''<h2 style="font-size:1.6rem">{t('Tell us about your learner', '介绍一下学习者')}</h2>'''
-        f'''<p class="form-help">{t(
-            'For a child, please use a parent or guardian’s contact details. No child’s full name is needed.',
-            '如果为孩子咨询，请填写家长或监护人的联系方式，无需填写孩子全名。',
-        )}</p>'''
-    )
-
-    name_email_fields = (
-        f'''<div class="field-grid">'''
-        f'''{field('name', t('Parent / adult learner name', '家长 / 成人学习者姓名'), req=True)}'''
-        f'''{field('email', t('Contact email', '联系邮箱'), 'email', True)}'''
-        f'''</div>'''
-    )
-
-    grade_program_fields = (
-        f'''<div class="field-grid">'''
-        f'''<div class="field"><label for="grade">{t('Grade group (required)', '年级分组（必填）')}</label>'''
-        f'''<select name="grade" id="grade" required>{options(DATA['ages'])}</select></div>'''
-        f'''<div class="field"><label for="program">{t('Program interest (required)', '课程兴趣（必填）')}</label>'''
-        f'''<select name="program" id="program" required>'''
-        f'''{options(DATA['programs'])}'''
-        f'''<option value="fll">FIRST LEGO League</option>'''
-        f'''<option value="camps">{t('Camps', '营地')}</option>'''
-        f'''<option value="not-sure">{t('Help me choose', '请帮我选课')}</option>'''
-        f'''</select></div>'''
-        f'''</div>'''
-    )
-
-    timing_field = (
-        f'''<div class="field"><label for="timing">{t('Preferred days / times (optional)', '希望的日期 / 时间（选填）')}</label>'''
-        f'''<input name="timing" id="timing" maxlength="150" placeholder="{t('e.g. Saturday mornings', '例如：周六上午')}">'''
-        f'''<p class="form-help">{t(
-            'A preference, not an available time slot. TTW will confirm availability.',
-            '这是时间偏好，并非可预约时段。TTW 将确认具体安排。',
-        )}</p></div>'''
-    )
-
-    source_options = [
-        ('search', 'Search engine', '搜索引擎'),
-        ('friend', 'Friend / family', '朋友 / 家人'),
-        ('school', 'School / community', '学校 / 社区'),
-        ('social', 'Social media', '社交媒体'),
-        ('other', 'Other', '其他'),
+    codes = [
+        ('instagram', 'Instagram', 'Instagram'),
+        ('rednote', 'Xiaohongshu', '小红书'),
+        ('wechat', 'WeChat Official Account', '微信公众号'),
+        ('cs', 'WeChat Customer Service', '客服微信'),
     ]
-    area_source_fields = (
-        f'''<div class="field-grid">'''
-        f'''<div class="field"><label for="area">{t('Postal area (optional)', '邮编区域（选填）')}</label>'''
-        f'''<input id="area" name="area" maxlength="3" pattern="[A-Za-z][0-9][A-Za-z]" placeholder="L3R" '''
-        f'''aria-describedby="area-help">'''
-        f'''<p class="form-help" id="area-help">{t('First 3 characters only. Helps us understand travel needs.', '仅前三位，帮助了解通勤需求。')}</p>'''
-        f'''</div>'''
-        f'''<div class="field"><label for="source">{t('How did you hear about us? (optional)', '从哪里了解到我们？（选填）')}</label>'''
-        f'''<select id="source" name="source"><option value="">{t('Please select', '请选择')}</option>'''
-        f'''{''.join(f'<option value="{v}">{t(en, zh)}</option>' for v, en, zh in source_options)}'''
-        f'''</select></div>'''
-        f'''</div>'''
-    )
-
-    notes_consent = (
-        f'''<div class="field"><label for="notes">{t('Interests, experience or questions (optional)', '兴趣、经验或问题（选填）')}</label>'''
-        f'''<textarea id="notes" name="notes" maxlength="700" aria-describedby="notes-help"></textarea>'''
-        f'''<p id="notes-help" class="form-help">{t('Please leave out medical details and other sensitive information.', '请勿填写医疗信息或其他敏感资料。')}</p>'''
-        f'''</div>'''
-        f'''<label class="checkbox"><input type="checkbox" name="consent" id="consent" required>'''
-        f'''<span>{t(
-            'I am an adult learner or a parent/guardian. I agree to share this inquiry with TTW for a reply.',
-            '我是成人学习者或家长 / 监护人，同意向 TTW 分享此咨询，以便获得回复。',
-        )} {link('privacy.html', t('Privacy details', '隐私说明'))}</span></label>'''
-        f'''<button class="button primary" type="submit">{t('Review my request →', '核对我的申请 →')}</button>'''
-        f'''<p class="form-help">{t(
-            'Nothing is sent by this button. You’ll review your message, then send it using your email app.',
-            '点击此按钮不会发送资料。您将先核对内容，再通过邮件应用发送。',
-        )}</p>'''
-        f'''</form>'''
-    )
-
-    review_section = (
-        f'''<section id="review" class="review" hidden tabindex="-1" aria-labelledby="review-title">'''
-        f'''<h2 id="review-title" style="font-size:1.5rem">{t('Review, then send', '核对后发送')}</h2>'''
-        f'''<p>{t(
-            'Your request has not been sent. Open your email app and send the message to TTW. '
-            'A place is only booked after TTW confirms it with you.',
-            '您的申请尚未发送。请打开邮件应用并将信息发送至 TTW。只有收到 TTW 确认后，预约才成立。',
-        )}</p>'''
-        f'''<label for="request-preview" class="small">{t('Your message', '您的消息')}</label>'''
-        f'''<textarea id="request-preview" readonly></textarea>'''
-        f'''<div class="actions">'''
-        f'''<a id="send-email" class="button primary" href="mailto:{DATA['email']}">{t('Open email to send ↗', '打开邮件发送 ↗')}</a>'''
-        f'''<button type="button" class="button outline" id="copy-request">{t('Copy message', '复制消息')}</button>'''
-        f'''</div>'''
-        f'''<a id="download-request" class="text-link" download="TTW-inquiry.txt">{t('Download your request', '下载申请内容')}</a>'''
-        f'''<p class="form-help">{t(
-            'No email app? Copy the message into your webmail and send it to',
-            '没有邮件应用？请将消息复制到网页邮箱并发送至',
-        )} <a href="mailto:{DATA['email']}">{DATA['email']}</a>.</p>'''
-        f'''<p id="form-status" class="form-status" role="status"></p>'''
-        f'''</section></div>'''
-    )
-
-    process_steps = [
-        ('Share an interest', '分享兴趣',
-         'Tell us what the learner enjoys and what they have tried.', '告诉我们学习者喜欢什么、尝试过什么。'),
-        ('Discuss the fit', '讨论适合的起点',
-         'TTW can clarify the starting level, timing, location and any fees.', 'TTW 将沟通起点、时间、地点和相关费用。'),
-        ('Confirm together', '共同确认',
-         'A trial or enrollment is confirmed directly with TTW. No payment is collected here.',
-         '体验课或报名需与 TTW 直接确认。本页面不收取任何费用。'),
-    ]
-    aside = (
-        f'''<aside><div class="process">{''.join(
-            '<div class="process-item"><div><h3>' + t(e, z) + '</h3><p>' + t(d, zd) + '</p></div></div>'
-            for e, z, d, zd in process_steps
-        )}</div>'''
-        f'''<div class="callout">{t(
-            'Some pathways are still in development. An interest request does not mean a course or team is currently open.',
-            '部分方向仍在开发中。登记意向不代表相关课程或战队已经开放。',
-        )}</div>'''
-        f'''<h3>{t('Prefer a direct conversation?', '想直接联系？')}</h3>'''
-        f'''<a class="text-link" href="mailto:{DATA['email']}">{DATA['email']}</a>'''
-        f'''</aside></div>'''
-    )
-
+    body = '<div class="wrap"><div class="page-hero"><h1>' + title + '</h1></div></div>'
     body += section(
-        form_intro + name_email_fields + grade_program_fields + timing_field
-        + area_source_fields + notes_consent + review_section + aside
+        '<div class="grid two">'
+        + '<div class="card"><h2>' + t('Address', '地址') + '</h2>'
+        + '<p>15A, 20 Crown Steel Drive<br>Markham, ON L3R 9X8</p></div>'
+        + '<div class="card"><h2>' + t('Email', '邮箱') + '</h2>'
+        + f'<p><a class="text-link" style="overflow-wrap:anywhere" href="mailto:{DATA["email"]}">{DATA["email"]}</a></p></div>'
+        + '</div>'
+        + '<h2 style="margin-top:2rem">' + t('Social Media', '社交媒体') + '</h2>'
+        + '<div class="grid four">'
+        + ''.join(
+            '<figure class="card" style="margin:0;text-align:center">'
+            + f'<img src="/assets/{asset}-qr.webp?v={hashlib.sha256((ROOT / "assets" / (asset + "-qr.webp")).read_bytes()).hexdigest()[:10]}" width="400" height="400" '
+            + 'style="width:100%;max-width:220px;height:auto" '
+            + f'alt="{t(en, zh)} {t("QR code", "二维码")}">'
+            + '<figcaption>' + t(en, zh) + '</figcaption></figure>'
+            for asset, en, zh in codes
+        )
+        + '</div>'
     )
-    render(
-        'contact-us.html',
-        title,
-        t(
-            'Request a TTW trial or program conversation. Review your inquiry and email the team to confirm availability.',
-            '申请 TTW 体验课或课程咨询。核对信息并通过邮件联系团队确认安排。',
-        ),
-        body,
-    )
+    render('contact-us.html', title,
+           t('TTW address, email and social media QR codes.', 'TTW 地址、邮箱及社交媒体二维码。'), body)
 
 
 # ============================================================

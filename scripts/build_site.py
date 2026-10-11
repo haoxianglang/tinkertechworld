@@ -828,7 +828,7 @@ def home():
         f'''<div class="footer-qr-row">'''
         f'''<div class="footer-qr"><img src="/assets/instagram-qr.webp" width="400" height="400" loading="lazy" '''
         f'''alt="{t('Instagram QR code, tinkertechworld', 'Instagram 二维码，tinkertechworld')}"><span>Instagram</span></div>'''
-        f'''<div class="footer-qr"><img src="/assets/rednote-qr.webp?v=98ffe8cafe" width="987" height="1347" style="height:auto" loading="lazy" '''
+        f'''<div class="footer-qr"><img src="/assets/rednote-qr.webp?v=97d5163432" width="770" height="770" style="height:auto" loading="lazy" '''
         f'''alt="{t('Xiaohongshu (Rednote) QR code, account 7436531708', '小红书二维码，小红书号 7436531708')}"><span>{t('Xiaohongshu', '小红书')}</span></div>'''
         f'''<div class="footer-qr"><img src="/assets/wechat-qr.webp?v=0ec9687d61" width="430" height="430" style="height:auto" loading="lazy" '''
         f'''alt="{t('WeChat Official Account QR code', '微信公众号二维码')}"><span>{t('WeChat', '微信公众号')}</span></div>'''

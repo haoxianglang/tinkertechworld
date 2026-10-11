@@ -7,11 +7,11 @@ KNOWLEDGE_DIR = ROOT / 'knowledge'
 MODEL = 'gemini-2.5-flash'
 MAX_MESSAGE_CHARS = 1000
 SOURCE_LINKS = {
-    'business-info': ('Contact TTW', '联系 TTW', '/contact.html'),
+    'business-info': ('Contact TTW', '联系 TTW', '/contact-us.html'),
     'programs': ('Programs', '课程', '/programs/index.html'),
     'schedule': ('Sample schedule', '示例课表', '/schedule.html'),
     'membership': ('Membership', '会员', '/membership.html'),
-    'faq': ('Parent FAQ', '家长常见问题', '/faq.html'),
+    'faq': ('Contact TTW', '联系 TTW', '/contact-us.html'),
     'about': ('About TTW', '关于 TTW', '/about.html'),
 }
 
@@ -24,7 +24,7 @@ def build_documents():
         text = path.read_text(encoding='utf-8').strip()
         if not text:
             raise RuntimeError(f'Empty knowledge document: {path.name}')
-        title, zh, href = SOURCE_LINKS.get(path.stem, (path.stem, path.stem, '/contact.html'))
+        title, zh, href = SOURCE_LINKS.get(path.stem, (path.stem, path.stem, '/contact-us.html'))
         documents.append({'id': path.stem, 'title': title, 'titleZh': zh, 'href': href, 'text': text})
     if sum(len(d['text']) for d in documents) > 100000:
         raise RuntimeError('Knowledge exceeds 100,000 characters; review scope before increasing context cost')

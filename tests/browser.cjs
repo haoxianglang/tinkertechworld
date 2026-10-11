@@ -33,34 +33,24 @@ const routes=[...fs.readFileSync(path.join(root,'sitemap.xml'),'utf8').matchAll(
  await page.screenshot({path:path.join(output,'home-mobile.png'),fullPage:true});
  const menu=page.locator('.menu-toggle');await menu.focus();await page.keyboard.press('Enter');assert.equal(await menu.getAttribute('aria-expanded'),'true');assert(await page.locator('#navigation').isVisible());
  await page.keyboard.press('Escape');assert.equal(await menu.getAttribute('aria-expanded'),'false');assert.equal(await menu.evaluate(e=>e===document.activeElement),true);
- const faq=page.locator('summary').first();await faq.focus();await page.keyboard.press('Enter');assert.equal(await faq.evaluate(e=>e.parentElement.open),true);
  for(const lang of ['', '/zh']){
-  await page.goto(base+lang+'/contact-us.html?program=lego-robotics&grade=grades-3-6');
-  assert.equal(await page.locator('#program').inputValue(),'lego-robotics');assert.equal(await page.locator('#grade').inputValue(),'grades-3-6');
-  await page.locator('button[type=submit]').click();assert(await page.locator('#review').isHidden());
-  await page.locator('#name').fill('QA Parent <script>alert(1)</script>');await page.locator('#email').fill('qa@example.invalid');
-  await page.locator('#timing').fill('Saturday morning');await page.locator('#area').fill('BAD');await page.locator('#consent').check();
-  await page.locator('button[type=submit]').click();assert(await page.locator('#review').isHidden());
-  await page.locator('#area').fill('L3R');await page.locator('#notes').fill('Test only: A&B + 中文 <img src=x onerror=alert(1)>');
-  await page.locator('button[type=submit]').click();assert(await page.locator('#review').isVisible());
-  const message=await page.locator('#request-preview').inputValue();assert(message.includes('qa@example.invalid'));assert(message.includes('<script>'));
-  const href=await page.locator('#send-email').getAttribute('href');assert(href.startsWith('mailto:info@tinkertechworld.com?'));
-  const mail=new URL(href);assert.equal(mail.searchParams.get('body'),message);
-  assert.equal(await page.locator('#review img').count(),0);
-  const downloadPromise=page.waitForEvent('download');await page.locator('#download-request').click();const download=await downloadPromise;
-  await download.saveAs(path.join(output,lang?'zh-request.txt':'request.txt'));assert.equal(fs.readFileSync(path.join(output,lang?'zh-request.txt':'request.txt'),'utf8'),message);
-  await page.locator('#copy-request').click();await page.waitForFunction(() => document.querySelector('#form-status').textContent.length > 0);
-  await page.screenshot({path:path.join(output,lang?'booking-zh.png':'booking.png'),fullPage:true});
-  await page.locator('#notes').fill('Updated question');assert(await page.locator('#review').isHidden());
-  await page.locator('button[type=submit]').click();assert((await page.locator('#request-preview').inputValue()).includes('Updated question'));
+  await page.goto(base+lang+'/contact-us.html');
+  assert.equal(await page.locator('#inquiry-form').count(),0);
+  assert.equal(await page.locator('main a[href="mailto:info@tinkertechworld.com"]').count(),1);
+  assert.equal(await page.locator('main img').count(),4);
+  for (const img of await page.locator('main img').all()) {
+   assert(await img.evaluate(i=>i.complete && i.naturalWidth===i.naturalHeight));
+  }
+  await page.screenshot({path:path.join(output,lang?'contact-zh.png':'contact.png'),fullPage:true});
  }
- await page.goto(base+'/contact-us.html?program=evil&grade=invalid');assert.equal(await page.locator('#program').inputValue(),'');assert.equal(await page.locator('#grade').inputValue(),'');
- await page.goto(base+'/contact-us.html?program=distilled&grade=high-school');await page.locator('.language-link').click();assert.equal(await page.locator('html').getAttribute('lang'),'zh-Hans');assert.equal(await page.locator('#program').inputValue(),'distilled');
+ await page.goto(base+'/contact.html');await page.waitForURL('**/contact-us.html');
+ await page.goto(base+'/contact-us.html');await page.locator('.header-trial a').click();
+ assert.equal(await page.locator('html').getAttribute('lang'),'zh-Hans');
  await page.setViewportSize({width:1440,height:1000});await page.goto(base+'/zh/index.html');await page.screenshot({path:path.join(output,'home-zh-desktop.png'),fullPage:true});
  await page.goto(base+'/programs/lego-robotics.html');await page.screenshot({path:path.join(output,'program-desktop.png'),fullPage:true});
- const nojs=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:844}});const fallback=await nojs.newPage();await fallback.goto(base);assert(await fallback.locator('#navigation').isVisible());assert(await fallback.locator('h1').isVisible());await fallback.goto(base+'/contact-us.html');assert(await fallback.locator('noscript').isVisible());assert(await fallback.locator('#inquiry-form').isHidden());
+ const nojs=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:844}});const fallback=await nojs.newPage();await fallback.goto(base);assert(await fallback.locator('#navigation').isVisible());assert(await fallback.locator('h1').isVisible());await fallback.goto(base+'/contact-us.html');assert(await fallback.locator('main a[href="mailto:info@tinkertechworld.com"]').isVisible());assert.equal(await fallback.locator('main img').count(),4);
  assert.equal(networkSubmissions,0);assert.deepEqual(errors,[]);assert.deepEqual(badResponses,[]);
- console.log('PASS: keyboard skip/menu/FAQ, bilingual validated request preview, mailto encoding, download, copy fallback, invalidation, prefill, language preservation, no-JS fallback, no POSTs, no console/resource errors.');
+ console.log('PASS: responsive pages, keyboard skip/menu, bilingual contact QR codes, legacy contact redirect, language switch, no-JS contact, no POSTs, no console/resource errors.');
  fs.writeFileSync(path.join(output,'results.json'),JSON.stringify({pages:routes.length,widths:[320,390,768,1024,1440],browser:'Chromium via installed Chrome',errors,badResponses,networkSubmissions},null,2));
  await browser.close();
 })().catch(error=>{console.error(error);process.exit(1)});

@@ -1,6 +1,6 @@
 # TTW Frequently Asked Questions
 
-These are the exact FAQ pairs shown on the website (Parent FAQ page and the homepage FAQ preview). Prefer these exact answers when a visitor asks something covered here.
+Reference answers for common questions about TTW.
 
 ## Does my child need experience?
 No prior robotics experience is needed to ask about the Grades 3–6 starting pathway. For older learners, share their interests and experience so TTW can discuss a suitable entry point.

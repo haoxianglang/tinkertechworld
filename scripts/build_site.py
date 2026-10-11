@@ -414,52 +414,6 @@ NEWS_UPDATES = [
 
 
 # ============================================================
-# Parent FAQ content (shared by Home preview and the full FAQ page)
-# ============================================================
-
-FAQ = [
-    ['Does my child need experience?', '孩子需要有基础吗？',
-     'No prior robotics experience is needed to ask about the Grades 3–6 starting pathway. '
-     'For older learners, share their interests and experience so TTW can discuss a suitable entry point.',
-     '咨询 3–6 年级入门方向不需要机器人基础。对于高年级学生，请提供兴趣与经验，以便沟通合适的学习起点。'],
-    ['Which program should we choose?', '应该选择哪门课程？',
-     'Start with the learner’s grade and what they enjoy making. LEGO Robotics connects building and block coding; '
-     '3D design and, for high schoolers, the Distilled series can extend those interests as these pathways become available.',
-     '可从学生的年级和创作兴趣出发。LEGO 机器人结合搭建与图形化编程；3D 设计以及面向高中生的 Distilled 系列可在开放后延伸这些兴趣。'],
-    ['What does a trial request include?', '体验申请包含什么？',
-     'Share a grade group, program interest and preferred timing. TTW will discuss the activity, location, duration '
-     'and any fee before confirming a place. An inquiry does not reserve a seat.',
-     '提供年级、课程兴趣和希望的时间。TTW 将在确认席位前沟通活动、地点、时长及费用。提交咨询不等于预留席位。'],
-    ['What are the fees and class times?', '费用和上课时间是什么？',
-     'Schedules, session counts, fees, tax treatment and equipment inclusions are not yet published. '
-     'Ask for the current details in writing before deciding to enroll.',
-     '排期、课次、费用、税费及设备是否包含尚未公布。请在决定报名前索取当前书面信息。'],
-    ['Can we learn without joining a competition?', '不参加比赛也可以学习吗？',
-     'Yes. The learning approach values building, testing and explaining a project in its own right. '
-     'Competition is an optional direction, subject to a suitable group and current eligibility.',
-     '可以。学习方向重视搭建、测试和解释项目本身。竞赛属于可选路径，需结合合适的班组与当季参赛资格。'],
-    ['Are all listed programs running now?', '网站上所有课程都已开班吗？',
-     'No. Core robotics pathways are the initial focus. Advanced CAD, the Distilled series, high school pathways '
-     'and adult workshops include future offerings. Each page identifies its status; confirm availability with TTW.',
-     '并非所有课程都已开班。初期重点是核心机器人路径；进阶 CAD、Distilled 系列、高中及成人工作坊包含未来计划。'
-     '各页面会标明状态，请向 TTW 确认可用课程。'],
-    ['Where will classes take place?', '课程在哪里上？',
-     'TTW is located at 15A, 20 Crown Steel Drive, Markham, ON L3R 9X8. '
-     'Confirm parking and arrival instructions with TTW before your visit.',
-     'TTW 地址为 15A, 20 Crown Steel Drive, Markham, ON L3R 9X8。到访前请向 TTW 确认停车及到达指引。'],
-    ['What about supervision, pickup and missed classes?', '安全指导、接送和缺课如何安排？',
-     'Before enrollment, request the class supervision arrangements, authorized-pickup procedure, equipment guidance, '
-     'and written refund and makeup terms. These details will depend on the confirmed offering.',
-     '报名前，请索取课堂指导安排、授权接送流程、设备使用指导，以及退款和补课的书面条款。具体安排取决于最终确认的课程。'],
-]
-
-
-def faqs(all=False):
-    rows = FAQ if all else FAQ[:4]
-    items = (f'<details><summary>{t(x[0], x[1])}</summary><p>{t(x[2], x[3])}</p></details>' for x in rows)
-    return '<div class="faq">' + ''.join(items) + '</div>'
-
-
 def heading(title, desc, kicker=None, desc_cls='lead'):
     return (
         f'''<div class="wrap"><div class="page-hero">'''
@@ -723,8 +677,7 @@ def render(route, title, desc, body, nav='', noindex=False):
         f'''<div><h3>{t('Get to know TTW', '了解 TTW')}</h3>'''
         f'''{link('about.html', t('About TTW', '关于 TTW'))}'''
         f'''{link('makerspace.html', t('Our Learning Approach', '学习方式'))}'''
-        f'''{link('faq.html', t('Parent FAQ', '家长常见问题'))}'''
-        f'''{link('contact.html', t('Contact TTW', '联系 TTW'))}'''
+        f'''{link('contact-us.html', t('Contact TTW', '联系 TTW'))}'''
         f'''{link('privacy.html', t('Privacy', '隐私说明'))}'''
         f'''</div>'''
         f'''<div><h3>{t('Start a conversation', '开启对话')}</h3>'''
@@ -871,14 +824,7 @@ def home():
         f'''<p class="line">{t('A learning approach grounded in the TTW curriculum.', '源于 TTW 课程理念的学习方式。')}</p>'''
         f'''</div></div>'''
     )
-    body += section(
-        f'''<div class="section-head"><div>'''
-        f'''{eye('For parents', '给家长')}'''
-        f'''<h2>{t('A few good questions.', '您可能想了解。')}</h2>'''
-        f'''</div>{link('faq.html', t('All parent questions →', '查看全部常见问题 →'), 'text-link')}</div>'''
-        f'''{faqs()}''',
-        'tinted',
-    ) + cta()
+    body += cta()
     render(
         'index.html',
         t('Robotics & Hands-on STEM in Markham', '万锦机器人与 STEM 实践学习'),
@@ -917,7 +863,7 @@ def program_page(p):
         + f'''<div class="actions">'''
         + (
             '' if p['slug'] in PROGRAM_HIDE_STATUS_ACTIONS else
-            f'''{button(t('Ask about this program ↗', '咨询此课程 ↗'), 'contact-us.html?program=' + p['slug'])}'''
+            f'''{button(t('Ask about this program ↗', '咨询此课程 ↗'), 'contact-us.html')}'''
             f'''{link('programs/index.html', t('All programs', '全部课程'), 'text-link')}'''
         )
         + f'''{wro_link}'''
@@ -1126,7 +1072,7 @@ def age_page(a):
             'can already do and explain.',
             '请分享兴趣与过往经验。合适的起点取决于学生已经能做什么、能解释什么。',
         )}</p>'''
-        f'''{button(t('Discuss a starting point', '咨询学习起点'), 'contact-us.html?grade=' + a['slug'])}'''
+        f'''{button(t('Discuss a starting point', '咨询学习起点'), 'contact-us.html')}'''
         f'''</div></div>''',
         'tinted',
     )
@@ -1159,6 +1105,20 @@ def process():
 # Contact information
 # ============================================================
 
+def contact_alias():
+    target = url('contact-us.html')
+    render('contact.html', t('Contact Us', '联系我们'),
+           t('TTW contact information.', 'TTW 联系信息。'),
+           '<div class="wrap page-hero"><h1>' + t('Contact Us', '联系我们')
+           + '</h1><p><a href="' + target + '">' + t('View contact information →', '查看联系信息 →')
+           + '</a></p></div>', noindex=True)
+    dest = ROOT / ('zh/' if LANG == 'zh' else '') / 'contact.html'
+    text = dest.read_text()
+    text = text.replace('<head>', '<head>\n    <meta http-equiv="refresh" content="0;url=' + target + '">', 1)
+    text = re.sub(r'(<link rel="canonical" href=")[^"]+', r'\g<1>' + DATA['url'] + target, text)
+    dest.write_text(text)
+
+
 def booking():
     title = t('Contact Us', '联系我们')
     codes = [
@@ -1176,11 +1136,10 @@ def booking():
         + f'<p><a class="text-link" style="overflow-wrap:anywhere" href="mailto:{DATA["email"]}">{DATA["email"]}</a></p></div>'
         + '</div>'
         + '<h2 style="margin-top:2rem">' + t('Social Media', '社交媒体') + '</h2>'
-        + '<div class="grid four">'
+        + '<div class="grid four contact-qr-grid">'
         + ''.join(
-            '<figure class="card" style="margin:0;text-align:center">'
+            '<figure class="card contact-qr">'
             + f'<img src="/assets/{asset}-qr.webp?v={hashlib.sha256((ROOT / "assets" / (asset + "-qr.webp")).read_bytes()).hexdigest()[:10]}" width="400" height="400" '
-            + 'style="width:100%;max-width:220px;height:auto" '
             + f'alt="{t(en, zh)} {t("QR code", "二维码")}">'
             + '<figcaption>' + t(en, zh) + '</figcaption></figure>'
             for asset, en, zh in codes
@@ -1245,7 +1204,7 @@ def schedule_calendar(rows, days, day_indices, range_start_h, range_end_h, title
 # ============================================================
 # Remaining static pages (Programs/Age Groups index, FLL, Camps,
 # Membership, Gallery, About, Learning Approach, Competitions,
-# FAQ, Contact, Privacy, legacy store redirect target, 404)
+# Contact, Privacy and 404)
 # ============================================================
 
 def other_pages():
@@ -1445,7 +1404,7 @@ def other_pages():
             'policies must be confirmed before any booking.',
             '营地报名尚未开放。任何预约前，需确认日期、年龄、时间、地点、指导安排、费用及政策。',
         ) + '</div>'
-        + button(t('Ask about future camps', '咨询未来营地'), 'contact-us.html?program=camps'),
+        + button(t('Ask about future camps', '咨询未来营地'), 'contact-us.html'),
         'tinted',
     ) + cta()
     render(
@@ -1711,55 +1670,9 @@ def other_pages():
         approach,
     )
 
-    render(
-        'faq.html', t('Parent FAQ', '家长常见问题'),
-        t(
-            'Answers about starting levels, trial requests, program availability, fees and enrollment at TTW.',
-            '了解 TTW 学习起点、体验申请、开班状态、费用与报名常见问题。',
-        ),
-        heading(
-            t('Good questions.<br>Clear next steps.', '好问题，<br>清晰的下一步。'),
-            t('The details that help you make a confident choice for your learner.', '帮助您为学习者做出合适选择的具体信息。'),
-            ['Parent FAQ', '家长常见问题'],
-        ) + section(faqs(True)) + cta(),
-    )
 
-    contact = heading(
-        t('Let’s talk about<br>what comes next.', '一起聊聊，<br>下一步的可能。'),
-        t(
-            'Ask about a learning pathway, a trial or future workshops. We’ll use your interests to start the conversation.',
-            '欢迎咨询学习路径、体验课或未来工作坊。我们从您的兴趣聊起。',
-        ),
-        ['Contact TTW', '联系 TTW'],
-    )
-    contact += section(
-        f'''<div class="grid two">'''
-        f'''<article class="card">'''
-        f'''<h2>{t('Email the team', '给团队发邮件')}</h2>'''
-        f'''<a class="text-link" style="overflow-wrap:anywhere" href="mailto:{DATA['email']}">{DATA['email']}</a>'''
-        f'''<p style="margin-top:20px">{t(
-            'Tell us the grade group and what you’d like to explore. Please confirm an appointment before visiting.',
-            '请告诉我们年级和希望探索的方向。到访前请先确认预约。',
-        )}</p>'''
-        f'''<p>{t(DATA['location'])}</p>'''
-        f'''</article>'''
-        f'''<article class="card">'''
-        f'''<h2>{t('Find a starting point', '寻找学习起点')}</h2>'''
-        f'''<p>{t('Our short request builder helps you share the details for a trial or program conversation.', '通过简短申请，分享体验课或课程咨询所需的信息。')}</p>'''
-        f'''{button()}'''
-        f'''<p class="small" style="margin-top:20px">{t('You can write your inquiry in English or Chinese.', '您可以用中文或英文发送咨询。')}</p>'''
-        f'''</article>'''
-        f'''</div>''',
-        'tinted',
-    )
-    render(
-        'contact.html', t('Contact TTW', '联系 TTW'),
-        t(
-            'Contact Tinker Tech World in Markham about programs, trial classes and future workshops.',
-            '联系万锦 Tinker Tech World，咨询课程、体验课和未来工作坊。',
-        ),
-        contact,
-    )
+    # Preserve old contact URLs as an unindexed alias of the contact page.
+    contact_alias()
 
     privacy_sections = [
         ('Tinker AI conversations', 'Tinker AI 对话',
@@ -1769,10 +1682,6 @@ def other_pages():
          '发送聊天消息后，网站后端会将消息、最近最多四轮对话及 TTW 知识资料发送给 Google Gemini 以生成回答。'
          '聊天记录仅保留在本页面内存中，点击“重新开始”或重新加载页面即可清除。本应用不保存对话档案，也不记录消息正文。'
          '托管和 AI 服务商按其各自条款处理请求。请勿发送个人、医疗或支付信息。AI 回答不代表预约确认。'),
-        ('Preparing a request', '准备申请',
-         'Form entries stay in this page until you choose to open an email, copy the message or download it. '
-         'This website does not send the form to a server or save it in browser storage.',
-         '在您选择打开邮件、复制或下载之前，表单信息仅保留在本页面。本网站不会将表单发送至服务器，也不会存入浏览器存储。'),
         ('Emailing TTW', '向 TTW 发送邮件',
          'When you send the message through your email provider, TTW receives the details you include and your '
          'email address. They are shared for replying to your inquiry. Email services handle messages under their '
@@ -1781,10 +1690,8 @@ def other_pages():
          '如对咨询资料的处理或删除有疑问，请联系 TTW。'),
         ('Keep the information minimal', '尽量少提供资料',
          'Use an adult’s contact information. We do not ask for a child’s full name, date of birth, medical '
-         'details or payment information. Postal area and discovery source are optional. This form does not '
-         'sign you up for marketing.',
-         '请使用成人联系方式。本表单不要求孩子全名、出生日期、医疗信息或支付资料。邮编区域和了解来源为选填。'
-         '此表单不会将您加入营销订阅。'),
+         'details or payment information. The contact page does not collect form entries or sign you up for marketing.',
+         '请使用成人联系方式。本网站不要求孩子全名、出生日期、医疗信息或支付资料。联系页面不收集表单资料，也不会将您加入营销订阅。'),
         ('Hosting and external links', '托管与外部链接',
          'This site loads its styles, scripts and images from the same site and uses no advertising analytics or '
          'tracking cookies. The hosting provider may process technical request logs. Links to external websites '
@@ -1794,20 +1701,20 @@ def other_pages():
     ]
     privacy = heading(
         t('Your inquiry.<br>Your choice.', '您的咨询，<br>由您选择。'),
-        t('How this website handles information when you prepare a request.', '了解本网站在准备申请时如何处理信息。'),
+        t('How this website handles email inquiries and AI conversations.', '了解本网站如何处理邮件咨询及 AI 对话。'),
         ['Website privacy', '网站隐私说明'],
     )
     privacy += section(
         '<div class="prose">'
         + ''.join(f'<h2>{t(e, z)}</h2><p>{t(d, zd)}</p>' for e, z, d, zd in privacy_sections)
         + f'<h2>{t("Contact", "联系")}</h2><a href="mailto:{DATA["email"]}">{DATA["email"]}</a>'
-        f'<p class="small">{t("Website notice updated September 19, 2026.", "网站说明更新于 2026 年 9 月 19 日。")}</p></div>'
+        f'<p class="small">{t("Website notice updated October 10, 2026.", "网站说明更新于 2026 年 10 月 10 日。")}</p></div>'
     )
     render(
         'privacy.html', t('Website Privacy', '网站隐私说明'),
         t(
-            'Learn how the TTW website prepares inquiry messages and handles optional information.',
-            '了解 TTW 网站如何准备咨询消息并处理可选信息。',
+            'Learn how TTW handles email inquiries, AI conversations and external links.',
+            '了解 TTW 如何处理邮件咨询、AI 对话及外部链接。',
         ),
         privacy,
     )

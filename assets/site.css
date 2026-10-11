@@ -160,7 +160,8 @@ ul {
 
 .entry-oneline {
   max-width: none;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .skip {
@@ -745,10 +746,6 @@ figcaption {
   flex-shrink: 0;
 }
 
-.faq {
-  border-top: 1px solid var(--line);
-}
-
 details {
   border-bottom: 1px solid var(--line);
 }
@@ -1151,37 +1148,6 @@ details p {
   font-variant-numeric: tabular-nums;
 }
 
-.form-layout {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: 50px;
-  align-items: start;
-}
-
-.form-card {
-  background: white;
-  border: 1px solid var(--line);
-  padding: 32px;
-  border-radius: 18px;
-}
-
-.field-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.field {
-  margin-bottom: 20px;
-}
-
-.field label {
-  display: block;
-  font-size: .86rem;
-  font-weight: 650;
-  margin-bottom: 7px;
-}
-
 input,
 select,
 textarea {
@@ -1197,43 +1163,6 @@ textarea {
 textarea {
   resize: vertical;
   min-height: 110px;
-}
-
-.checkbox {
-  display: flex;
-  align-items: start;
-  gap: 12px;
-  font-size: .83rem;
-  margin: 22px 0;
-}
-
-.checkbox input {
-  width: 20px;
-  min-height: 20px;
-  flex-shrink: 0;
-  margin-top: 3px;
-}
-
-.form-help {
-  font-size: .79rem;
-  color: var(--muted);
-  margin-top: 5px;
-}
-
-.review {
-  margin-top: 25px;
-  padding-top: 25px;
-  border-top: 1px solid var(--line);
-}
-
-.review textarea {
-  font-size: .85rem;
-  height: 260px;
-}
-
-.form-status {
-  font-size: .86rem;
-  margin: 15px 0 0;
 }
 
 .prose {
@@ -1482,8 +1411,7 @@ textarea {
   }
   .hero-grid,
   .split,
-  .detail-hero,
-  .form-layout {
+  .detail-hero {
     grid-template-columns: 1fr;
     gap: 33px;
   }
@@ -1578,13 +1506,6 @@ textarea {
     grid-template-columns: 1fr;
     padding: 22px;
     gap: 18px;
-  }
-  .field-grid {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-  .form-card {
-    padding: 22px;
   }
   .mobile-cta {
     display: flex;
@@ -1705,3 +1626,19 @@ textarea {
 .tinker-error-actions a{display:inline-flex;align-items:center;min-height:44px;font-size:.8rem}
 @media(max-width:760px){.tinker-panel{width:auto;max-height:calc(100dvh - 154px);height:570px}.tinker-notice{font-size:.71rem}}
 @media(max-width:760px){.header-row .brand{max-width:100%;min-width:0}.header-row .brand-tagline{min-width:0}}
+
+/* Contact QR cards use the same square presentation in both languages. */
+.contact-qr {
+  margin: 0;
+  text-align: center;
+}
+.contact-qr img {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  margin: 0 auto 14px;
+}
+.contact-qr figcaption {
+  color: var(--muted);
+}
+

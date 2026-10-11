@@ -12,7 +12,7 @@
 
 This website is an inquiry site, not an automated booking or payment system.
 
-- A visitor fills out an inquiry form (grade group, program interest, preferred timing, optional notes). Submitting it does **not** reserve a seat or confirm a class — TTW must follow up directly.
+- The Contact Us page shows the address, info@tinkertechworld.com, and social-media QR codes. There is no inquiry form. Email or contact TTW directly; a conversation does not reserve a seat.
 - No online payment is collected anywhere on the site.
 - Before enrolling in anything, a family should get in writing: session length, number of classes, tuition and tax treatment, equipment inclusion, supervision/pickup arrangements, and refund or makeup-class terms.
 - 提交咨询不等于预留席位；付款不在网站上完成；报名前请向 TTW 索取课时、课次、学费与税费、设备、指导/接送安排，以及退款或补课条款的书面说明。

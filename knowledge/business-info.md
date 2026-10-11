@@ -2,7 +2,7 @@
 
 - **Name**: Tinker Tech World (TTW)
 - **Website**: https://tinkertechworld.com
-- **Email**: tinkertechworld@gmail.com
+- **Email**: info@tinkertechworld.com
 - **Address**: 15A, 20 Crown Steel Drive, Markham, ON L3R 9X8
 - **中文地址**: 15A, 20 Crown Steel Drive, Markham, ON L3R 9X8（安大略省万锦市）
 - Confirm parking and arrival instructions with TTW before a visit.

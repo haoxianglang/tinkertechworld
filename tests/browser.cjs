@@ -44,7 +44,7 @@ const routes=[...fs.readFileSync(path.join(root,'sitemap.xml'),'utf8').matchAll(
   await page.locator('#area').fill('L3R');await page.locator('#notes').fill('Test only: A&B + 中文 <img src=x onerror=alert(1)>');
   await page.locator('button[type=submit]').click();assert(await page.locator('#review').isVisible());
   const message=await page.locator('#request-preview').inputValue();assert(message.includes('qa@example.invalid'));assert(message.includes('<script>'));
-  const href=await page.locator('#send-email').getAttribute('href');assert(href.startsWith('mailto:tinkertechworld@gmail.com?'));
+  const href=await page.locator('#send-email').getAttribute('href');assert(href.startsWith('mailto:info@tinkertechworld.com?'));
   const mail=new URL(href);assert.equal(mail.searchParams.get('body'),message);
   assert.equal(await page.locator('#review img').count(),0);
   const downloadPromise=page.waitForEvent('download');await page.locator('#download-request').click();const download=await downloadPromise;

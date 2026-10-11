@@ -1,7 +1,7 @@
 {
   "name": "Tinker Tech World",
   "url": "https://tinkertechworld.com",
-  "email": "tinkertechworld@gmail.com",
+  "email": "info@tinkertechworld.com",
   "location": ["15A, 20 Crown Steel Drive, Markham, ON L3R 9X8", "15A, 20 Crown Steel Drive, Markham, ON L3R 9X8"],
   "programs": [
     {"slug":"lego-robotics","name":["LEGO Robotics","LEGO 机器人"],"grade":["Grades 3–6 · Grades 7–9","3–6 年级 · 7–9 年级"],"status":["Core learning pathway · Ask about availability","核心学习方向 · 请咨询开班情况"],"intro":["Big ideas start with a first build.","从第一次搭建，开始探索大想法。"],"description":["Connect mechanisms, motors and code. Learn to build a robot, explain what it does, and improve how reliably it works.","将机械结构、电机与代码连接起来。学习搭建机器人、解释它的工作方式，并不断提高运行可靠性。"],"skills":[["Explore gears, movement and sturdy structures.","探索齿轮、运动与稳定结构。"],["Use sequences, loops and sensor inputs to control a robot.","使用顺序、循环与传感器输入控制机器人。"],["Test one change at a time and explain the result.","每次测试一个改动，并解释结果。"]],"project":["Build a delivery robot","搭建运送机器人"],"challenge":["Design a robot to carry an object to a target. Compare routes, adjust the mechanism and record what improves each attempt.","设计一个将物品运到目标位置的机器人。比较路线、调整机构，记录每次尝试的改进。"],"entry":["Beginners can start with building and block coding. Learners with experience can discuss sensor-based challenges and a suitable starting level.","初学者可以从搭建和图形化编程开始；有经验的学生可咨询传感器任务和适合自己的起点。"],"next":["World Robot Olympiad","World Robot Olympiad"],"nextSlug":"wro","color":"blue","icon":"robot"},
